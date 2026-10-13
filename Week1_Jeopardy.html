@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1 Jeopardy: Progress and Experience</title>
+<style>
+:root{
+  --navy:#0c2340; --gold:#ae9142; --mblue:#143865; --bblue:#1c4f8f; --dgold:#8c7535;
+  --bgold:#d39f10; --steel:#81a7c1; --lgray:#e8e8e8; --red:#ab100b; --white:#fff;
+  --head:Cambria, "Cambria Math", Georgia, "Times New Roman", serif;
+  --body:Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--navy);color:var(--white);font-family:var(--body);overflow:hidden;
+  display:grid;grid-template-rows:auto 1fr auto;height:100vh}
+button,input{font-family:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--bgold);outline-offset:2px}
+
+/* ---------- top bar ---------- */
+header{display:flex;align-items:center;gap:1.2vw;padding:.6vh 1.2vw;border-bottom:4px solid var(--gold)}
+header img{height:5.2vh}
+header h1{font-family:var(--head);font-size:clamp(18px,2.1vw,34px);margin:0;flex:1;font-weight:bold}
+header h1 span{color:var(--gold);font-weight:normal;font-style:italic;font-size:.75em;margin-left:.6em}
+.ctl{display:flex;align-items:center;gap:.4vw;font-size:clamp(13px,1vw,17px);color:var(--steel)}
+.ctl input{width:4.2em;padding:.25em .3em;border:1px solid var(--steel);background:var(--mblue);color:#fff;border-radius:4px;font-size:1em;text-align:center}
+.hbtn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:.35em .8em;border-radius:4px;font-size:clamp(13px,1vw,17px)}
+.hbtn:hover{background:var(--gold);color:var(--navy)}
+
+/* ---------- board ---------- */
+main{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:auto repeat(7,1fr);
+  gap:.55vh .45vw;padding:1vh 1.2vw;min-height:0}
+.col{font-family:var(--head);font-weight:bold;color:var(--gold);text-align:center;font-size:clamp(18px,2.2vw,40px);line-height:1.1}
+.tile{background:var(--mblue);border:2px solid #23477a;border-radius:6px;color:var(--gold);
+  font-family:var(--head);font-weight:bold;font-size:clamp(18px,2.6vw,48px);
+  display:flex;align-items:center;justify-content:center;transition:background .15s, transform .15s}
+.tile:hover{background:var(--bblue);transform:scale(1.03)}
+.tile.used{background:#0f2a4d;border-color:#16325a;color:transparent}
+.tile.used:hover{transform:none;background:#13305a}
+
+/* ---------- scoreboards ---------- */
+footer{display:grid;gap:.6vw;padding:.8vh 1.2vw 1.2vh;border-top:4px solid var(--gold);background:#091a31}
+.team{background:var(--mblue);border:2px solid transparent;border-radius:8px;padding:.5vh .6vw;display:flex;flex-direction:column;align-items:center;gap:.3vh;min-width:0}
+.team.lead{border-color:var(--bgold)}
+.team input.name{width:100%;background:transparent;border:none;border-bottom:1px dashed var(--steel);color:var(--white);
+  text-align:center;font-family:var(--head);font-weight:bold;font-size:clamp(14px,1.35vw,24px);padding:.1em}
+.team input.score{width:100%;background:transparent;border:none;color:var(--gold);text-align:center;
+  font-family:var(--head);font-weight:bold;font-size:clamp(22px,2.6vw,46px);padding:0}
+.team input.score::-webkit-inner-spin-button{opacity:.35}
+
+/* ---------- modal ---------- */
+.overlay{position:fixed;inset:0;background:rgba(5,14,28,.82);display:none;align-items:center;justify-content:center;z-index:10}
+.overlay.open{display:flex}
+.card{width:min(94vw,1500px);max-height:94vh;background:#fff;color:var(--navy);border-radius:10px;
+  display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;border-top:10px solid var(--gold)}
+.card.power{border-top-color:var(--red)}
+.chead{display:flex;align-items:center;gap:1.2vw;padding:1.4vh 1.6vw;background:#eef1f5}
+.badge{background:var(--navy);color:var(--gold);font-family:var(--head);font-weight:bold;font-size:clamp(18px,1.8vw,32px);padding:.15em .6em;border-radius:6px}
+.qtype{font-size:clamp(16px,1.5vw,26px);color:var(--dgold);font-weight:bold;flex:1}
+.timer{display:flex;align-items:center;gap:.5vw}
+.tdisp{font-family:var(--head);font-weight:bold;font-size:clamp(26px,3vw,54px);min-width:3.2em;text-align:center;color:var(--navy)}
+.tdisp.low{color:var(--red)}
+.tdisp.done{color:var(--red);animation:pulse .6s ease-in-out 4}
+@keyframes pulse{50%{transform:scale(1.18)}}
+.btn{border:none;border-radius:6px;padding:.4em .9em;font-size:clamp(15px,1.25vw,22px);font-weight:bold}
+.b-navy{background:var(--navy);color:#fff}.b-gold{background:var(--gold);color:var(--navy)}
+.b-line{background:transparent;border:2px solid var(--navy);color:var(--navy)}
+.b-red{background:var(--red);color:#fff}
+.cbody{padding:2.4vh 2.4vw;overflow:auto}
+.qtext{font-family:var(--head);font-size:clamp(26px,2.9vw,54px);line-height:1.3;margin:0 0 2.2vh}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:1.4vh 1.4vw}
+.opt{display:flex;gap:.7em;align-items:baseline;background:#eef1f5;border:3px solid transparent;border-radius:8px;
+  padding:1.1vh 1vw;font-size:clamp(22px,2.3vw,42px);line-height:1.25}
+.opt b{color:var(--dgold);font-family:var(--head)}
+.opt.right{border-color:#1e6b2e;background:#e3f1e5}
+.answer{display:none;margin-top:2.2vh;background:#f9f3e3;border-left:8px solid var(--gold);padding:1.4vh 1.4vw;
+  font-size:clamp(20px,2.1vw,38px);line-height:1.3}
+.answer.show{display:block}
+.answer .lbl{font-weight:bold;color:var(--dgold)}
+.power-word{font-family:var(--head);font-size:clamp(46px,6vw,110px);color:var(--red);font-weight:bold;margin:0;text-align:center}
+.power-text{font-family:var(--head);font-size:clamp(28px,3.4vw,62px);text-align:center;margin:1vh 0 2vh;line-height:1.25}
+.step{text-align:center;font-size:clamp(18px,1.7vw,30px);font-weight:bold;color:var(--dgold);margin:1.2vh 0 .8vh}
+.result{text-align:center;font-size:clamp(20px,2vw,36px);font-weight:bold;color:var(--navy);margin-top:1.5vh}
+.cfoot{display:flex;flex-wrap:wrap;align-items:center;gap:.6vw;padding:1.4vh 1.6vw;background:var(--navy)}
+.cfoot .lbl{color:var(--gold);font-weight:bold;font-size:clamp(15px,1.3vw,22px);margin-right:.4vw}
+.award{background:var(--mblue);color:#fff;border:2px solid var(--gold);border-radius:6px;padding:.4em .8em;font-size:clamp(15px,1.25vw,22px);font-weight:bold}
+.award:hover{background:var(--gold);color:var(--navy)}
+.award.picked{background:var(--gold);color:var(--navy)}
+.spacer{flex:1}
+.pick{display:flex;flex-wrap:wrap;gap:.8vw;justify-content:center}
+.pick .award{background:var(--navy)}
+.pick .award.picked{background:var(--gold);color:var(--navy)}
+.pick .award:disabled{opacity:.55;cursor:default}
+.toast{position:fixed;left:50%;bottom:16vh;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-weight:bold;
+  padding:.6em 1.2em;border-radius:8px;font-size:clamp(16px,1.4vw,24px);opacity:0;transition:opacity .3s;z-index:20;pointer-events:none}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <img src="data:image/png;base64,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" alt="Approach International Student Center">
+  <h1>Grammar and Writing Jeopardy<span>Week 1: Progress and Experience</span></h1>
+  <label class="ctl">Timer (seconds) <input id="secs" type="number" min="5" max="600" step="5" value="45"></label>
+  <label class="ctl">Teams <input id="nteams" type="number" min="2" max="8" value="6"></label>
+  <button class="hbtn" id="undo" title="Undo the last score change">Undo</button>
+  <button class="hbtn" id="newgame">New game</button>
+</header>
+
+<main id="board"></main>
+<footer id="teams"></footer>
+
+<div class="overlay" id="ov" role="dialog" aria-modal="true">
+  <div class="card" id="card">
+    <div class="chead">
+      <span class="badge" id="mbadge"></span>
+      <span class="qtype" id="mtype"></span>
+      <div class="timer" id="timerbox">
+        <span class="tdisp" id="tdisp">0:45</span>
+        <button class="btn b-navy" id="tstart">Start</button>
+        <button class="btn b-line" id="treset">Reset</button>
+      </div>
+    </div>
+    <div class="cbody" id="mbody"></div>
+    <div class="cfoot" id="mfoot"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ======================= QUESTIONS ======================= */
+const T = {
+  FB:"Fill in the blank", MC:"Multiple choice", CM:"Correct the mistake", WC:"Which sentence is correct?",
+  WI:"Which sentence is incorrect?", EX:"Explain the grammar", CS:"Create a sentence", TF:"True or false?",
+  SC:"Respond to the situation", FS:"Finish the sentence"
+};
+const Q = {
+/* ---------- 100 ---------- */
+"A100":{t:"FB",q:"I have lived in Boston ______ 2022.",o:["for","since","ago","yet"],a:1,
+  ex:"since + a starting point (2022)."},
+"B100":{t:"TF",q:"True or false? We use <i>for</i> with a starting point, like \u201cfor Monday.\u201d",
+  ans:"False. We use <i>since</i> with a starting point (since Monday). We use <i>for</i> with a length of time (for two weeks)."},
+"C100":{t:"MC",q:"Which word usually goes at the end of a question?<br>\u201cHave you finished the report ______?\u201d",o:["already","still","yet","since"],a:2,
+  ex:"yet goes at the end of questions and negative sentences."},
+"D100":{t:"CM",q:"Correct the mistake:<br>\u201cShe has worked here since three years.\u201d",
+  ans:"She has worked here <b>for</b> three years. (three years = a length of time)"},
+"E100":{t:"WC",q:"Which sentence is correct?",o:["I have see that movie.","I have seen that movie.","I has seen that movie.","I seen that movie."],a:1,
+  ex:"have + past participle (seen)."},
+"G100":{t:"FS",q:"Finish the sentence with <i>for</i> or <i>since</i> and a time:<br>\u201cI have been studying English ______.\u201d",
+  ans:"Examples: \u2026for two years. / \u2026since 2023. / \u2026since I arrived in Boston."},
+"H100":{t:"MC",q:"What is the past participle of <i>write</i>?",o:["wrote","writed","written","writing"],a:2,
+  ex:"write, wrote, written: I have written three emails."},
+
+/* ---------- 200 ---------- */
+"A200":{t:"SC",q:"Your classmate asks: \u201cHow long have you been in Boston?\u201d You arrived three months ago. What do you say?",
+  o:["I am here for three months.","I have been here for three months.","I was here since three months.","I have been here since three months."],a:1,
+  ex:"Up to now + a length of time: have been + for."},
+"B200":{t:"FB",q:"Kenji ______ posts for the school\u2019s social media since Monday.",o:["writes","is writing","has been writing","wrote"],a:2,
+  ex:"An activity that started on Monday and continues now: present perfect continuous."},
+"D200":{t:"WI",q:"Which sentence is incorrect?",o:["I have already eaten.","We have not decided yet.","She has yet finished.","They still have not called."],a:2,
+  ex:"yet goes at the end of a negative or a question: She has not finished yet."},
+"E200":{t:"TF",q:"True or false? \u201cLast week\u201d is a finished time, so we say: \u201cI met him last week.\u201d",
+  ans:"True. A finished time (last week, yesterday, in 2020) takes the past simple."},
+"F200":{t:"CM",q:"Correct the mistake:<br>\u201cI have met the manager yesterday.\u201d",
+  ans:"I <b>met</b> the manager yesterday. (yesterday = a finished time, so past simple)"},
+"G200":{t:"MC",q:"Daniela writes: \u201cWe have contacted twelve restaurants.\u201d This sentence tells us\u2026",
+  o:["how long","how many","the exact day","what will happen next"],a:1,
+  ex:"Present perfect simple often gives a result or a number: How many?"},
+"H200":{t:"EX",q:"Explain: Why do we say \u201c<i>since</i> Monday\u201d but \u201c<i>for</i> two weeks\u201d?",
+  ans:"<i>since</i> + a starting point (Monday). <i>for</i> + a length of time (two weeks)."},
+
+/* ---------- 300 ---------- */
+"B300":{t:"WC",q:"Which sentence is correct?",o:["I have known her since 2019.","I have been knowing her since 2019.","I know her since 2019.","I am knowing her since 2019."],a:0,
+  ex:"know is a state verb: no -ing. Use the present perfect simple."},
+"C300":{t:"FB",q:"We ______ the price list from the rental company yet.",o:["did not receive","have not received","have not been receiving","still received"],a:1,
+  ex:"Not yet, up to now: have not + past participle + yet."},
+"D300":{t:"TF",q:"True or false? In \u201cI have been designing the posters for two weeks,\u201d the posters are finished.",
+  ans:"False. The continuous form shows the activity is still in progress. The posters are not finished."},
+"E300":{t:"CS",q:"Create a sentence with <i>already</i> about something you have done today.",
+  ans:"Example: I have already had two coffees today. Check: have / has + already + past participle."},
+"F300":{t:"SC",q:"Your manager asks: \u201cDid the printer send the posters?\u201d They have not, and you expected them days ago. What do you say?",
+  o:["The printer still has not sent them.","The printer has still sent them.","The printer did not send them still.","The printer has not still sent them."],a:0,
+  ex:"still + has / have not: something we expected has not happened."},
+"G300":{t:"FS",q:"Finish the sentence. Use a verb in the past simple:<br>\u201cYesterday, I ______.\u201d",
+  ans:"Example: Yesterday, I finished my homework. (yesterday = finished time, so past simple, not have finished)"},
+"H300":{t:"CM",q:"Correct the mistake:<br>\u201cHow long are you waiting for the bus?\u201d",
+  ans:"How long <b>have you been waiting</b> for the bus? (an activity from the past up to now)"},
+
+/* ---------- 400 ---------- */
+"A400":{t:"MC",q:"Which question asks about an activity that continues up to now?",
+  o:["How long have you been studying?","When did you start?","How many books have you read?","Did you study yesterday?"],a:0,
+  ex:"How long + have you been + verb-ing asks about an activity that continues."},
+"B400":{t:"CM",q:"Correct the mistake:<br>\u201cWe did not decide on the music yet.\u201d",
+  ans:"We <b>have not decided</b> on the music yet. (yet + up to now = present perfect)"},
+"C400":{t:"WI",q:"Which sentence is incorrect?",o:["He has been working here since May.","He has worked here for six months.","He has been working here for May.","He started working here in May."],a:2,
+  ex:"May is a starting point, so we need since: since May."},
+"D400":{t:"FB",q:"Tom\u00e1s: \u201cSo far, I ______ more than 3,000 guests.\u201d",o:["have been helping","have helped","helped","help"],a:1,
+  ex:"So far + a number (3,000): present perfect simple."},
+"E400":{t:"EX",q:"Why is this sentence wrong?<br>\u201cI have been needing more time since Monday.\u201d",
+  ans:"<i>need</i> is a state verb, so we do not use -ing. Correct: I have needed more time since Monday."},
+"F400":{t:"TF",q:"True or false? <i>Already</i> usually goes between <i>have</i> and the past participle: \u201cI have already finished.\u201d",
+  ans:"True. have / has + already + past participle."},
+"H400":{t:"SC",q:"Your teacher asks: \u201cHave you finished the reading?\u201d You started an hour ago, and you are on page 20 of 40. What is the best answer?",
+  o:["Yes, I have finished it.","No, I have been reading it for an hour, but I have not finished yet.","No, I read it for an hour.","Yes, I have been finishing it."],a:1,
+  ex:"Activity in progress: have been reading. Not finished: have not finished yet."},
+
+/* ---------- 500 ---------- */
+"A500":{t:"CS",q:"Create a sentence with <i>still</i> and <i>have not</i> about something you expected to happen.",
+  ans:"Example: My package still has not arrived. Check: still + has / have not + past participle."},
+"B500":{t:"WC",q:"Which sentence is correct?",o:["Have you yet called the landlord?","Have you called yet the landlord?","Have you called the landlord yet?","Have yet you called the landlord?"],a:2,
+  ex:"yet goes at the end of the question."},
+"C500":{t:"FS",q:"Finish the sentence. Use the present perfect continuous:<br>\u201cMy eyes are tired because I ______.\u201d",
+  ans:"Example: \u2026because I have been working on my computer all day. Check: have been + verb-ing."},
+"E500":{t:"MC",q:"Tom\u00e1s started working at the hotel in 2022, and he still works there. Which sentence is best?",
+  o:["He worked at the hotel since 2022.","He has been working at the hotel since 2022.","He works at the hotel since 2022.","He was working at the hotel for 2022."],a:1,
+  ex:"Started in the past and continues now + since + starting point."},
+"F500":{t:"CM",q:"Correct the mistake:<br>\u201cI have finished two courses last year.\u201d",
+  ans:"I <b>finished</b> two courses last year. (or: I have finished two courses <b>so far</b>.) last year = a finished time."},
+"G500":{t:"FB",q:"Amir: \u201cI ______ tickets all morning, and I ______ 40 so far.\u201d",
+  o:["have sold / have been selling","have been selling / have sold","sold / have sold","have been selling / sold"],a:1,
+  ex:"All morning = an activity (continuous). 40 so far = a number (simple)."},
+"H500":{t:"TF",q:"True or false? \u201cI have been reading three books this month\u201d is the best way to say how many books you finished.",
+  ans:"False. For a number or a result, use the simple form: I have read three books this month."},
+
+/* ---------- 600 ---------- */
+"A600":{t:"WI",q:"Which sentence is incorrect?",o:["I have written the report, so you can read it now.","I have been writing the report, so it is not ready.","I have been writing three reports today.","I wrote the report on Friday."],a:2,
+  ex:"A number of finished things takes the simple form: I have written three reports today."},
+"C600":{t:"SC",q:"It is 5 p.m. Daniela began answering emails at 9 a.m., and she is still answering them. What does she write to her coordinator?",
+  o:["I answered emails all day.","I answer emails since 9 a.m.","I have been answering emails since 9 a.m.","I am answering emails for 9 a.m."],a:2,
+  ex:"Started at 9 a.m. and continues now: have been + verb-ing + since."},
+"D600":{t:"EX",q:"Explain the difference in meaning:<br>\u201cI have written the email.\u201d<br>\u201cI have been writing the email.\u201d",
+  ans:"<i>have written</i>: the email is finished (focus on the result). <i>have been writing</i>: the email is probably not finished (focus on the activity)."},
+"E600":{t:"FB",q:"Kenji: \u201cOur page ______ 200 new followers this week, and yesterday I ______ the menu video.\u201d",
+  o:["has received / have finished","received / finished","has received / finished","has been receiving / have finished"],a:2,
+  ex:"this week (not finished) + a number: has received. yesterday (finished time): finished."},
+"F600":{t:"CM",q:"Correct the TWO mistakes:<br>\u201cShe has been knowing him since five years.\u201d",
+  ans:"She <b>has known</b> him <b>for</b> five years. (know is a state verb; five years = a length of time)"},
+"G600":{t:"CS",q:"Create TWO sentences about a project: one with <i>for</i> and the present perfect continuous, and one with <i>already</i>.",
+  ans:"Example: I have been planning my trip for three weeks. I have already booked the hotel."},
+
+/* ---------- 700 ---------- */
+"A700":{t:"FS",q:"Finish the email sentence with the correct forms:<br>\u201cWe started the project in March. Since then, we ______ (contact) 20 schools, and we ______ (plan) the event for six weeks.\u201d",
+  ans:"\u2026we <b>have contacted</b> 20 schools (a number), and we <b>have been planning</b> the event for six weeks (an activity + for)."},
+"B700":{t:"WC",q:"Which sentence is correct?",o:["I have been knowing my roommate since I have arrived.","I have known my roommate since I arrived.","I know my roommate since I arrived.","I have known my roommate since I have arrived."],a:1,
+  ex:"know: no -ing. After since, the starting point is a finished moment: since I arrived."},
+"C700":{t:"CM",q:"Correct the THREE mistakes:<br>\u201cLast month I have started a new job, and I am working there since then. I did not meet my manager still.\u201d",
+  ans:"Last month I <b>started</b> a new job, and I <b>have been working</b> there since then. I <b>still have not met</b> my manager."},
+"D700":{t:"SC",q:"Your advisor asks for an update. You arrived five weeks ago. You opened a bank account in your first week. You are looking for a job now, but you have not found one. Which reply is best?",
+  o:["I opened a bank account in my first week, and I have been looking for a job, but I have not found one yet.",
+     "I have opened a bank account in my first week, and I looked for a job, but I did not find one yet.",
+     "I opened a bank account in my first week, and I am looking for a job since then, but I still did not find one.",
+     "I have been opening a bank account, and I have looked for a job yet."],a:0,
+  ex:"Finished time: opened. Activity up to now: have been looking. Not yet: have not found one yet."},
+"F700":{t:"EX",q:"Explain why this sentence is correct:<br>\u201cI have lived here since I was a child.\u201d<br>Why is <i>was</i> in the past simple?",
+  ans:"After <i>since</i>, we name the starting point, and that moment is finished, so we use the past simple (was). The main verb (have lived) connects the past to now."},
+"G700":{t:"WI",q:"Which sentence is incorrect?",o:["We have already sold half of the tickets.","We have been selling tickets since last Monday.","We still have not received the posters.","We have been finishing the posters already yesterday."],a:3,
+  ex:"yesterday is a finished time: We finished the posters yesterday."},
+"H700":{t:"TF",q:"True or false? \u201cI have read the book, and I have been reading the magazine.\u201d The book is finished, but the magazine is not.",
+  ans:"True. have read = finished (result). have been reading = activity, probably not finished."}
+};
+
+/* ======================= POWER-UPS (look exactly like normal tiles) ======================= */
+/* kind: self (picker only), target (picker + one team), give (one team gets / one team loses), turn */
+const P = {
+  "F100":{title:"You get 600 points for doing nothing!",kind:"self",fn:(s,me)=>{s[me]+=600}},
+  "C200":{title:"Choose one team to get 300 points and one team to lose 400 points.",kind:"give",up:300,down:400},
+  "A300":{title:"Swap scores with a team of your choice!",kind:"target",fn:(s,me,o)=>{const t=s[me];s[me]=s[o];s[o]=t}},
+  "G400":{title:"Oh no! Your score goes back to zero.",kind:"self",fn:(s,me)=>{s[me]=0}},
+  "D500":{title:"You are now 100 points above the team in first place!",kind:"self",fn:(s,me)=>{const m=Math.max(...s.filter((_,i)=>i!==me));s[me]=m+100}},
+  "B600":{title:"You lose 500 points!",kind:"self",fn:(s,me)=>{s[me]-=500}},
+  "H600":{title:"You lose your turn. The next team chooses a tile.",kind:"turn"},
+  "E700":{title:"Steal 700 points from a team of your choice!",kind:"target",fn:(s,me,o)=>{s[o]-=700;s[me]+=700}}
+};
+
+/* ======================= STATE ======================= */
+const COLS = "ABCDEFGH".split(""), ROWS = [100,200,300,400,500,600,700];
+const KEY = "approach_w1_jeopardy_v1";
+let st = load() || {names:[], scores:[], used:{}, n:6};
+let history = [];
+function fresh(n){
+  const names=[],scores=[];
+  for(let i=0;i<8;i++){names.push("Team "+(i+1));scores.push(0)}
+  return {names,scores,used:{},n:n||6};
+}
+if(!st.names.length) st = fresh(6);
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+function load(){try{const v=localStorage.getItem(KEY);return v?JSON.parse(v):null}catch(e){return null}}
+function snap(){history.push(JSON.stringify(st.scores));if(history.length>50)history.shift()}
+
+/* ======================= BOARD ======================= */
+const board = document.getElementById("board");
+function drawBoard(){
+  board.innerHTML="";
+  COLS.forEach(c=>{const d=document.createElement("div");d.className="col";d.textContent=c;board.appendChild(d)});
+  ROWS.forEach(p=>COLS.forEach(c=>{
+    const id=c+p, b=document.createElement("button");
+    b.className="tile"+(st.used[id]?" used":"");
+    b.textContent=p; b.setAttribute("aria-label",`Column ${c}, ${p} points`);
+    b.onclick=()=>openTile(id,c,p);
+    board.appendChild(b);
+  }));
+}
+
+/* ======================= TEAMS ======================= */
+const teamsEl = document.getElementById("teams");
+function drawTeams(){
+  teamsEl.style.gridTemplateColumns=`repeat(${st.n},1fr)`;
+  teamsEl.innerHTML="";
+  const vis=st.scores.slice(0,st.n), max=Math.max(...vis);
+  for(let i=0;i<st.n;i++){
+    const d=document.createElement("div");
+    d.className="team"+(max>0&&st.scores[i]===max?" lead":"");
+    d.innerHTML=`<input class="name" value="${esc(st.names[i])}" aria-label="Team name">
+                 <input class="score" type="number" step="50" value="${st.scores[i]}" aria-label="Score">`;
+    const [nm,sc]=d.querySelectorAll("input");
+    nm.oninput=()=>{st.names[i]=nm.value;save()};
+    sc.onfocus=()=>snap();
+    sc.onchange=()=>{st.scores[i]=parseInt(sc.value||"0",10)||0;save();drawTeams()};
+    teamsEl.appendChild(d);
+  }
+}
+function esc(s){return String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+function addPts(i,v){snap();st.scores[i]+=v;save();drawTeams()}
+
+/* ======================= TIMER ======================= */
+let tLeft=0,tInt=null,actx=null;
+const tdisp=document.getElementById("tdisp"),tstart=document.getElementById("tstart");
+function secs(){return Math.max(5,parseInt(document.getElementById("secs").value||"45",10))}
+function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function tShow(){tdisp.textContent=fmt(tLeft);tdisp.classList.toggle("low",tLeft<=10&&tLeft>0)}
+function tReset(){clearInterval(tInt);tInt=null;tLeft=secs();tdisp.classList.remove("done");tstart.textContent="Start";tShow()}
+function tToggle(){
+  if(tInt){clearInterval(tInt);tInt=null;tstart.textContent="Start";return}
+  if(tLeft<=0)tReset();
+  ensureAudio();
+  tstart.textContent="Pause";
+  tInt=setInterval(()=>{tLeft--;tShow();if(tLeft<=0){clearInterval(tInt);tInt=null;tstart.textContent="Start";tdisp.classList.add("done");ring()}},1000);
+}
+function ensureAudio(){try{if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();if(actx.state==="suspended")actx.resume()}catch(e){}}
+function ring(){
+  if(!actx)return;
+  const t0=actx.currentTime;
+  for(let k=0;k<6;k++){
+    const o=actx.createOscillator(),g=actx.createGain();
+    o.type="square";o.frequency.value=k%2?660:880;
+    g.gain.setValueAtTime(0.0001,t0+k*0.28);
+    g.gain.exponentialRampToValueAtTime(0.25,t0+k*0.28+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,t0+k*0.28+0.24);
+    o.connect(g).connect(actx.destination);o.start(t0+k*0.28);o.stop(t0+k*0.28+0.26);
+  }
+}
+tstart.onclick=tToggle;
+document.getElementById("treset").onclick=tReset;
+
+/* ======================= MODAL ======================= */
+const ov=document.getElementById("ov"),card=document.getElementById("card"),
+      mb=document.getElementById("mbody"),mf=document.getElementById("mfoot");
+function openTile(id,c,p){
+  document.getElementById("mbadge").textContent=`${c} \u00b7 ${p}`;
+  tReset();
+  if(P[id]) openPower(id,p); else openQuestion(id,p);
+  ov.classList.add("open");
+}
+function closeTile(id){
+  if(id){st.used[id]=true;save();drawBoard()}
+  clearInterval(tInt);tInt=null;ov.classList.remove("open");
+}
+function openQuestion(id,p){
+  const q=Q[id];
+  card.classList.remove("power");
+  document.getElementById("timerbox").style.visibility="visible";
+  document.getElementById("mtype").textContent=T[q.t];
+  let h=`<p class="qtext">${q.q}</p>`;
+  if(q.o) h+=`<div class="opts">${q.o.map((o,i)=>`<div class="opt" data-i="${i}"><b>${"abcd"[i]}</b><span>${o}</span></div>`).join("")}</div>`;
+  const ansTxt=q.o?`<span class="lbl">Answer: ${"abcd"[q.a]}</span>. ${q.ex||""}`:`<span class="lbl">Answer:</span> ${q.ans}`;
+  h+=`<div class="answer" id="ans">${ansTxt}</div>`;
+  mb.innerHTML=h;
+  mf.innerHTML=`<button class="btn b-gold" id="show">Show answer</button><span class="spacer"></span><span class="lbl">Give ${p} points to:</span>`;
+  for(let i=0;i<st.n;i++){
+    const b=document.createElement("button");b.className="award";b.textContent=st.names[i];
+    b.onclick=()=>{addPts(i,p);toast(`+${p} to ${st.names[i]}`);closeTile(id)};
+    mf.appendChild(b);
+  }
+  const none=document.createElement("button");none.className="btn b-red";none.textContent="No one";
+  none.onclick=()=>closeTile(id);mf.appendChild(none);
+  document.getElementById("show").onclick=()=>{
+    document.getElementById("ans").classList.add("show");
+    if(q.o) mb.querySelector(`.opt[data-i="${q.a}"]`).classList.add("right");
+  };
+}
+function teamButtons(onPick,exclude){
+  const w=document.createElement("div");w.className="pick";
+  for(let i=0;i<st.n;i++){ if(i===exclude)continue;
+    const b=document.createElement("button");b.className="award";b.textContent=st.names[i];
+    b.onclick=()=>{w.querySelectorAll(".award").forEach(x=>x.classList.remove("picked"));b.classList.add("picked");onPick(i)};
+    w.appendChild(b);}
+  return w;
+}
+function openPower(id,p){
+  const pu=P[id];
+  card.classList.add("power");
+  document.getElementById("timerbox").style.visibility="hidden";
+  document.getElementById("mtype").textContent="Surprise tile";
+  mb.innerHTML=`<p class="power-word">Power-up!</p><p class="power-text">${pu.title}</p><div id="steps"></div><div class="result" id="pres"></div>`;
+  mf.innerHTML=`<span class="spacer"></span>`;
+  const done=document.createElement("button");done.className="btn b-gold";done.textContent="Close";
+  done.onclick=()=>closeTile(id);mf.appendChild(done);
+  const steps=document.getElementById("steps"),res=document.getElementById("pres");
+  const addStep=(label,node)=>{const s=document.createElement("div");s.innerHTML=`<p class="step">${label}</p>`;s.appendChild(node);steps.appendChild(s)};
+  let applied=false;
+  const apply=(fn,msg)=>{ if(applied)return; applied=true; snap(); const s=st.scores; fn(s); save(); drawTeams(); res.textContent=msg;
+    steps.querySelectorAll("button").forEach(b=>b.disabled=true); };
+  if(pu.kind==="turn"){res.textContent="No points change. Next team, choose a tile!";return}
+  if(pu.kind==="give"){
+    let up=null;
+    addStep(`Which team gets ${pu.up} points?`,teamButtons(i=>{up=i;
+      if(steps.children.length<2) addStep(`Which team loses ${pu.down} points?`,teamButtons(j=>{
+        apply(s=>{s[up]+=pu.up;s[j]-=pu.down},`${st.names[up]} +${pu.up} \u00b7 ${st.names[j]} \u2212${pu.down}`)}));
+    }));
+    return;
+  }
+  addStep("Which team chose this tile?",teamButtons(me=>{
+    if(pu.kind==="self"){
+      apply(s=>pu.fn(s,me),"");
+      res.textContent=`${st.names[me]} now has ${st.scores[me]} points.`;
+    } else if(steps.children.length<2){
+      addStep("Choose a team:",teamButtons(o=>{
+        apply(s=>pu.fn(s,me,o),"");
+        res.textContent=`${st.names[me]}: ${st.scores[me]} \u00b7 ${st.names[o]}: ${st.scores[o]}`;
+      },me));
+    }
+  }));
+}
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&ov.classList.contains("open")){clearInterval(tInt);tInt=null;ov.classList.remove("open")}});
+
+/* ======================= CONTROLS ======================= */
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1400)}
+document.getElementById("undo").onclick=()=>{if(!history.length){toast("Nothing to undo");return}st.scores=JSON.parse(history.pop());save();drawTeams();toast("Last score change undone")};
+document.getElementById("newgame").onclick=()=>{if(confirm("Start a new game? All scores and used tiles will be reset.")){const names=st.names.slice(),n=st.n;st=fresh(n);st.names=names;history=[];save();drawBoard();drawTeams()}};
+const nIn=document.getElementById("nteams");nIn.value=st.n;
+nIn.onchange=()=>{st.n=Math.min(8,Math.max(2,parseInt(nIn.value||"6",10)));nIn.value=st.n;save();drawTeams()};
+document.getElementById("secs").onchange=()=>{if(!tInt)tReset()};
+
+drawBoard();drawTeams();
+</script>
+</body>
+</html>
