@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 2 Telling What Happened: Timeline and Choose</title>
+<style>
+:root{--navy:#0c2340;--gold:#ae9142;--mblue:#143865;--bblue:#1c4f8f;--dgold:#8c7535;--bgold:#d39f10;--steel:#81a7c1;--lgray:#e8e8e8;--red:#ab100b;--tint:#eef1f6;--cream:#faf3e3;--ok:#1f7a4a;--okbg:#e3f3ea;--nobg:#f6e3e2}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#1a1a1a;font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;font-size:20px}
+header{background:var(--navy);color:#fff;border-top:8px solid var(--gold);display:flex;align-items:center;gap:24px;padding:14px 32px}
+header img{height:54px}
+header h1{font-family:Cambria,Georgia,serif;font-size:30px;margin:0;font-weight:700}
+header p{margin:2px 0 0;color:var(--steel);font-style:italic;font-size:18px}
+nav{margin-left:auto;display:flex;gap:10px}
+nav button{font:inherit;font-size:19px;font-weight:700;background:transparent;color:#fff;border:2px solid var(--gold);padding:10px 20px;border-radius:999px;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--gold);color:var(--navy)}
+nav button:focus-visible,button:focus-visible{outline:3px solid var(--bgold);outline-offset:2px}
+main{max-width:1500px;margin:0 auto;padding:22px 32px 40px}
+.stage{color:var(--dgold);font-weight:700;font-size:18px;margin:0}
+h2{font-family:Cambria,Georgia,serif;color:var(--navy);font-size:34px;margin:2px 0 6px}
+.lead{margin:0 0 16px;font-size:20px;color:#333}
+/* timeline */
+.tlwrap{border:2px solid var(--navy);border-radius:16px;padding:10px 18px 14px;background:#fff}
+.tl{position:relative;height:640px;margin:0 10px}
+.axis{position:absolute;left:0;right:0;top:320px;height:8px;margin-top:-4px;background:var(--navy);border-radius:4px}
+.axis::after{content:"";position:absolute;right:-18px;top:-10px;border-left:22px solid var(--navy);border-top:14px solid transparent;border-bottom:14px solid transparent}
+.zone{position:absolute;top:126px;height:30px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:var(--navy);border-radius:6px}
+.zband{position:absolute;top:118px;bottom:118px;border-radius:10px}
+.now{position:absolute;left:92%;top:60px;bottom:60px;width:6px;margin-left:-3px;background:var(--gold);border-radius:3px}
+.nowtag{position:absolute;left:92%;top:24px;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-weight:800;padding:4px 14px;border-radius:8px;font-size:20px}
+.mk{position:absolute;z-index:3}
+.dot{width:28px;height:28px;margin:-14px 0 0 -14px;border-radius:50%;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 0 0 2px currentColor}
+.seg{height:14px;margin-top:-7px;border-radius:7px}
+.hatch{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.45) 0 7px,transparent 7px 14px)}
+.tick{width:6px;height:18px;margin:-9px 0 0 -3px;border-radius:3px}
+.arr{height:4px;margin-top:-2px}
+.arr::after{content:"";position:absolute;right:-4px;top:-7px;border-left:13px solid currentColor;border-top:9px solid transparent;border-bottom:9px solid transparent}
+.ramp{height:30px;clip-path:polygon(0 100%,100% 0,100% 100%)}
+.flash{font-size:30px;margin:-46px 0 0 -10px}
+.line{position:absolute;width:2px;margin-left:-1px;z-index:1;opacity:.8}
+.card{all:unset;box-sizing:border-box;position:absolute;width:212px;transform:translateX(-50%);background:#fff;border:2px solid;border-radius:12px;padding:8px 12px 10px;cursor:pointer;z-index:4;box-shadow:0 3px 0 rgba(12,35,64,.12)}
+.card:hover,.card:focus-visible{transform:translateX(-50%) translateY(-2px);box-shadow:0 6px 14px rgba(12,35,64,.2)}
+.card .nm{display:block;color:#fff;font-weight:800;font-size:18px;border-radius:7px;padding:3px 9px;margin:-2px -6px 6px}
+.card .ex{display:block;font-size:16px;line-height:1.3;color:#222}
+.card .ex b{color:var(--navy)}
+.card.rev{border-style:dashed}
+.card.active{outline:4px solid var(--gold)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:16px;color:#444;margin:6px 4px 0}
+.legend span::before{content:"";display:inline-block;width:22px;height:0;border-top:3px dashed var(--steel);vertical-align:middle;margin-right:6px}
+/* drawer */
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(560px,92vw);background:#fff;border-left:8px solid var(--gold);box-shadow:-10px 0 30px rgba(12,35,64,.25);transform:translateX(105%);transition:transform .28s ease;z-index:20;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dh{background:var(--navy);color:#fff;padding:20px 24px;position:relative}
+.dh h3{font-family:Cambria,Georgia,serif;font-size:32px;margin:0}
+.dh .rv{color:var(--steel);font-style:italic;font-size:17px}
+.close{position:absolute;right:16px;top:16px;font:inherit;font-size:28px;background:none;border:0;color:#fff;cursor:pointer;line-height:1}
+.db{padding:20px 24px;overflow:auto;font-size:21px;line-height:1.4}
+.db h4{margin:14px 0 4px;color:var(--dgold);font-size:18px}
+.db .form{background:var(--tint);padding:10px 14px;border-radius:8px;font-weight:700;color:var(--navy)}
+.db ul{margin:4px 0;padding-left:22px}
+.db li{margin:6px 0}
+.db b{color:var(--bblue)}
+.pair{display:grid;gap:8px;margin-top:4px}
+.pair div{padding:8px 12px;border-radius:8px}
+.pair .no{background:var(--nobg);color:var(--red)}
+.pair .yes{background:var(--okbg);color:var(--ok);font-weight:700}
+.tip{margin-top:12px;background:var(--cream);padding:10px 14px;border-radius:8px;font-size:19px}
+.shade{position:fixed;inset:0;background:rgba(12,35,64,.25);opacity:0;pointer-events:none;transition:opacity .2s;z-index:15}
+.shade.open{opacity:1;pointer-events:auto}
+/* choose */
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 16px}
+.btn{font:inherit;font-weight:700;font-size:19px;border:0;border-radius:999px;padding:10px 20px;cursor:pointer}
+.btn.navy{background:var(--navy);color:#fff}.btn.gold{background:var(--gold);color:var(--navy)}
+.score{margin-left:auto;background:var(--tint);color:var(--navy);font-weight:800;padding:10px 18px;border-radius:999px;font-size:20px}
+.story{border:2px solid var(--navy);border-radius:14px;padding:22px 28px;font-family:Cambria,Georgia,serif;font-size:25px;line-height:2.05}
+.story h3{margin:0 0 6px;font-size:30px;color:var(--navy)}
+.story h3 span{font-style:italic;font-weight:400;font-size:22px;color:#555}
+.para{display:flex;gap:16px;align-items:flex-start;margin:6px 0}
+.pn{flex:none;width:40px;height:40px;margin-top:8px;border-radius:50%;background:var(--navy);color:#fff;font-family:Calibri,Carlito,sans-serif;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.ch{display:inline-flex;gap:4px;align-items:center;white-space:nowrap;vertical-align:middle}
+.ch .num{font-family:Calibri,Carlito,sans-serif;font-weight:800;color:var(--dgold);font-size:20px}
+.opt{font:inherit;font-size:23px;border:2px solid var(--mblue);background:#fff;color:var(--mblue);border-radius:10px;padding:0 10px;cursor:pointer;line-height:1.5}
+.opt:hover{background:var(--tint)}
+.opt.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{background:var(--nobg);border-color:var(--red);color:var(--red);text-decoration:line-through;animation:shake .3s}
+.opt.dim{opacity:.35}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.why{display:block;font-family:Calibri,Carlito,sans-serif;font-size:18px;line-height:1.3;color:var(--ok);background:var(--okbg);border-radius:8px;padding:4px 10px;margin:2px 0 4px;white-space:normal}
+.fb{position:sticky;top:0;z-index:5;margin:0 0 12px;padding:12px 18px;border-radius:12px;font-size:21px;font-weight:700;background:var(--tint);color:var(--navy)}
+.fb.good{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--nobg);color:var(--red)}
+.whybox{margin-top:18px;border:2px solid var(--ok);border-radius:14px;padding:12px 22px;background:#fbfefc}
+.whybox h3{font-family:Cambria,Georgia,serif;color:var(--ok);margin:0 0 6px;font-size:24px}
+.whybox ul{margin:0;padding-left:22px;font-size:20px}.whybox li{margin:4px 0}
+.jobs{margin-top:22px;border:2px solid var(--gold);border-radius:14px;padding:16px 22px}
+.jobs h3{font-family:Cambria,Georgia,serif;color:var(--navy);margin:0 0 10px;font-size:26px}
+.jrow{display:flex;align-items:center;gap:12px;margin:8px 0;flex-wrap:wrap}
+.jrow .pn{margin:0}
+.job{font:inherit;font-size:20px;border:2px solid var(--dgold);background:#fff;color:var(--navy);border-radius:999px;padding:6px 16px;cursor:pointer}
+.job.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.job.wrong{background:var(--nobg);border-color:var(--red);color:var(--red);animation:shake .3s}
+.hidden{display:none}
+footer{background:var(--navy);color:#fff;font-style:italic;font-size:15px;padding:10px 32px;border-bottom:8px solid var(--gold)}
+
+.tlscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chips,.swipe{display:none}
+.chips{gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font:inherit;font-size:15px;font-weight:700;color:#fff;border:0;border-radius:999px;padding:7px 12px;cursor:pointer}
+.chip.rev{outline:2px dashed #fff;outline-offset:-4px}
+.swipe{font-size:15px;color:var(--dgold);font-weight:700;margin:2px 0 6px}
+@media (max-width:820px){
+ html,body{font-size:17px}
+ header{flex-wrap:wrap;gap:10px 14px;padding:10px 14px}
+ header img{height:40px}
+ header h1{font-size:22px}
+ header p{font-size:14px}
+ nav{margin-left:0;width:100%}
+ nav button{flex:1;font-size:15px;padding:8px 10px}
+ main{padding:14px 12px 28px}
+ h2{font-size:24px}
+ .stage{font-size:15px}
+ .lead{font-size:16px}
+ .chips{display:flex}
+ .swipe{display:block}
+ .tlwrap{padding:6px 0 10px;border-radius:12px}
+ .tl{min-width:1150px;zoom:.72}
+ .legend{font-size:14px;padding:0 10px}
+ .drawer{width:100vw;border-left:0;border-top:6px solid var(--gold)}
+ .dh{padding:16px 18px}.dh h3{font-size:26px;padding-right:36px}
+ .db{padding:14px 18px;font-size:18px}
+ .tip{font-size:16px}
+ .toolbar{gap:8px}.toolbar>span:first-child{width:100%;font-size:16px}
+ .btn{font-size:15px;padding:8px 14px}
+ .score{margin-left:auto;font-size:16px;padding:8px 14px}
+ .fb{font-size:16px;padding:10px 12px}
+ .story{font-size:18px;line-height:1.95;padding:14px 12px}
+ .story h3{font-size:22px}.story h3 span{font-size:17px}
+ .para{gap:10px}
+ .pn{width:30px;height:30px;font-size:16px;margin-top:5px}
+ .ch{white-space:normal;flex-wrap:wrap}
+ .ch .num{font-size:16px}
+ .opt{font-size:17px;padding:0 8px}
+ .whybox{padding:10px 14px}.whybox h3{font-size:20px}.whybox ul{font-size:16px}
+ .jobs{padding:12px 12px}.jobs h3{font-size:20px}
+ .jrow{gap:6px}.job{font-size:15px;padding:6px 11px}
+ footer{font-size:13px;padding:8px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYgAAAEYCAYAAABGJWFlAAAadElEQVR4nO3d687kqK6A4Xxb6/5vufaPpWgxDAcbbDDkfaRR93RVEpIQzDH19/v9HgAAcv+3OwEAgJgIEACAIgIEAKCIAAEAKCJAAACKCBAAgCICBACgiAABACgiQAAAiggQAIAiAgQAoIgAAQAoIkAAAIr+szsBgJHWa4n/lqUCuAgBAifSvqP+/T6BAlAgQOAEVj9a8nsIEoAYYxDYrVX4/zqfWx8PQIIWBHbLa/QrCnBaEoAAAQK7UaMHgqKLCTtECAoR0gCERoDASulsIo/xBQCG6GLCSm9gAHAAAgRWITAAh6GLCRZWT1UFsAABAhbeKaNpICAwAIejiwmWPMcY0iBUCkgAjNGCwEnyBW4zi91YKAd00IKAFY/afF6IU6gDC9GCgAXr4PD3MCUW2I4WBGZ4BIbW/3sfH0CCFgRGrXqpXstolxNdVYAAAQIjVow31P7tVum04N66EmAJAgQkvAulLwWCXL5epPcq8i9fKyxGgIBEWihZBot3MHrU6bXpWvol53X6ueMABAho3FAo7aiBl65b71rWupz4fW0sQ4CAhMdrM75UwM2u/E6n/H7pumEzAgR6PFsNM/se3XZ1Kyg93kigIDBgG9ZBoMWz1fCV34W2GL/5yrVCMLQgUHNrcNg1BjF7PSVTYAFTBAiU3Dqt9fTXd7yB9eRzwEEIEHieewNCycq0eFxXupuwDAECzxN3nUPJabVnryBx2nXAgQgQeHkVZNZO6WKRpJHfs0BoBAg8j0/ftkfr4RReLxnMj3FCoMTBCBB4UdjYkAaH9M+vBlIER4CAB88CL3IgG32H0szAc+TrgcMRIPCVV2h4j11I9117rfmOVeVAEwHim7wWXUUNDi+PICEdC2hdm7cFYfUDSAQMmCBAfNNbUFoW6NGDw8sqnZpCuHfM2TTlQeqUmV4IjgDxLXmhYVWInBIcLEh/+e31V/l76/tfup4IjADxLenbRE8shGZel211fM2+Zl/zPePE+4tgCBDfZNkF8ZWCaGatiPYaMasJIRAgvocCZIwmOLzdRKtbPKe2DBEUAeKbLILEKQXR6lXLu7qz8m2BaQSIb7jhraI7Cr3Z11nMvmtp5NgEB5jhF+W+waMgP6UFoTUy1uB1LSzGiiSv/qBrCkUEiG9hYLou/e3nCMEh3b9nS4LggCq6mKB1WmHSKyjTwCD5/mvleoWR42i2oVsKRQQI3K73iov3T22rIXqhmrYMJMGM14fjXwgQ3/GlmUup2nnPrGc4pVtGM57CCm78C2MQuFmpwJtZm7AzMIy0WtIWBK0DqNGCgNTOQsbqVdiWweGEAleTxhPOB4vRgviGL89esgps+bmfeC0AFQIEbrZrkZuXkWBHywDD6GIC/mn2PUqnihgQsRkB4n5fnb0064tBAvgHAgTwX+k0z3zxXCQR04RLESDQ84UC6esD0F87XwgxSI3VJGsJVnXt5OmI3HIAliNAQMNioVi+lmB1X39t8Vy+kviU1dKzvnCOGESAQE+pVt2qaUechtkrBEuff7Xg/EpghAAB4m6Whe8v+9N6/x5uKehWFtq3XDMYYJAaiM9jdhUv50MXAQK3urHwszon1nhAhAABxHdStx4uQoAA4qtNx7XcJ/AvBAjgLDMFO0EBKgQIREaB9m+n/uARDsQ0V0RC4dU2+8NJXF+oECCw2qpC6pYCccdqc+B5HgIE6vK5973vwQfBAdsQINByci381HTnCA7YhkFqlPxlf8JXbZ0DwQFbESBQQsG01l/h79wDbEeAQAkth3VKgYDggBAIEKihkFrv9/hdd4I+1AgQd2PVbXzvLCUCMsIhQOBWFLjAJAIEsEfpB5iAUAgQwFrpj/4QHBAaAQLwlweCHWMOBCOoESDux2DzXum7lPgdBxyFAAH4suhKSoPCyL74/WkMIUAAsaWvPRkt5OlewhBe1gf4oDsJx6MFcb58uuSv8J+2oLmlxrniPLxelVG6Z3QvYSlaEOdLf0ryloL9JNYv16MwRxi0IO5QCw5/jc9OEanATFtl6b8BV6IFcQfpr75RmM2pBSvLWUo13DssR4C4W7pqF/NYBY1PoYvpfNKCSlugUQD+Tx5oLVoM6X9eqBhgCgHifHRP+LNaCa0NCLzQD1vRxYSWkSmyN7EsmEeuI7/nga0IEMD/eNTUZwtqWg/Yhi6mO1BbrJMUsB5vV929QI3Agmm0IO5w80I5q3PKu8sithZyo2m8NS9gMQLEXTwKht3jEFbn5FVoRm29RU0XDkKAuMNf9vebao8W5+LRfeTl5tYgDsMYxF1GX84n2e9OEWrDq8YUIpwr8DwPAeI2pYVcpxc4u9OfB4YV6dkdkIHneehiuk3ePfGX/bmq4DmxgNsdiJ5nvvUX4RxwEQLEXfKAUPv8ecZevZFvf2KBlAbLiOk/MbjiUgSI7/L8HQmvt57OWt1VpDF7L6KdDy5AgPi2tMUhXVC2swtkJsBEbjkQHBASg9QYfSX4qkKp9CM9o/uJ7Pbzw4FoQSB67dN69XO0813xY0PAEFoQeEm7Xla/gvqmKbue+NVAmCNA4NWbAVX7vjfL40QrPD1aDwRRmCFA4Hm+9WtzUdJuERyinAsuRYBAyc2/Urejhp1fK6trR2sBrggQmNEr6KIGkajpkiIwYAkCBJ6n3pc9WxB5FGQWaylWFrDp8ax+1/r0AIdDECAAX5YFerr6HXBHgMCsdNrrqprtab/zbBEktLPMgGkslEOPdH796m6bU1gu7qP1gKVoQUCqVTD9Kn/3YlFIrkinV3A4KUDiYAQIaEiDROn/Z51WKHq+IZdWBJYgQEBLGiSsC7F8fxazrLyCzo3vjMIHESAwold4nVTbr6X1l/3X2vaX/X0WA9IIgQABD6cVbLXC/e9pt1T+su9ZjzkAW/39fuRDTGlloBWBwjIDa9Nr/Yt8pd8TB7ahBYFZkrEAz1qIxVjES7qmw7pL6XkIDgiIAIFZvYL0ec4q8NI054HCazFg3lWVpgPYhgCBWb3pl6vWSFgHoZWBQfsZsAQBAlZa7wkqFa5fryEzUwnhESBgqVXo5SuBI77pdZVT0omPI0DAS6sl4dnPfkLhu/LFhsAwprnCW2kq6GnTXy2cELiAf6AFAW+lbifPwjvazCnLabjAUgQIrJQXlN5dTDsLZ4ICjkeAwAqlV1ikf1ruu2RlYZ2+doMggaMRILBCXqtfPT6w6jcqSmtCoo2FAGIMUuNrPH+nAbgKPzmKr5Eu5NNsD1yJAAFQ6ANFjEEAAIoIEACAIgIEAKCIAAEAKCJAAACKCBAAgCICBACgiAABACgiQAAAiggQAIAiAgQAoIgAAQAoIkAAAIoIEACAotMChNevG/GrSbgR+XoN6XU+7n6cFCA8f+N31+8BWGSY4zIdXKX5gd+5WEN6nY+7HycFiPTi3lIoWmSY6Jlu973affxdTjjvFWn8LTrOlU4IEKWbG71Q7GllWG2Gjp75d9+r3vF71y/69f1lf3/Pd/d1l1iRxr/nzsrlEtEDxK/yp+cxvPaf+nv+/WDnn0udUBA8z56anOR4vesX/fq+6UvzMYVgXaT7Gf4+/f1+odO4oz915oJo0/jW+PLxFYubYnG9vK7FT/AdS1Gup6eZSkYEI8FcMy7Z2r/XtdpxTFORA8TqriXPC5EX/rXzWJUGCY+0rH4ovK5ntIe7dp7R0vmyui8WwUGzH61dxzUTtYup10fvYVXwaR0n7y+1TsPu2sCqNHgfJ8K1PJH1dYs47f2m8cOwAaIm7ZI5Tfpw7Ex/no7WWIh3GkaPXfvu6oK7lY4IVt7P3ueehbn1szVTSbtq/PC0APEKf2EbogS5Nx3ptdy5HkTT7Vbqi951PUtBbuV13J2PUqX7sDp9J5cN4fxndwIKJLWR0zNBlIc6wrWc7aeNcC13BIZISlNrI9wXTDq1BUHms1O6lhFq47V/39ElJrW6CzHC+Zfux+507T7+NaK0IKJ0u0jVZiWtSn+ppmp5bM29WHHunudrve8IrbKUd3rS+z/7DJe21+yz1G2KCVECxMgN3fEg5oXhmxlHH4rRc8gfxtJDMZImbXp64xfagWfJsUevt6SryqqrZEXejFaZsrovtXx8UgXyGqd2Me1WGtxdWXNJC7LaMTVpGe1Dl4wfWF2X0e4L6fFb1/H0Wqn3lN/RY0jvS57fLfK8F6a54l/ydQ5RCpSRIPH+faZQLe1b8t1WYTNSg7SudY5ez5tpr7HV87FjsakE01yd7L6xM1bXaEYeSMn3Ro+h3bfk+zPTJfNapyVN4eY1oD7a7WV53JGWg/e9iDb+c7xIAeKrIgZG64fsy9NA37UBEc59do1C3q26MzjsOsanRAkQM4O80Z2SaVfPQtJso51RtYKmJWGZrtn7lHeHruB9nPRenFAmHCNCgLDM8BFFT5+3lVN/d0w5lrotPZHOZ0fQ+4QIAQJ6Jz0EuwrsSLVjqy6mneNCkY9z0vNwlFsCRKTaTI7M+1+j10Fyb70GpE8zMniupXnv1dfvx/F2B4jIBbuVL5xjj+crGE4phG7q0omE6+JoZ4CwvrFklLhOKcRnRDhH79XoUrUB/C9XEI60uwVxGm0G13SPROIxLXPX3P1IvM9Hu3Dx1nGhEbflNRPRA8TIissd0zXzBUSaflpv0rTMzHHvfTfKOgAvEd67NPKc3HxPYGDXy/pGMryk0NqV6UfSOkP76grvdPTSIr0eIyuuT+WZV3e0DtJjn8ZzjOxoqwLE7Pz0yJmuNAd7R0abOebo9S29nmNkgdu7r8jrGCQ8CubRwOpRoZK8nBEXidrFFPltjSnLVxfMHH9XYVrqTovWxYa1uO8XWRUgrAp2Sebz7tqxLABn56PP7uN51t6bnnwc5GZWXYQ7u5NyUdIBI1FbEDmP2UM7RXoleMnqsZxIhZy3lVM9d4xTRc3TGLA6QESp7e4WpTBsXc/oUyBvyQs1K6dI512Eo26/J5+zIkBE6nqIUDBHaDm8aahdj5Xv6akNaksGWE+0+t7vCryn3h8kVsxiGu0+aHVzjM7Q2Fkw7w4Krwj9/FGuhbXVhaKkK1CaJutuxZPusVdajw+S0cYg0hrlSRmsJsK5tGrpq/VaTxGCVwTS7iXpazVWvUn2+AIR/xRtFpN1bccrw7YKsnQAesdgb61AKH22akzIK0BFK5CiBjXNc1UT9dzgaOVCuR5NBtw96yUv+Fev2ygtUHv/7LVaJN+Rkr7Tp7WYsLfYriVSoTU7ZVm7QDDyqzIipw0Ku161UeJV4Ftm1pFWwYqHRRtcX7NpS6/H6kWC0eyotKw43kgeSYPdbff5U06ZxRSJpqbn9YBYXVOLtGkKRsnKc8tXP5wi0utFZtMQ4RxgJNogtZdd/d6ruph20wyE3liASFfWR1p3MkJ7j6PlUyh5B4gTMr1WhJlJUVnPud85EWG1SPkpHzMa6T7c9Z6wW/JDCF9pQSCeHW89jSxS+qVTkWvyiRArX94YKdAezzNARMrwzxMvPbfSFiCW+7N6ZYRUhO5GD3mBPpL22j54Dg9CCwLWLObcj34vDRKrCuTdb/X1IpkmLSGdEo6Adk9ztVrhKe0nzeebk1l9jNyP2X3l+/O+vxFeZjhTWEvXrsy+rqa27oXn7wBeLQjpjA7LF/mR2fZKC4CdD3/EGTRWacmfl5HgoBkPmB2LeI+74r1oEVthx/MIELv6ZbVdFpEKkC+zfO9Quk/PhZeWedz6LQPSfWlniFmsj/BaTLhrxtT1do1BWGaUtMD/8lz83UpdB9r70bsv2oIywkwpyzRYrHrP/97TqlCN3A/rIMGz7GhXgLB+/cXoNmQue7OFmDWr1sTIPnqVll2th/fvOypUVrX9lVNnP8s6QJxyw2r9orAnLYgsViNb7L+0zWhwaO33JK1av7b7z4J0gB2TdsxiolD+HmnXgmSAe7abYkXhIT0PyX4iSGv9tdlUM/ttvUBSM/PqFeW6Hc+yBRElajMWEY/1WIRmn6vVxl9mF555sViw+PfMtSTyllrt/7HY6jGISA/G88RLz800XXrS6ZXR7p9lxSTauT2PLE0R041Bt66ktl6li3na9RGa7oTdhVIpDTNrFlbTTnltffbe48jnCyGrABGxoCWDxqNZYX0iSTfSyZWX1kB17+8rMDvR2MoWRK+GNaq0H4JDXF61yx211vyYXlNST7bqPPJ1HjBgMYtptKBfsQ5CUmPVdnuQ+WLzqojU9q/x1Vk4+awkr33fdt22+/v9zO5XawocN27ejtqR973Lp6x6H2vU1/LvqmfWen3JaBpW5vGXdkxuC4sAEf4kMWXF/d3VNUDe/Tbuf4dlCwJ34eEBbB03RnLrNNebzbz+QWN26qMFai+4LQ8cExyehxYEAHg7aU3MP3i3IE6IPrvTODov3qsVEeF67E4DzhA5n7Ra+pHT/Q/eAeKESLk7jaOvn1gx739HRmYV7v2s8tUp+cTyBYdLMQbxP0fcsIT0xXba89rx0I22GvJXPOT/NrIfT/l57shzM9cp3660L8t1R6cqtfYl3wvHIkDkmaP038w+V+llWs+V3yPbp3OrW/tMXz+gbe56Lgor5Q/N+36e59+vVpDsS3P9tfeqdY1b6V8hP+bosdNrnufB0t9rx5c4cRJEus/auR4TIC0ChMf7T7wKa2kBVOKx8nuk9l+73r0CsdZ1o/nNAs11772LSHs98xWzVn28rRrtSBo1q/JHgqPk30tmVpiPHj89x5FuFum7uyRaz5JkG2k6Isz+M7PyZX0zF8WqWS59jfQqksK5dr4Wr87WbqvdV++hXDGG0qvR77rvvfc4edVELQo9yzGEFRWz0WA4m1dr+f9TLYjnaZ+0xcXQtFKOic7GvB4kr4Cs0WvJpN0mraAWJW9IauRehchsrbxV6JUCX2mb0nl63Rtt68f7hYuj3e5brJzFNNttJG2CjxQIIzUMz5usrdmNXttaQZt+NttkXvUwtAo+z/RZdhOuri1r9ytJr6Qrp9fVaV1RKYnwrqnwLQnrhXK9zOHVpJV+vzbAln4uqd1om8Ye3609rL/C3yX3RVuz7I0xSLeZ7RtOvz9yHu/2kjxT+yw9du27rW3TfdS++yv8XXIMTbpGKhqSfFDLm700jNxH6baSazM6blL6nuQ5DMe6BdHKLBaDYr3v947TqxVbtTjSTGJ93lbBcrYfvtRtMNMKfPUG4Vu1y1KAXzFWk24/mod6+fY9F21+mjmvmYDSaiVEaHE+Tz89I91BtWeqFDBCB4fnsQ8Qtag5cjG0tVmP7qRZvaa05jPNd55nvLY3ymoQr7a/Xnfa+zDn/eCSQlISKCX70BQCrdruSM21ZyRYWOTV/Dw1lSDPMqNW4Whde23LsDQmc0RgeK1YKNe7GJIL1ipo86Ziad+1aC7tX+8dv7RN+mdvm1JzvGQ0OOQZVHNsaYbWFI4zLRdJOkqtI4vrqjETyFvbt/69lRd722m7l0Zq163ja74v2a5XHvS2nXkWNPsMbfdKak0tr7V97bO8sJBsl38ueXBGarsapcwl7UrKvz/TDyp9IHstOovunJGgNbqf9PuS4/TuVc9M37tXIaRtDWv2N3O+M0a6j2rPz5EBoGdVgPDu1ikVSKP94aXCvdbv3coQkpr5DqOFlab7S9MkH0nL+3fNQ7myazEtSEaP2+oX124TkVcekR639XkrEIzu90irAsRIF5L0O6M3Zrbm2Gsl5F1gz2NTcGi1Wg4pbVdHNCNdDlqaayTp2rLmdayRYKX5jlare2tmYF1C2ltwRcD4z+bjz86yeATbjwQCq4HN9HsavS6a2jal4+UzYLR92+k+ela0FN/jaLq0vGm7MKVqgafVWvYaTxnpmsxbfLX9pvufqSxKt29tW8vrrYAUqYfA1IoWhFVftLZmMNInKJ2iJt2/Zz/8DO2xJa03ae16pN+39P95ayxSP/DMAG56HtIWZ3reXoFydhylVuimNXBJXpHkud5nmm3SMkGbv45vRUSYxfQ8fs1Qq2NathLSh99Dq/aTFzr55xbHqh1bs03r+6UBWe/CsadXg9SkK28NSM4xL8RWkQbCXuVhpOuu9rnkM+n+89bN89iWG+GtWihXM9OslNSu8gyc/v9sTWCmMJqdPdFKT6nJ2wtIoxl5ZJ+Wg7elQWttYdwr5Frp7W3XGuxs5cNf5b+a3nlLnhOJ0QkBrbyQ3jfp/ZBU/nrPiGTbUnA4vtDXsHzVxkwGbpFuqzmGpOYyUuBYkRToo7Wy2vc121iQnENOmz5t95bl2I90O+22o3lS8xz1jB5fs+1MHpcey7rMSD+/IpDsXgfxPLJmce87rX7MGmnm6R3XesBMci0kNShpq0xaaMxcByua42gL0rwrp/Wd2mejrVLpveoVmlbPkeTZ0JB2C43uf2Q/1mXGrm4+Vx4v62sNRrU+fyqf1b6bfr+2vaapW9q2FyTy4/bOL09H69/zwqCUll9hm/y4tUKl1Eqq7auUjueRXe/asXOSPFA7x96+a8eSpOf9vHUeveuV/lsvfa20afJi7TutvNe6r6101PbVS3sv//fS0Nquda6tbUrfaaXjatYBItW6WZKHZObmjN7E0QdkJm2rMtzIcWbTVnuo8wJk5n5pAmZv+9HvSNM0kkZJOiyu5QiL+zYb9EaP6/H963gGiB5JDd3yOKtYFqq1wqV3DMk+IpmtEOw0WshbnNtMRcXariC18tgn5EdTUcYgnqfcDJRGr9b3Vt9Qy+Pl+5J2T6TfK3VVWbGqXdTSJOmus0xHb9+lv2uup0WLqbS/9PORVuLoZ7XPNQHTQp7fa8eqHa/1We04n2DVgvhcZHVmeT2j7qu3T48WplVXlpWdrY8dTk33Z+3sYgIABBahiwkAEBABAgBQRIAAABQRIAAARQQIAEARAQIAUESAAAAUESAAAEUECABAEQECAFBEgAAAFBEgAABFBAgAQBEBAgBQRIAAABQRIAAARQQIAEARAQIAUESAAAAUESAAAEUECABAEQECAFBEgAAAFBEgAABFBAgAQBEBAgBQRIAAABQRIAAARQQIAEARAQIAUESAAAAU/T+Qgh5eCrmLswAAAABJRU5ErkJggg==" alt="Approach International Student Center">
+<div><h1>Telling What Happened</h1><p>Grammar and Writing, Week 2, Independent Level</p></div>
+<nav role="tablist"><button role="tab" aria-selected="true" data-tab="t1">Stage 5: Timeline</button><button role="tab" aria-selected="false" data-tab="t2">Stage 6: Choose</button></nav></header>
+<main>
+<section id="t1">
+<p class="stage">Stage 5, Confirm</p>
+<h2>Where does each form go on the timeline?</h2>
+<p class="lead">The story of Olivo, from Camila’s old life to NOW. Each card shows where a form belongs.</p>
+<div class="chips" id="chips"></div><p class="swipe">Swipe the timeline left and right ↔</p><div class="tlwrap"><div class="tlscroll"><div class="tl" id="tl"></div></div><div class="legend"><span>Dashed cards: review from Week 1</span><b style="color:#8c7535">Click any card to see how to use it.</b></div></div>
+</section>
+<section id="t2" class="hidden">
+<p class="stage">Stage 6, Choose</p>
+<h2>Ahmed’s difficult morning</h2>
+<div class="toolbar"><span>Tap the correct words. Then match each paragraph to its job.</span>
+<button class="btn gold" id="showAll">Show all answers</button><button class="btn navy" id="reset">Start again</button>
+<span class="score" id="score">0 / 8</span></div>
+<div class="fb" id="fb">Tap an answer in the story.</div>
+<div class="story" id="story"></div>
+<div class="whybox hidden" id="whyBox"><h3>Why?</h3><ul id="whyList"></ul></div>
+<div class="jobs"><h3>What is the job of each paragraph?</h3><div id="jobs"></div></div>
+</section>
+</main>
+<footer>Approach International Student Center · Grammar and Writing · Week 2</footer>
+<div class="shade" id="shade"></div>
+<aside class="drawer" id="drawer" aria-hidden="true"><div class="dh"><button class="close" id="close" aria-label="Close">✕</button><h3 id="dt"></h3><div class="rv" id="drv"></div></div><div class="db" id="db"></div></aside>
+<script>
+const D = {"lanes": [{"id": "ps", "title": "Past simple", "color": "#143865", "review": false, "marks": [{"t": "dot", "x": 38, "n": "1", "l": "smelled smoke"}, {"t": "dot", "x": 52, "n": "2", "l": "moved the guests"}, {"t": "dot", "x": 66, "n": "3", "l": "firefighters arrived"}], "form": "verb + ed (or an irregular verb): started, smelled, moved, went, took", "use": "The main events of the story. Tell them in order, one after another. The action is finished.", "ex": ["Camila <b>smelled</b> smoke.", "The staff <b>moved</b> all 70 guests outside.", "Firefighters <b>arrived</b> a few minutes later."], "bad": "Two weeks ago, the fire has started at 8:30.", "good": "Two weeks ago, the fire started at 8:30.", "card": {"x": 57, "side": "down", "row": 1, "txt": "She <b>smelled</b> smoke. Staff <b>moved</b> the guests. Firefighters <b>arrived</b>."}}, {"id": "pc", "title": "Past continuous", "color": "#1c4f8f", "review": false, "marks": [{"t": "bar", "x1": 31, "x2": 60, "l": "was taking an order"}, {"t": "flash", "x": 46, "l": "smelled smoke!"}], "form": "was / were + verb-ing: was taking, were preparing", "use": "An action in progress at a moment in the past. It is the background. Often a short action (past simple) interrupts it.", "ex": ["Camila <b>was taking</b> an order when she smelled smoke.", "The cooks <b>were preparing</b> more than 60 meals.", "A cook <b>was taking</b> a delivery at the back door."], "bad": "I carried the boxes inside when the lights went out.", "good": "I was carrying the boxes inside when the lights went out.", "card": {"x": 49, "side": "up", "row": 2, "txt": "Camila <b>was taking</b> an order..."}}, {"id": "pp", "title": "Past perfect", "color": "#0c2340", "review": false, "marks": [{"t": "dot", "x": 44, "n": "1st", "l": "put out the flames"}, {"t": "arrow", "x1": 46, "x2": 64}, {"t": "dot", "x": 66, "n": "2nd", "l": "firefighters arrived"}], "form": "had + past participle: had caught, had put out, had never carried", "use": "An action that happened BEFORE another past action. It helps the reader understand the order when the story jumps back.", "ex": ["When firefighters arrived, the manager <b>had already put out</b> the flames.", "A pan of oil <b>had caught</b> fire.", "I <b>had never carried</b> three plates at once."], "bad": "When I arrived, the bus already left.", "good": "When I arrived, the bus had already left.", "tip": "Helpful words: already, never, before, by the time, when", "card": {"x": 63, "side": "up", "row": 1, "txt": "The manager <b>had already put out</b> the flames."}}, {"id": "ppc", "title": "Past perfect continuous", "color": "#8c7535", "review": false, "marks": [{"t": "bar", "x1": 4, "x2": 30, "l": "had been preparing for 3 months"}, {"t": "pin", "x": 31, "l": "opening night"}], "form": "had been + verb-ing: had been preparing, had been working", "use": "A long activity that continued up to a moment in the past. It often answers: how long?", "ex": ["The team <b>had been preparing</b> for the opening for three months.", "Camila <b>had been working</b> for two hours when the fire started."], "bad": "They have been preparing for three months when the fire started.", "good": "They had been preparing for three months when the fire started.", "card": {"x": 31, "side": "up", "row": 1, "txt": "The team <b>had been preparing</b> for 3 months."}}, {"id": "ut", "title": "used to", "color": "#ab100b", "review": false, "marks": [{"t": "band", "x1": 3, "x2": 26, "l": "worked at a hotel in São Paulo"}, {"t": "cross", "x": 90, "l": "not now"}], "form": "used to + verb: used to work, used to live. Negative: did not use to. Question: Did you use to...?", "use": "Past situations and past habits that are NOT true now.", "ex": ["Camila <b>used to work</b> at a hotel desk.", "I <b>used to live</b> in São Paulo.", "I <b>did not use to</b> drive."], "bad": "I did not used to drive.", "good": "I did not use to drive.", "card": {"x": 15, "side": "up", "row": 2, "txt": "Camila <b>used to work</b> at a hotel."}}, {"id": "wd", "title": "would", "color": "#ae9142", "review": false, "marks": [{"t": "ticks", "x1": 4, "x2": 25, "n": 7, "l": "would drink coffee every morning"}, {"t": "cross", "x": 90, "l": "not now"}], "form": "would + verb: would drink, would bring", "use": "Past actions that happened again and again. Only actions, NOT situations or feelings.", "ex": ["Every morning, my coworkers and I <b>would drink</b> coffee together.", "On Fridays, my manager <b>would bring</b> us cake."], "bad": "I would live in São Paulo.", "good": "I used to live in São Paulo.", "tip": "Live, love, have, be are situations. Use used to with them, not would.", "card": {"x": 15, "side": "down", "row": 1, "txt": "We <b>would drink</b> coffee every morning."}}, {"id": "bg", "title": "be used to / get used to", "color": "#d39f10", "review": false, "marks": [{"t": "ramp", "x1": 70, "x2": 89, "l": "getting used to the fast pace"}], "form": "be used to + noun / verb-ing · get used to + noun / verb-ing", "use": "be used to = it is normal for me. get used to = it is becoming normal. This is NOT the same as used to + verb!", "ex": ["At first, I <b>was not used to</b> the fast pace.", "Now I <b>am getting used to</b> it.", "I <b>am used to working</b> at night."], "bad": "I am used to work late.", "good": "I am used to working late.", "card": {"x": 80, "side": "down", "row": 1, "txt": "Camila <b>is getting used to</b> the fast pace."}}, {"id": "pps", "title": "Present perfect", "color": "#81a7c1", "review": true, "marks": [{"t": "dot", "x": 76, "n": "", "l": "opened again"}, {"t": "arrow", "x1": 78, "x2": 88}, {"t": "pin", "x": 90, "l": "open now"}], "form": "have / has + past participle: have contacted, has opened", "use": "Week 1 review. A past action with a result now. No finished time word. How many? Is it done?", "ex": ["Olivo <b>has opened</b> again.", "We <b>have contacted</b> twelve restaurants. (Week 1)"], "bad": "I have met the manager last Tuesday.", "good": "I met the manager last Tuesday.", "card": {"x": 76, "side": "up", "row": 2, "txt": "Olivo <b>has opened</b> again."}}, {"id": "ppcn", "title": "Present perfect continuous", "color": "#81a7c1", "review": true, "marks": [{"t": "bar", "x1": 36, "x2": 90, "l": "Camila has been working at Olivo for 2 weeks"}], "form": "have / has been + verb-ing: have been designing, has been working", "use": "Week 1 review. An activity that started in the past and is still going on now. How long?", "ex": ["Camila <b>has been working</b> at Olivo for two weeks.", "I <b>have been designing</b> the posters for two weeks. (Week 1)"], "bad": "I am working here since May.", "good": "I have been working here since May.", "card": {"x": 41, "side": "down", "row": 2, "txt": "Camila <b>has been working</b> at Olivo for 2 weeks."}}], "paras": [["Two years ago, I ", [1, "used to live", "would live", 0, false], " in Cairo. Every day, I ", [2, "would take", "was taking", 0, false], " the metro to work, so I almost never drove a car."], ["Last March, I had an important job interview at a hospital outside Boston. I ", [3, "prepared", "had prepared", 1, false], " for it for weeks, and I felt ready. But twenty minutes after I left home, my car ", [4, "stopped", "had stopped", 0, false], " on the highway. Luckily, I ", [5, "drove", "was driving", 1, false], " in the right lane, so I could pull over safely."], ["I called the hospital at once. The manager ", [6, "already heard", "had already heard", 1, false], " about the traffic, and she offered me a video interview. By the time the tow truck arrived, I ", [7, "finished", "had finished", 1, false], " the interview from my car!"], ["I got the job. At first, I ", [8, "was not used to drive", "was not used to driving", 1, false], " on busy highways, but now I always check my car before a long trip."]], "reasons": ["Live is a situation, not a repeated action. Use used to.", "Taking the metro was a repeated action, so would is correct.", "He prepared before the interview day. That happened first.", "This is a main event in the story, in order.", "He was in the middle of driving when the car stopped.", "She heard about the traffic before Ahmed called.", "The interview ended before the tow truck arrived.", "After be used to, write verb-ing."], "jobs": ["the problem", "what changed", "the background", "what Ahmed did"], "jobAns": ["2", "4", "1", "3"], "title": "A Difficult Morning", "author": "by Ahmed"};
+// tabs
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach(x => x.setAttribute("aria-selected", x === b));
+  document.getElementById("t1").classList.toggle("hidden", b.dataset.tab !== "t1");
+  document.getElementById("t2").classList.toggle("hidden", b.dataset.tab !== "t2");
+  closeD();
+});
+// timeline
+const tl = document.getElementById("tl");
+const AX = 320, ROW = {up: {1: 170, 2: 20}, down: {1: 395, 2: 520}};
+const col = id => D.lanes.find(l => l.id === id).color;
+let h = "";
+[[0, 34, "rgba(129,167,193,.16)"], [34, 72, "rgba(174,145,66,.15)"], [72, 92, "rgba(129,167,193,.09)"]].forEach(([a, b, c]) => h += `<div class="zband" style="left:${a}%;width:${b - a}%;background:${c}"></div>`);
+h += '<div class="axis"></div><div class="now"></div><div class="nowtag">NOW</div>';
+[[0, 34, "Earlier past"], [34, 72, "Opening night"], [72, 92, "Two weeks later"]].forEach(([a, b, t]) => h += `<div class="zone" style="left:${a}%;width:${b - a}%">${t}</div>`);
+const at = (x, y, cls, style = "", inner = "") => `<div class="mk ${cls}" style="left:${x}%;top:${y}px;${style}">${inner}</div>`;
+// earlier past: used to band + would ticks
+h += at(4, AX - 26, "seg hatch", `width:24%;background-color:${col("ut")}`);
+for (let k = 0; k < 7; k++) h += at(4.2 + k * 3.6, AX + 26, "tick", `background:${col("wd")}`);
+// past perfect continuous: preparing bar ending at opening night
+h += at(18, AX - 52, "seg", `width:16%;background:${col("ppc")}`);
+// past continuous bar on the line, interrupted
+h += at(43, AX, "seg", `width:13%;height:18px;margin-top:-9px;background:${col("pc")}`);
+h += at(50, AX, "flash", "", "⚡");
+// past simple 1-2-3
+[[50, "1"], [57, "2"], [68, "3"]].forEach(([x, n]) => h += at(x, AX, "dot", `background:${col("ps")};color:${col("ps")}`, n));
+// past perfect: 1st (put out flames) before 3 (firefighters arrived)
+h += at(63, AX - 40, "dot", `background:${col("pp")};color:${col("pp")};font-size:11px`, "1st");
+h += `<div class="mk arr" style="left:64.3%;top:${AX - 40}px;width:2.6%;background:${col("pp")};color:${col("pp")}"></div>`;
+// present perfect: opened again -> now
+h += at(76, AX - 40, "dot", `background:${col("pps")};color:${col("pps")}`, "");
+h += `<div class="mk arr" style="left:77.3%;top:${AX - 40}px;width:13.6%;background:${col("pps")};color:${col("pps")}"></div>`;
+// get used to ramp
+h += at(73, AX + 34, "ramp", `width:18.5%;margin-top:-15px;background:${col("bg")}`);
+// present perfect continuous band to now
+h += at(37, AX + 64, "seg", `width:55%;height:10px;margin-top:-5px;background:${col("ppcn")}`);
+// cards + connectors
+D.lanes.forEach((L, i) => {
+  const c = L.card, top = ROW[c.side][c.row];
+  const AN = {ut: AX - 26, wd: AX + 26, ppc: AX - 52, pc: AX, ps: AX, pp: AX - 40, pps: AX - 40, bg: AX + 46, ppcn: AX + 64};
+  const y1 = top + 30, y2 = AN[L.id];
+  h += `<div class="line" style="left:${c.x}%;top:${Math.min(y1, y2)}px;height:${Math.abs(y2 - y1)}px;background:${L.color}"></div>`;
+  h += `<button class="card${L.review ? " rev" : ""}" data-i="${i}" style="left:${c.x}%;top:${top}px;border-color:${L.color}"><span class="nm" style="background:${L.color}">${L.title}</span><span class="ex">${c.txt}</span></button>`;
+});
+tl.innerHTML = h;
+document.getElementById("chips").innerHTML = D.lanes.map((L, i) => `<button class="chip${L.review ? " rev" : ""}" data-i="${i}" style="background:${L.color}">${L.title}</button>`).join("");
+document.getElementById("chips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (c) openD(+c.dataset.i); });
+const drawer = document.getElementById("drawer"), shade = document.getElementById("shade");
+function openD(i) {
+  const L = D.lanes[i];
+  document.querySelectorAll(".card").forEach(x => x.classList.toggle("active", x.dataset.i == i));
+  document.getElementById("dt").textContent = L.title;
+  document.getElementById("drv").textContent = L.review ? "Review from Week 1" : "Week 2";
+  document.getElementById("db").innerHTML =
+    `<h4>Use it for</h4><p style="margin:0">${L.use}</p>` +
+    `<h4>How to make it</h4><div class="form">${L.form}</div>` +
+    `<h4>Examples</h4><ul>${L.ex.map(e => `<li>${e}</li>`).join("")}</ul>` +
+    `<h4>Common mistake</h4><div class="pair"><div class="no">✗ ${L.bad}</div><div class="yes">✓ ${L.good}</div></div>` +
+    (L.tip ? `<div class="tip">${L.tip}</div>` : "");
+  drawer.classList.add("open"); shade.classList.add("open"); drawer.setAttribute("aria-hidden", "false");
+  document.getElementById("close").focus();
+}
+function closeD() { drawer.classList.remove("open"); shade.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); document.querySelectorAll(".card").forEach(x => x.classList.remove("active")); }
+tl.addEventListener("click", e => { const t = e.target.closest("[data-i]"); if (t) openD(+t.dataset.i); });
+document.getElementById("close").onclick = closeD; shade.onclick = closeD;
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeD(); });
+
+// choose
+const story = document.getElementById("story"), jobsEl = document.getElementById("jobs"), scoreEl = document.getElementById("score");
+let done = new Set();
+function buildStory() {
+  done = new Set();
+  let h = `<h3>${D.title} <span>${D.author}</span></h3>`;
+  D.paras.forEach((p, pi) => {
+    h += `<div class="para"><div class="pn">${pi + 1}</div><div>`;
+    p.forEach(seg => {
+      if (typeof seg === "string") { h += seg; return; }
+      const [n, a, b, ci] = seg;
+      h += `<span class="ch" data-n="${n}"><span class="num">(${n})</span><button class="opt" data-n="${n}" data-k="0">${a}</button><button class="opt" data-n="${n}" data-k="1">${b}</button></span>`;
+    });
+    h += "</div></div>";
+  });
+  story.innerHTML = h;
+  let j = "";
+  D.paras.forEach((p, pi) => {
+    j += `<div class="jrow"><div class="pn">${pi + 1}</div>` + D.jobs.map((job, k) => `<button class="job" data-p="${pi + 1}" data-k="${k}">${job}</button>`).join("") + "</div>";
+  });
+  jobsEl.innerHTML = j; document.getElementById("whyList").innerHTML = ""; document.getElementById("whyBox").classList.add("hidden");
+  const f = document.getElementById("fb"); f.className = "fb"; f.textContent = "Tap an answer in the story."; score();
+}
+function itemByN(n) { for (const p of D.paras) for (const s of p) if (typeof s !== "string" && s[0] == n) return s; }
+function answer(n, k, silent) {
+  const it = itemByN(n), ci = it[3];
+  const btns = story.querySelectorAll(`.opt[data-n="${n}"]`);
+  if (k == ci) {
+    btns.forEach(b => { b.classList.remove("wrong"); b.classList.toggle("right", b.dataset.k == ci); b.classList.toggle("dim", b.dataset.k != ci); b.disabled = true; });
+    if (!done.has(+n)) { done.add(+n); addWhy(n); if (!silent) fb(true, `(${n}) ${it[1 + ci]}: ${D.reasons[n - 1]}`); }
+  } else if (!silent) {
+    const b = btns[k]; b.classList.remove("wrong"); void b.offsetWidth; b.classList.add("wrong"); fb(false, `(${n}) Not quite. Look at the story again and try the other answer.`);
+  }
+  score();
+}
+function fb(ok, t) { const f = document.getElementById("fb"); f.className = "fb " + (ok ? "good" : "bad"); f.textContent = (ok ? "✓ " : "✗ ") + t; }
+function addWhy(n) { const it = itemByN(n); const li = document.createElement("li"); li.dataset.n = n; li.innerHTML = `<b>(${n}) ${it[1 + it[3]]}</b>: ${D.reasons[n - 1]}`; const ul = document.getElementById("whyList"); const after = [...ul.children].find(x => +x.dataset.n > n); ul.insertBefore(li, after || null); document.getElementById("whyBox").classList.remove("hidden"); }
+function score() { scoreEl.textContent = `${done.size} / 8`; }
+story.addEventListener("click", e => { const b = e.target.closest(".opt"); if (b) answer(b.dataset.n, +b.dataset.k); });
+jobsEl.addEventListener("click", e => {
+  const b = e.target.closest(".job"); if (!b) return;
+  const correct = D.jobAns[+b.dataset.k] == b.dataset.p;
+  if (correct) { jobsEl.querySelectorAll(`.job[data-p="${b.dataset.p}"]`).forEach(x => { x.classList.remove("wrong"); x.classList.toggle("right", x === b); x.style.opacity = x === b ? 1 : .35; x.disabled = true; }); }
+  else { b.classList.remove("wrong"); void b.offsetWidth; b.classList.add("wrong"); }
+});
+document.getElementById("showAll").onclick = () => {
+  D.paras.forEach(p => p.forEach(s => { if (typeof s !== "string") answer(s[0], s[3], true); }));
+  jobsEl.querySelectorAll(".job").forEach(b => { const c = D.jobAns[+b.dataset.k] == b.dataset.p; b.classList.toggle("right", c); b.classList.remove("wrong"); b.style.opacity = c ? 1 : .35; b.disabled = true; });
+};
+document.getElementById("reset").onclick = buildStory;
+buildStory();
+</script></body></html>
