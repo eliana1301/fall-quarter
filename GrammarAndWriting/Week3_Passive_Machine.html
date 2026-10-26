@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 3 Processes and Changes: Passive Machine, Table and Choose</title>
+<style>
+:root{--navy:#0c2340;--gold:#ae9142;--mblue:#143865;--bblue:#1c4f8f;--dgold:#8c7535;--bgold:#d39f10;--steel:#81a7c1;--red:#ab100b;--tint:#eef1f6;--cream:#faf3e3;--ok:#1f7a4a;--okbg:#e3f3ea;--nobg:#f6e3e2;--grey:#8a8f98}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#1a1a1a;font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;font-size:20px}
+header{background:var(--navy);color:#fff;border-top:8px solid var(--gold);display:flex;align-items:center;gap:22px;padding:14px 32px;flex-wrap:wrap}
+header img{height:54px}
+header h1{font-family:Cambria,Georgia,serif;font-size:30px;margin:0}
+header p{margin:2px 0 0;color:var(--steel);font-style:italic;font-size:18px}
+nav{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+nav button{font:inherit;font-size:18px;font-weight:700;background:transparent;color:#fff;border:2px solid var(--gold);padding:10px 18px;border-radius:999px;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--gold);color:var(--navy)}
+button:focus-visible{outline:3px solid var(--bgold);outline-offset:2px}
+main{max-width:1400px;margin:0 auto;padding:22px 32px 40px}
+.stage{color:var(--dgold);font-weight:700;font-size:18px;margin:0}
+h2{font-family:Cambria,Georgia,serif;color:var(--navy);font-size:34px;margin:2px 0 6px}
+.lead{margin:0 0 16px;font-size:20px;color:#333}
+.hidden{display:none!important}
+/* machine */
+.tenses{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.tbtn{font:inherit;font-weight:700;font-size:18px;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:999px;padding:8px 16px;cursor:pointer}
+.tbtn[aria-pressed="true"]{background:var(--navy);color:#fff}
+.mach{border:2px solid var(--navy);border-radius:16px;overflow:hidden}
+.mrow{display:grid;grid-template-columns:150px 1fr;align-items:center;border-bottom:1px solid #d5dbe5;min-height:110px}
+.mrow:last-child{border-bottom:0}
+.mlab{background:var(--navy);color:#fff;font-weight:800;font-size:20px;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px}
+.mrow.pas .mlab{background:var(--gold);color:var(--navy)}
+.sent{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;padding:18px 20px}
+.blk{display:flex;flex-direction:column;align-items:center;gap:4px;animation:pop .35s ease}
+.blk .w{font-family:Cambria,Georgia,serif;font-size:32px;font-weight:700;padding:6px 14px;border-radius:10px;border:3px solid}
+.blk .tag{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.doer .w{border-color:var(--grey);color:#444;background:#f2f3f5}.doer .tag{color:#666}
+.verb .w{border-color:var(--mblue);color:var(--mblue);background:var(--tint)}.verb .tag{color:var(--mblue)}
+.obj .w{border-color:var(--red);color:var(--red);background:var(--nobg)}.obj .tag{color:var(--red)}
+.be .w{border-color:var(--bgold);color:#6b5208;background:#fdf3d6}.be .tag{color:#8a6a05}
+.pp .w{border-color:var(--bblue);color:#fff;background:var(--bblue)}.pp .tag{color:var(--bblue)}
+.rest .w{border-color:transparent;color:#333;background:transparent}.rest .tag{color:#999}
+.byp .w{border-style:dashed;border-color:var(--grey);color:#666;background:#fff}.byp .tag{color:#666}
+.ghost{opacity:.25}
+@keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 12px}
+.step{border:2px solid #d5dbe5;border-radius:12px;padding:10px 14px;font-size:18px;color:#777;background:#fafbfc}
+.step b{display:block;color:#999;font-size:16px}
+.step.on{border-color:var(--gold);background:var(--cream);color:#1a1a1a}
+.step.on b{color:var(--dgold)}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-weight:700;font-size:19px;border:0;border-radius:999px;padding:10px 20px;cursor:pointer}
+.btn.navy{background:var(--navy);color:#fff}.btn.gold{background:var(--gold);color:var(--navy)}.btn.line{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.btn:disabled{opacity:.4;cursor:default}
+.tip{margin-top:14px;background:var(--cream);border-left:6px solid var(--gold);padding:10px 14px;border-radius:8px;font-size:19px}
+/* table */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.rcard{all:unset;box-sizing:border-box;cursor:pointer;border:2px solid var(--navy);border-radius:14px;padding:14px 16px;background:#fff;display:flex;flex-direction:column;gap:6px;box-shadow:0 3px 0 rgba(12,35,64,.12)}
+.rcard:hover,.rcard:focus-visible{background:var(--tint)}
+.rcard .rt{font-family:Cambria,Georgia,serif;font-weight:700;font-size:24px;color:var(--navy)}
+.rcard .rb{font-weight:800;font-size:19px;color:#6b5208;background:#fdf3d6;border-radius:8px;padding:3px 10px;align-self:flex-start}
+.rcard .rx{font-size:18px;color:#333;font-style:italic}
+.rcard.extra{border-style:dashed;border-color:var(--dgold)}
+.rcard .more{font-size:15px;color:var(--dgold);font-weight:700}
+/* drawer */
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(560px,92vw);background:#fff;border-left:8px solid var(--gold);box-shadow:-10px 0 30px rgba(12,35,64,.25);transform:translateX(105%);transition:transform .28s ease;z-index:20;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dh{background:var(--navy);color:#fff;padding:20px 24px;position:relative}
+.dh h3{font-family:Cambria,Georgia,serif;font-size:30px;margin:0;padding-right:36px}
+.close{position:absolute;right:16px;top:16px;font:inherit;font-size:28px;background:none;border:0;color:#fff;cursor:pointer;line-height:1}
+.db{padding:20px 24px;overflow:auto;font-size:21px;line-height:1.4}
+.db h4{margin:14px 0 4px;color:var(--dgold);font-size:18px}
+.db .form{background:#fdf3d6;padding:10px 14px;border-radius:8px;font-weight:700;color:#5a4507}
+.db ul{margin:4px 0;padding-left:22px}.db li{margin:6px 0}.db b{color:var(--bblue)}
+.pair{display:grid;gap:8px;margin-top:4px}.pair div{padding:8px 12px;border-radius:8px}
+.pair .no{background:var(--nobg);color:var(--red)}.pair .yes{background:var(--okbg);color:var(--ok);font-weight:700}
+.shade{position:fixed;inset:0;background:rgba(12,35,64,.25);opacity:0;pointer-events:none;transition:opacity .2s;z-index:15}
+.shade.open{opacity:1;pointer-events:auto}
+/* choose */
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 12px}
+.score{margin-left:auto;background:var(--tint);color:var(--navy);font-weight:800;padding:10px 18px;border-radius:999px;font-size:20px}
+.fb{position:sticky;top:0;z-index:5;margin:0 0 12px;padding:12px 18px;border-radius:12px;font-size:21px;font-weight:700;background:var(--tint);color:var(--navy)}
+.fb.good{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--nobg);color:var(--red)}
+.notice{border:3px double var(--navy);border-radius:14px;padding:22px 28px;font-family:Cambria,Georgia,serif;font-size:24px;line-height:2.05}
+.notice .nh{text-align:center;line-height:1.3;margin-bottom:8px}
+.notice .nh h3{margin:0;font-size:30px;color:var(--navy);letter-spacing:.03em;text-transform:uppercase}
+.notice .nh div{font-weight:700;font-size:22px}.notice .nh small{font-family:Calibri,Carlito,sans-serif;color:#555;font-size:16px}
+.para{display:flex;gap:16px;align-items:flex-start;margin:6px 0}
+.pn{flex:none;width:40px;height:40px;margin-top:8px;border-radius:50%;background:var(--navy);color:#fff;font-family:Calibri,Carlito,sans-serif;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.ch{display:inline-flex;gap:4px;align-items:center;white-space:nowrap;vertical-align:middle}
+.ch .num{font-family:Calibri,Carlito,sans-serif;font-weight:800;color:var(--dgold);font-size:20px}
+.opt{font:inherit;font-size:22px;border:2px solid var(--mblue);background:#fff;color:var(--mblue);border-radius:10px;padding:0 10px;cursor:pointer;line-height:1.5}
+.opt:hover{background:var(--tint)}
+.opt.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{background:var(--nobg);border-color:var(--red);color:var(--red);text-decoration:line-through;animation:shake .3s}
+.opt.dim{opacity:.35}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.whybox{margin-top:18px;border:2px solid var(--ok);border-radius:14px;padding:12px 22px;background:#fbfefc}
+.whybox h3{font-family:Cambria,Georgia,serif;color:var(--ok);margin:0 0 6px;font-size:24px}
+.whybox ul{margin:0;padding-left:22px;font-size:20px}.whybox li{margin:4px 0}
+.jobs{margin-top:22px;border:2px solid var(--gold);border-radius:14px;padding:16px 22px}
+.jobs h3{font-family:Cambria,Georgia,serif;color:var(--navy);margin:0 0 10px;font-size:26px}
+.jrow{display:flex;align-items:center;gap:12px;margin:8px 0;flex-wrap:wrap}.jrow .pn{margin:0}
+.job{font:inherit;font-size:19px;border:2px solid var(--dgold);background:#fff;color:var(--navy);border-radius:999px;padding:6px 16px;cursor:pointer}
+.job.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.job.wrong{background:var(--nobg);border-color:var(--red);color:var(--red);animation:shake .3s}
+footer{background:var(--navy);color:#fff;font-style:italic;font-size:15px;padding:10px 32px;border-bottom:8px solid var(--gold)}
+@media (max-width:820px){
+ html,body{font-size:17px}
+ header{gap:10px 14px;padding:10px 14px}header img{height:40px}header h1{font-size:22px}header p{font-size:14px}
+ nav{margin-left:0;width:100%}nav button{flex:1;font-size:14px;padding:8px 6px}
+ main{padding:14px 12px 28px}h2{font-size:24px}.stage{font-size:15px}.lead{font-size:16px}
+ .tbtn{font-size:15px;padding:6px 12px}
+ .mrow{grid-template-columns:1fr;min-height:0}.mlab{height:auto;padding:6px;font-size:16px}
+ .sent{padding:12px;gap:8px}.blk .w{font-size:21px;padding:4px 9px}.blk .tag{font-size:11px}
+ .steps{grid-template-columns:1fr 1fr}.step{font-size:15px;padding:8px 10px}
+ .btn{font-size:15px;padding:8px 14px}.tip{font-size:16px}
+ .grid{grid-template-columns:1fr}.rcard .rt{font-size:21px}.rcard .rb,.rcard .rx{font-size:16px}
+ .drawer{width:100vw;border-left:0;border-top:6px solid var(--gold)}.dh h3{font-size:25px}.db{font-size:18px;padding:14px 18px}
+ .toolbar>span:first-child{width:100%;font-size:16px}.score{font-size:16px;padding:8px 14px}.fb{font-size:16px;padding:10px 12px}
+ .notice{font-size:18px;line-height:1.95;padding:14px 12px}.notice .nh h3{font-size:22px}.notice .nh div{font-size:17px}
+ .para{gap:10px}.pn{width:30px;height:30px;font-size:16px;margin-top:5px}
+ .ch{white-space:normal;flex-wrap:wrap}.ch .num{font-size:16px}.opt{font-size:17px;padding:0 8px}
+ .whybox{padding:10px 14px}.whybox h3{font-size:20px}.whybox ul{font-size:16px}
+ .jobs{padding:12px}.jobs h3{font-size:20px}.jrow{gap:6px}.job{font-size:15px;padding:6px 11px}
+ footer{font-size:13px;padding:8px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><img src="data:image/png;base64,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" alt="Approach International Student Center">
+<div><h1>Processes and Changes</h1><p>Grammar and Writing, Week 3, Independent Level</p></div>
+<nav role="tablist">
+<button role="tab" aria-selected="true" data-tab="t1">Passive Machine</button>
+<button role="tab" aria-selected="false" data-tab="t2">Passive Table</button>
+<button role="tab" aria-selected="false" data-tab="t3">Stage 6: Choose</button></nav></header>
+<main>
+<section id="t1">
+<p class="stage">Stage 5, Confirm</p>
+<h2>The Passive Machine</h2>
+<p class="lead">Choose a tense. Then press Next step to turn the active sentence into a passive sentence.</p>
+<div class="tenses" id="tenses"></div>
+<div class="mach">
+<div class="mrow"><div class="mlab">ACTIVE</div><div class="sent" id="act"></div></div>
+<div class="mrow pas"><div class="mlab">PASSIVE</div><div class="sent" id="pas"></div></div>
+</div>
+<div class="steps" id="steps"></div>
+<div class="ctrl"><button class="btn gold" id="next">Next step ▶</button><button class="btn navy" id="all">Show all steps</button><button class="btn line" id="again">Start again</button></div>
+<div class="tip" id="tip">The verb tense does not disappear. It moves into <b>be</b>.</div>
+</section>
+<section id="t2" class="hidden">
+<p class="stage">Stage 5, Confirm</p>
+<h2>The Passive Table</h2>
+<p class="lead">Every passive = a form of <b>be</b> + a past participle. Tap a tense to see how to use it.</p>
+<div class="grid" id="grid"></div>
+</section>
+<section id="t3" class="hidden">
+<p class="stage">Stage 6, Choose</p>
+<h2>A notice to residents</h2>
+<div class="toolbar"><span>Tap the correct words. Then match each paragraph to its job.</span>
+<button class="btn gold" id="showAll">Show all answers</button><button class="btn navy" id="reset">Start again</button>
+<span class="score" id="score">0 / 8</span></div>
+<div class="fb" id="fb">Tap an answer in the notice.</div>
+<div class="notice" id="story"></div>
+<div class="whybox hidden" id="whyBox"><h3>Why?</h3><ul id="whyList"></ul></div>
+<div class="jobs"><h3>What is the job of each paragraph?</h3><div id="jobs"></div></div>
+</section>
+</main>
+<footer>Approach International Student Center · Grammar and Writing · Week 3</footer>
+<div class="shade" id="shade"></div>
+<aside class="drawer" id="drawer" aria-hidden="true"><div class="dh"><button class="close" id="close" aria-label="Close">✕</button><h3 id="dt"></h3></div><div class="db" id="db"></div></aside>
+<script>
+const D = {"machine": [{"tense": "Present simple", "active": ["The cooks", "make", "the pasta", "by hand."], "be": "is", "pp": "made", "subj": "The pasta", "rest": "by hand."}, {"tense": "Past simple", "active": ["A fire", "damaged", "the kitchen", "on opening night."], "be": "was", "pp": "damaged", "subj": "The kitchen", "rest": "on opening night."}, {"tense": "Present continuous", "active": ["Builders", "are building", "a new patio", "right now."], "be": "is being", "pp": "built", "subj": "A new patio", "rest": "right now."}, {"tense": "Present perfect", "active": ["Workers", "have installed", "new safety equipment", "."], "be": "has been", "pp": "installed", "subj": "New safety equipment", "rest": "."}, {"tense": "Future (will)", "active": ["The team", "will open", "the patio", "in June."], "be": "will be", "pp": "opened", "subj": "The patio", "rest": "in June."}, {"tense": "Modal (can)", "active": ["You", "can book", "tables", "online."], "be": "can be", "pp": "booked", "subj": "Tables", "rest": "online."}, {"tense": "Modal (should)", "active": ["Customers", "should book", "large tables", "two days early."], "be": "should be", "pp": "booked", "subj": "Large tables", "rest": "two days early."}], "rows": [{"id": "pres", "title": "Present simple", "be": "am / is / are", "use": "Facts and processes: how things are usually done.", "ex": ["The pasta <b>is made</b> by hand.", "The flour and eggs <b>are mixed</b> in a large bowl.", "English <b>is taught</b> in many schools."], "bad": "The pasta made by hand.", "good": "The pasta is made by hand."}, {"id": "past", "title": "Past simple", "be": "was / were", "use": "A finished action in the past. Often with a past time: last month, in 2020.", "ex": ["The kitchen <b>was damaged</b> in a fire.", "Three new machines <b>were installed</b> last month."], "bad": "The machines installed last month.", "good": "The machines were installed last month."}, {"id": "cont", "title": "Present continuous", "be": "am / is / are being", "use": "An action happening now, or around now.", "ex": ["A new patio <b>is being built</b>.", "The walls <b>are being painted</b> this week."], "bad": "The patio is been built.", "good": "The patio is being built."}, {"id": "perf", "title": "Present perfect", "be": "has / have been", "use": "A change in the past with a result now. Often with since, already, just.", "ex": ["The kitchen <b>has been rebuilt</b>.", "New safety equipment <b>has been installed</b>."], "bad": "The kitchen has been rebuild.", "good": "The kitchen has been rebuilt."}, {"id": "fut", "title": "Future with will", "be": "will be", "use": "Future plans, changes, and announcements.", "ex": ["The patio <b>will be opened</b> in June.", "Recycling <b>will be collected</b> on Tuesdays."], "bad": "Recycling will collect on Tuesdays.", "good": "Recycling will be collected on Tuesdays."}, {"id": "mod", "title": "Modals", "be": "can / should / must be", "use": "What is possible (can), a good idea (should), or necessary (must). Very common in notices.", "ex": ["Tables <b>can be booked</b> online.", "Large groups <b>should be booked</b> two days early.", "Recycling <b>must be sorted</b>."], "bad": "Tables can booked online.", "good": "Tables can be booked online."}, {"id": "have", "title": "Extra: have something done", "be": "have + thing + past participle", "use": "You pay someone to do it for you. Get is more informal.", "ex": ["Marco <b>had the kitchen rebuilt</b>.", "I <b>had my hair cut</b> yesterday.", "I am <b>getting my phone fixed</b>."], "bad": "I cut my hair at the salon. (Someone else did it.)", "good": "I had my hair cut at the salon."}], "paras": [["We would like to tell you about some changes in the building. Last month, three new washing machines ", [1, "installed", "were installed", 1], " in the basement laundry room, and the old dryers ", [2, "have been removed", "have removed", 0], "."], ["At the moment, the laundry room walls ", [3, "are painting", "are being painted", 1], ", so the room ", [4, "is closed", "closes", 0], " until Friday."], ["From March 15, recycling ", [5, "will be collected", "will collect", 0], " on Tuesdays instead of Mondays. New blue bins ", [6, "will place", "will be placed", 1], " next to the garage."], ["All residents ", [7, "must sort", "must be sorted", 0], " their recycling into paper and plastic. Laundry cards ", [8, "can buy", "can be bought", 1], " at the building office. Thank you for your help!"]], "reasons": ["Machines do not install themselves. Someone installed them: were + past participle.", "The dryers did not remove anything. Someone removed them: have been + past participle.", "The walls are not painting. Someone is painting them now: are being + past participle.", "This is how the room is now: is closed.", "Recycling does not collect anything. Someone collects it: will be + past participle.", "After will be, use the past participle: placed.", "Residents do the sorting themselves, so we need the active: must sort.", "Cards do not buy. People buy them: can be + past participle."], "jobs": ["what will happen", "what has been done", "what residents must do", "what is happening now"], "jobAns": ["3", "1", "4", "2"], "title": "Notice to All Residents", "sub": "Changes to the Laundry Room and Recycling", "from": "From: Maple Court Management · March 1"};
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach(x => x.setAttribute("aria-selected", x === b));
+  ["t1", "t2", "t3"].forEach(t => document.getElementById(t).classList.toggle("hidden", b.dataset.tab !== t));
+  closeD();
+});
+// ---------- machine ----------
+let cur = 0, step = 0;
+const STEPS = [
+  ["Step 1", "Find the object. It moves to the front."],
+  ["Step 2", "Add be in the same tense as the active verb."],
+  ["Step 3", "Add the past participle."],
+  ["Step 4", "Do we need by + the doer? Usually not."],
+];
+const tensesEl = document.getElementById("tenses");
+tensesEl.innerHTML = D.machine.map((m, i) => `<button class="tbtn" data-i="${i}" aria-pressed="${i === 0}">${m.tense}</button>`).join("");
+tensesEl.onclick = e => { const b = e.target.closest(".tbtn"); if (!b) return; cur = +b.dataset.i; step = 0; tensesEl.querySelectorAll(".tbtn").forEach(x => x.setAttribute("aria-pressed", x === b)); drawM(); };
+const blk = (cls, w, tag, extra = "") => `<div class="blk ${cls} ${extra}"><span class="w">${w}</span><span class="tag">${tag}</span></div>`;
+function drawM() {
+  const m = D.machine[cur], [doer, verb, obj, rest] = m.active;
+  const restTxt = rest === "." ? "" : rest;
+  document.getElementById("act").innerHTML = blk("doer", doer, "doer") + blk("verb", verb, "verb") + blk("obj", obj, "object", step >= 1 ? "ghost" : "") + (restTxt ? blk("rest", restTxt, "") : blk("rest", ".", ""));
+  let p = "";
+  if (step >= 1) p += blk("obj", m.subj, "new subject");
+  if (step >= 2) p += blk("be", m.be, "be");
+  if (step >= 3) p += blk("pp", m.pp, "past participle");
+  if (step >= 4) p += blk("byp", "(by " + doer.charAt(0).toLowerCase() + doer.slice(1) + ")", "not needed?");
+  if (step >= 3) p += blk("rest", restTxt || ".", "");
+  if (!p) p = '<span style="color:#999;font-size:20px">Press Next step to start.</span>';
+  document.getElementById("pas").innerHTML = p;
+  document.getElementById("steps").innerHTML = STEPS.map(([a, b], i) => `<div class="step${step > i ? " on" : ""}"><b>${a}</b>${b}</div>`).join("");
+  document.getElementById("next").disabled = step >= 4;
+  const tips = ["The verb tense does not disappear. It moves into <b>be</b>.",
+    `<b>${m.subj}</b> is now the subject. The doer (<b>${doer}</b>) is less important.`,
+    `<b>${verb}</b> is ${m.tense.toLowerCase()}, so be is <b>${m.be}</b>.`,
+    `The past participle is always the same: <b>${m.pp}</b>. Only be changes.`,
+    `Who did it? <b>${doer}</b>. Is that important for the reader? If not, leave it out.`];
+  document.getElementById("tip").innerHTML = tips[step];
+}
+document.getElementById("next").onclick = () => { if (step < 4) { step++; drawM(); } };
+document.getElementById("all").onclick = () => { step = 4; drawM(); };
+document.getElementById("again").onclick = () => { step = 0; drawM(); };
+drawM();
+// ---------- table ----------
+const grid = document.getElementById("grid");
+grid.innerHTML = D.rows.map((r, i) => `<button class="rcard${r.id === "have" ? " extra" : ""}" data-i="${i}"><span class="rt">${r.title}</span><span class="rb">${r.be}${r.id === "have" ? "" : " + past participle"}</span><span class="rx">${r.ex[0].replace(/<\/?b>/g, "")}</span><span class="more">Tap to learn more ›</span></button>`).join("");
+const drawer = document.getElementById("drawer"), shade = document.getElementById("shade");
+function openD(i) {
+  const r = D.rows[i];
+  document.getElementById("dt").textContent = r.title;
+  document.getElementById("db").innerHTML = `<h4>Use it for</h4><p style="margin:0">${r.use}</p><h4>How to make it</h4><div class="form">${r.be}${r.id === "have" ? "" : " + past participle"}</div>` +
+    `<h4>Examples</h4><ul>${r.ex.map(e => `<li>${e}</li>`).join("")}</ul><h4>Common mistake</h4><div class="pair"><div class="no">✗ ${r.bad}</div><div class="yes">✓ ${r.good}</div></div>`;
+  drawer.classList.add("open"); shade.classList.add("open"); drawer.setAttribute("aria-hidden", "false"); document.getElementById("close").focus();
+}
+function closeD() { drawer.classList.remove("open"); shade.classList.remove("open"); drawer.setAttribute("aria-hidden", "true"); }
+grid.onclick = e => { const c = e.target.closest(".rcard"); if (c) openD(+c.dataset.i); };
+document.getElementById("close").onclick = closeD; shade.onclick = closeD;
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeD(); });
+// ---------- choose ----------
+const story = document.getElementById("story"), jobsEl = document.getElementById("jobs"), scoreEl = document.getElementById("score");
+let done = new Set();
+function itemByN(n) { for (const p of D.paras) for (const s of p) if (typeof s !== "string" && s[0] == n) return s; }
+function fb(ok, t) { const f = document.getElementById("fb"); f.className = "fb " + (ok ? "good" : "bad"); f.textContent = (ok ? "✓ " : "✗ ") + t; }
+function addWhy(n) { const it = itemByN(n); const li = document.createElement("li"); li.dataset.n = n; li.innerHTML = `<b>(${n}) ${it[1 + it[3]]}</b>: ${D.reasons[n - 1]}`; const ul = document.getElementById("whyList"); const after = [...ul.children].find(x => +x.dataset.n > n); ul.insertBefore(li, after || null); document.getElementById("whyBox").classList.remove("hidden"); }
+function score() { scoreEl.textContent = `${done.size} / 8`; }
+function buildStory() {
+  done = new Set();
+  let h = `<div class="nh"><h3>${D.title}</h3><div>${D.sub}</div><small>${D.from}</small></div>`;
+  D.paras.forEach((p, pi) => {
+    h += `<div class="para"><div class="pn">${pi + 1}</div><div>`;
+    p.forEach(seg => {
+      if (typeof seg === "string") { h += seg; return; }
+      const [n, a, b] = seg;
+      h += `<span class="ch"><span class="num">(${n})</span><button class="opt" data-n="${n}" data-k="0">${a}</button><button class="opt" data-n="${n}" data-k="1">${b}</button></span>`;
+    });
+    h += "</div></div>";
+  });
+  story.innerHTML = h;
+  jobsEl.innerHTML = D.paras.map((p, pi) => `<div class="jrow"><div class="pn">${pi + 1}</div>` + D.jobs.map((job, k) => `<button class="job" data-p="${pi + 1}" data-k="${k}">${job}</button>`).join("") + "</div>").join("");
+  document.getElementById("whyList").innerHTML = ""; document.getElementById("whyBox").classList.add("hidden");
+  const f = document.getElementById("fb"); f.className = "fb"; f.textContent = "Tap an answer in the notice."; score();
+}
+function answer(n, k, silent) {
+  const it = itemByN(n), ci = it[3];
+  const btns = story.querySelectorAll(`.opt[data-n="${n}"]`);
+  if (k == ci) {
+    btns.forEach(b => { b.classList.remove("wrong"); b.classList.toggle("right", b.dataset.k == ci); b.classList.toggle("dim", b.dataset.k != ci); b.disabled = true; });
+    if (!done.has(+n)) { done.add(+n); addWhy(n); if (!silent) fb(true, `(${n}) ${it[1 + ci]}: ${D.reasons[n - 1]}`); }
+  } else if (!silent) { const b = btns[k]; b.classList.remove("wrong"); void b.offsetWidth; b.classList.add("wrong"); fb(false, `(${n}) Not quite. Who does the action? Try the other answer.`); }
+  score();
+}
+story.addEventListener("click", e => { const b = e.target.closest(".opt"); if (b) answer(b.dataset.n, +b.dataset.k); });
+jobsEl.addEventListener("click", e => {
+  const b = e.target.closest(".job"); if (!b) return;
+  if (D.jobAns[+b.dataset.k] == b.dataset.p) { jobsEl.querySelectorAll(`.job[data-p="${b.dataset.p}"]`).forEach(x => { x.classList.remove("wrong"); x.classList.toggle("right", x === b); x.style.opacity = x === b ? 1 : .35; x.disabled = true; }); }
+  else { b.classList.remove("wrong"); void b.offsetWidth; b.classList.add("wrong"); }
+});
+document.getElementById("showAll").onclick = () => {
+  D.paras.forEach(p => p.forEach(s => { if (typeof s !== "string") answer(s[0], s[3], true); }));
+  jobsEl.querySelectorAll(".job").forEach(b => { const c = D.jobAns[+b.dataset.k] == b.dataset.p; b.classList.toggle("right", c); b.classList.remove("wrong"); b.style.opacity = c ? 1 : .35; b.disabled = true; });
+};
+document.getElementById("reset").onclick = buildStory;
+buildStory();
+</script></body></html>
