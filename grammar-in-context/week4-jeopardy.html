@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jeopardy · Weeks 1–3 · Grammar in Context</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Carlito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0C2340;--navy2:#13305A;--tile:#1C3D6E;--gold:#E2C26A;--gold2:#AE9142;--cream:#F8F4EC;--berry:#8E3A5A;--ok:#2F8F4E;--bad:#B2453A;--ink:#1A1A1A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--navy);color:#fff;font-family:'Carlito','Calibri',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+h1,.serif{font-family:'Caladea','Cambria',Georgia,serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;flex-wrap:wrap}
+header h1{margin:0;font-size:clamp(22px,2.6vw,34px);color:var(--gold)}
+header h1 span{color:#fff;font-weight:400;font-size:.6em;margin-left:8px}
+.hbtn{font:inherit;font-weight:700;font-size:16px;min-height:42px;padding:6px 14px;border-radius:9px;border:2px solid #6E86AE;background:transparent;color:#fff;cursor:pointer}
+.hbtn:hover{background:rgba(255,255,255,.08)}
+button:focus-visible,[contenteditable]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.board{flex:1;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:auto repeat(7,1fr);gap:6px;padding:6px 18px 10px}
+.cat{background:var(--navy2);border:2px solid var(--gold2);border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 6px;font-family:'Caladea',serif;font-weight:700;font-size:clamp(15px,1.7vw,24px);color:#fff;min-height:44px;line-height:1.15}
+.tile{font-family:'Caladea',serif;font-weight:700;font-size:clamp(20px,min(2.8vw,4.6vh),40px);color:var(--gold);background:var(--tile);border:0;border-radius:9px;cursor:pointer;min-height:40px;box-shadow:inset 0 -5px 0 rgba(0,0,0,.25);transition:transform .1s}
+.tile:hover{transform:scale(1.03)}
+.tile.used{background:#0F2A4D;color:rgba(255,255,255,.18);cursor:default;box-shadow:none;transform:none}
+.scores{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:8px 18px 16px}
+.team{background:var(--cream);color:var(--ink);border-radius:12px;padding:8px 8px 6px;text-align:center;border:4px solid transparent;cursor:pointer;position:relative}
+.team.turn{border-color:var(--gold);box-shadow:0 0 0 3px rgba(226,194,106,.35)}
+.team.turn::before{content:"YOUR TURN";position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;letter-spacing:1px;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.tname{font-weight:700;font-size:clamp(14px,1.3vw,18px);color:var(--navy);outline:none;border-radius:4px;min-height:22px;overflow-wrap:anywhere}
+.tscore{font-family:'Caladea',serif;font-weight:700;font-size:clamp(26px,2.8vw,40px);color:var(--navy);line-height:1.1}
+.tscore.neg{color:var(--bad)}
+.adj{display:flex;gap:6px;justify-content:center;margin-top:2px}
+.adj button{font:inherit;font-weight:700;font-size:15px;min-width:44px;min-height:34px;border-radius:8px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+.pop{animation:pop .35s}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(5,14,28,.88);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}
+.modal.open{display:flex}
+.dlg{background:var(--navy2);border:3px solid var(--gold2);border-radius:18px;width:min(1150px,100%);max-height:100%;overflow:auto;padding:14px 22px 10px;display:flex;flex-direction:column;gap:6px}
+.dtop{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.dcat{font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;font-size:18px}
+.timer{display:flex;align-items:center;gap:8px}
+.tval{font-family:'Caladea',serif;font-weight:700;font-size:30px;min-width:56px;text-align:center}
+.tval.low{color:#FF8A7A}
+.pu{display:none;text-align:center;background:linear-gradient(90deg,#7A2E4A,#AE9142);border-radius:12px;padding:6px 12px}
+.pu.on{display:block}
+.pu .pt{font-family:'Caladea',serif;font-weight:700;font-size:clamp(24px,2.8vw,38px);letter-spacing:2px}
+.pu .pd{font-size:20px}
+.clue{font-family:'Caladea',serif;font-size:clamp(22px,min(3vw,5.2vh),42px);line-height:1.2;text-align:center;margin:2px 0;white-space:pre-line}
+.ans{display:none;background:var(--cream);color:var(--navy);border-radius:12px;padding:8px 14px;text-align:center;font-size:clamp(20px,2.3vw,30px);font-weight:700;white-space:pre-line}
+.ans.on{display:block}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center}
+.big{font:inherit;font-weight:700;font-size:18px;min-height:44px;padding:8px 20px;border-radius:10px;border:2px solid var(--gold);background:var(--gold);color:var(--navy);cursor:pointer}
+.big.alt{background:transparent;color:#fff}
+.lbl{font-weight:700;color:var(--gold);font-size:17px;text-align:center}
+.awards{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.aw{font:inherit;font-weight:700;font-size:16px;min-height:42px;border-radius:10px;border:2px solid #9FB0C8;background:#fff;color:var(--navy);cursor:pointer;padding:4px;line-height:1.15}
+.aw .n{display:block;font-size:13px;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.aw[aria-pressed=true]{background:var(--ok);border-color:var(--ok);color:#fff}
+.aw.minus[aria-pressed=true]{background:var(--bad);border-color:var(--bad)}
+.aw.minus{border-style:dashed}
+.wager{display:none}
+.wager.on{display:flex}
+.wager input{font:inherit;font-size:20px;width:120px;min-height:46px;border-radius:9px;border:2px solid var(--gold);padding:4px 10px;text-align:center}
+.hint{color:#C9D3E3;font-size:15px;text-align:center}
+@media (max-width:900px){.scores,.awards{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.board{gap:5px;padding:6px 8px}.scores{grid-template-columns:repeat(2,1fr)}.awards{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Jeopardy<span>Grammar in Context · Weeks 1–3</span></h1>
+  <div class="row">
+    <button class="hbtn" id="undo" title="Undo the last score change">↶ Undo</button>
+    <button class="hbtn" id="reset">New game</button>
+  </div>
+</header>
+<main class="board" id="board" aria-label="Game board"></main>
+<section class="scores" id="scores" aria-label="Team scores"></section>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="clue">
+ <div class="dlg">
+  <div class="dtop"><div class="dcat" id="dcat"></div>
+   <div class="timer"><button class="hbtn" id="tbtn">Start 30s</button><div class="tval" id="tval" aria-live="off">30</div><button class="big" id="close">Back to board ✕</button></div></div>
+  <div class="pu" id="pu"><div class="pt" id="put"></div><div class="pd" id="pud"></div></div>
+  <div class="clue" id="clue"></div>
+  <div class="row"><button class="big alt" id="show">Show answer</button></div>
+  <div class="ans" id="ans" aria-live="polite"></div>
+  <div class="wager row" id="wager"><span class="lbl">Wager:</span><input type="number" id="wval" min="100" max="1000" step="50" value="500" aria-label="Wager amount"><button class="hbtn" data-w="100">100</button><button class="hbtn" data-w="500">500</button><button class="hbtn" data-w="1000">1000</button></div>
+  <div class="lbl" id="awlbl">Correct? Click the team to add points.</div>
+  <div class="awards" id="awards"></div>
+  <div class="lbl" id="minlbl">Wrong answer? Click to subtract.</div>
+  <div class="awards" id="minus"></div>
+  <div class="lbl" id="steallbl" hidden>STEAL: take 200 points from…</div>
+  <div class="awards" id="steal" hidden></div>
+  <div class="hint">Click a button again to undo it.</div>
+ </div>
+</div>
+
+<script>
+var TEAMS=6;
+var CATS=["A","B","C","D","E","F","G","H"];
+var VALS=[100,200,300,400,500,600,700];
+// [clue, answer] per category, 100 → 500
+var Q=[[["Speak: tell the class one place in Massachusetts you have visited. Full sentence!", "Teacher judges. Example: I have visited Salem.", "Speak"], ["Give the past participle:\nwrite · take · fly", "written · taken · flown", "Past participles"], ["Which question is correct?\n\"When have you moved here?\"  or  \"When did you move here?\"", "When did you move here? (When...? = finished time)", "Which is correct?"], ["Two sentences, two tenses:\nI / be / to Maine / twice.   I / go / last summer.", "I have been to Maine twice. I went last summer.", "Two tenses"], ["Speak: tell the class the strangest food you have ever tried, and when you tried it.", "Teacher judges. Listen for: I have tried... I tried it in...", "Speak"], ["Fix it (all the mistakes):\n\"I never have seen snow before I have moved here.\"", "I had never seen snow before I moved here. (also OK: I never saw snow before I moved here.)", "Fix it"], ["Write the question. The answer is:\n\"Since 2019.\"  (live / Boston)", "How long have you lived in Boston? (also OK: How long have you been living in Boston? / Since when have you lived in Boston?)", "Write the question"]], [["Just or yet?\n\"I haven't called my mom ___.\"", "yet", "Just or yet?"], ["Make a question with ever:\nyou / ride / the Swan Boats", "Have you ever ridden the Swan Boats?", "Make a question"], ["Already or yet?\n\"We have ___ booked the hotel for our trip.\"", "already", "Already or yet?"], ["Fix it:\n\"When I arrived, the class already started.\"", "When I arrived, the class had already started.", "Fix it"], ["\"I ate dinner after I had finished my homework.\"\nIs had necessary here? Why or why not?", "Not necessary. After already shows the order, so \"after I finished\" is also correct.", "Think"], ["Explain the difference:\n\"I have finished the report.\"\n\"I had finished the report when my boss called.\"", "1: finished, and the result matters now (up to now).\n2: finished before a moment in the past (when my boss called).", "Explain"], ["Correct or not? Explain.\n\"When I arrived at the party, everyone had gone home, so I left.\"", "Correct. Everyone went home before I arrived (had gone). Then I left (simple past).", "Correct or not?"]], [["Choose:\n\"I (have seen / saw) that movie last weekend.\"", "saw (last weekend = finished time)", "Choose"], ["Complete:\n\"Boston Common ___ (be) a public park since 1634.\"", "has been", "Complete"], ["Fix it:\n\"She is living here since 2022.\"", "She has lived (has been living) here since 2022.", "Fix it"], ["Speak for 30 seconds: what has changed in your life since you arrived in the U.S.?", "Teacher judges. Listen for present perfect: has changed, have learned, have made...", "Speak"], ["Join with by the time:\nThe game started.  +  We found our seats.", "By the time we found our seats, the game had started.", "Combine"], ["Complete the story:\n\"When I ___ (get) home, I ___ (realize) that I ___ (leave) my laptop at work.\"", "got · realized · had left (also OK: left)", "Complete"], ["Fix all the mistakes:\n\"Last year I have visited New York, but I have never went to Washington before I have moved here.\"", "Last year I visited New York, but I had never been to Washington before I moved here. (also OK: I never went to Washington before I moved here.)", "Fix it"]], [["Give the past participle:\nsee · eat", "seen · eaten", "Past participles"], ["Which happened first?\n\"When I called her, she had already left.\"", "She left. Then I called.", "Which came first?"], ["Complete:\n\"I ___ (not / eat) breakfast, so I was very hungry in class.\"", "hadn't eaten (also OK: didn't eat)", "Complete"], ["Choose:\n\"When the guests arrived, I (finished / had finished) cooking, so we ate right away.\"", "had finished (cooking was done before they arrived)", "Choose"], ["Fix it:\n\"I have went to Salem twice.\"", "I have been to Salem twice. (also OK: I have gone / I went to Salem twice.)", "Fix it"], ["Speak: tell a 3-sentence story about a time you were late. Use the simple past AND the past perfect.", "Teacher judges. Example: I missed my train. I had forgotten my phone, so I went back. By the time I got to the station, the train had left.", "Speak"], ["Join with by the time:\nThe fire went out.  +  The firefighters arrived.", "By the time the firefighters arrived, the fire had (already) gone out. (also OK: had been put out)", "Combine"]], [["Fix it:\n\"Yesterday I have finished my project.\"", "Yesterday I finished my project.", "Fix it"], ["Complete:\n\"I ___ (live) in Boston since March.\"", "have lived (also OK: have been living)", "Complete"], ["Rewrite with for:\n\"I started this job in 2024, and I still work here.\"", "I have worked here for about two years. (also OK: have been working)", "Rewrite"], ["Complete:\n\"By the time the pizza arrived, we ___ (already / eat) the salad.\"", "had already eaten", "Complete"], ["Fix it:\n\"I didn't see my family since January.\"", "I haven't seen my family since January.", "Fix it"], ["Rewrite with since:\n\"I came to Boston in August. I still live here.\"", "I have lived in Boston since August. (also OK: have been living)", "Rewrite"], ["Speak for 60 seconds: the story of the day you arrived in the U.S. Use all three tenses.", "Teacher judges. Listen for: I arrived... I had never... Since then, I have...", "Speak"]], [["Complete:\n\"By the time we arrived, the movie ___ (start).\"", "had started", "Complete"], ["Speak: tell the class something you have done this week that you are proud of.", "Teacher judges. Example: I have finished all my homework this week.", "Speak"], ["Complete:\n\"When Leila reached the bus stop, the bus ___ (already / leave).\"", "had already left", "Complete"], ["Make a question:\nyou / ever / see / snow / before you came to Boston?", "Had you ever seen snow before you came to Boston? (also OK: Did you ever see...?)", "Make a question"], ["Complete:\n\"Before she moved to Boston, Leila ___ (never / see) a nor'easter.\"", "had never seen (also OK: never saw)", "Complete"], ["Fix it (2 mistakes):\n\"My parents have gotten married in 1998, and they are married for 28 years.\"", "My parents got married in 1998, and they have been married for 28 years.", "Fix it"], ["Explain all three:\n\"I lived in Boston for 3 years.\"\n\"I have lived in Boston for 3 years.\"\n\"I had lived in Boston for 3 years when I met my wife.\"", "1: finished, I don't live there now.\n2: still true now.\n3: up to an earlier time in the past (when I met my wife).", "Explain"]], [["Complete:\n\"Ji-woo ___ (arrive) in Boston in January 2023.\"", "arrived", "Complete"], ["Fix it:\n\"I have saw that movie three times.\"", "I have seen that movie three times.", "Fix it"], ["Choose:\n\"This is the first time I (am / have been) to a hockey game.\"", "have been (This is the first time + present perfect)", "Choose"], ["Complete:\n\"How long ___ she ___ (have) her car?\"", "has · had (How long has she had her car? have = own, no -ing)", "Complete"], ["Explain the difference:\n\"When I got to the party, Sam left.\"\n\"When I got to the party, Sam had left.\"", "1: I arrived, then Sam left. I saw him.\n2: Sam left before I arrived. I didn't see him.", "Explain"], ["Make one sentence with already:\n\"The movie started. Then we arrived.\"", "When we arrived, the movie had already started.", "Rewrite"], ["Fix all the mistakes:\n\"Have you ever been to Fenway Park?\"  \"Yes, I have been there last summer, and I have gone there twice before that.\"", "Yes, I have. I went there last summer, and I had been there twice before that.", "Fix it"]], [["For or since?\n\"___ three days\"", "for", "For or since?"], ["Choose:\n\"We (have known / knew) each other since 2023.\"", "have known (since = up to now)", "Choose"], ["Speak: name two things you had never done before you came to the U.S.", "Teacher judges. Example: I had never ridden a subway. I had never seen snow.", "Speak"], ["Complete both:\n\"I ___ (live) here for two years, but I ___ (never / visit) Cape Cod.\"", "have lived (also OK: have been living) · have never visited", "Complete"], ["Make two questions about the same topic: one with Have you ever...? and one with When did you...?", "Teacher judges. Example: Have you ever been to New York? When did you go?", "Make questions"], ["Interview someone from another team: ask one present perfect question and one simple past question. Then report the answers.", "Teacher judges. Example: Have you ever lived abroad? Where did you live?", "Interview"], ["Complete with the right tenses:\n\"I ___ (work) as a nurse for ten years before I ___ (move) here, and I ___ (be) at Approach since September.\"", "had worked (also OK: worked) · moved · have been", "Complete"]]];
+// Power-ups: exactly one per category and one per row (no two in the same row or column)
+var PU={"2-0": "BONUS", "5-1": "DOUBLE", "0-2": "STEAL", "7-3": "ALLPLAY", "3-4": "WAGER", "6-5": "DOUBLE", "1-6": "STEAL"};
+var PUTXT={
+ DOUBLE:["⚡ DOUBLE POINTS","This clue is worth double!"],
+ STEAL:["🦊 STEAL","Answer correctly, then take 200 points from any team."],
+ WAGER:["🎲 WAGER","Bet 100–1000 points before you see the clue. Right: win the bet. Wrong: lose it."],
+ ALLPLAY:["👥 ALL PLAY","Every team writes an answer. Every correct team wins the points."],
+ BONUS:["🍂 BONUS","Answer correctly for +200 extra points."]};
+var KEY='approach-isc:gic:jeopardy:weeks1-3:v2';
+var S={names:[],used:{},log:[],turn:0};
+function load(){try{var r=localStorage.getItem(KEY);if(r)S=JSON.parse(r);}catch(e){}if(!S.names||S.names.length!==TEAMS){S.names=[];for(var i=0;i<TEAMS;i++)S.names.push('Team '+(i+1));}S.used=S.used||{};S.log=S.log||[];S.turn=S.turn||0;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function score(t){return S.log.reduce(function(a,e){return a+(e.t===t?e.v:0)},0);}
+var board=document.getElementById('board'),scores=document.getElementById('scores');
+function drawBoard(){board.innerHTML='';CATS.forEach(function(c){var d=document.createElement('div');d.className='cat';d.textContent=c;board.appendChild(d);});
+ for(var r=0;r<VALS.length;r++)for(var c=0;c<CATS.length;c++){(function(c,r){var b=document.createElement('button');var id=c+'-'+r;b.className='tile'+(S.used[id]?' used':'');b.textContent=VALS[r];b.setAttribute('aria-label',CATS[c]+' for '+VALS[r]+(S.used[id]?' (used)':''));b.onclick=function(){openClue(c,r)};board.appendChild(b);})(c,r);}}
+function drawScores(popT){scores.innerHTML='';for(var t=0;t<TEAMS;t++){(function(t){var d=document.createElement('div');d.className='team'+(S.turn===t?' turn':'');
+ var sc=score(t);d.innerHTML='<div class="tname" contenteditable="true" spellcheck="false" aria-label="Team name">'+esc(S.names[t])+'</div><div class="tscore'+(sc<0?' neg':'')+(popT===t?' pop':'')+'">'+sc+'</div><div class="adj"><button aria-label="Subtract 100 from '+esc(S.names[t])+'">−100</button><button aria-label="Add 100 to '+esc(S.names[t])+'">+100</button></div>';
+ var nm=d.querySelector('.tname');nm.addEventListener('input',function(){S.names[t]=nm.textContent.trim()||('Team '+(t+1));save();});nm.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();nm.blur();}});nm.addEventListener('click',function(e){e.stopPropagation();});
+ var bs=d.querySelectorAll('.adj button');bs[0].onclick=function(e){e.stopPropagation();add(t,-100,'manual');};bs[1].onclick=function(e){e.stopPropagation();add(t,100,'manual');};
+ d.onclick=function(){S.turn=t;save();drawScores();};scores.appendChild(d);})(t);}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]});}
+function add(t,v,tag){S.log.push({t:t,v:v,tag:tag});save();drawScores(t);}
+// ----- modal -----
+var M=document.getElementById('modal'),cur=null,timer=null,left=30;
+function val(){var c=cur;var base=VALS[c.r];if(c.pu==='DOUBLE')return base*2;if(c.pu==='BONUS')return base+200;if(c.pu==='WAGER'){var w=parseInt(document.getElementById('wval').value,10);if(isNaN(w))w=500;return Math.max(100,Math.min(1000,w));}return base;}
+function tagOf(kind,t){return cur.id+'|'+kind+'|'+t;}
+function isOn(kind,t){var k=tagOf(kind,t);return S.log.some(function(e){return e.tag===k;});}
+function toggle(kind,t,v){var k=tagOf(kind,t);var i=-1;S.log.forEach(function(e,j){if(e.tag===k)i=j;});if(i>-1){S.log.splice(i,1);save();drawScores(t);}else add(t,v,k);renderAwards();}
+function renderAwards(){
+ var A=document.getElementById('awards'),N=document.getElementById('minus'),T=document.getElementById('steal');A.innerHTML='';N.innerHTML='';T.innerHTML='';
+ var v=val();
+ for(var t=0;t<TEAMS;t++){(function(t){
+  var on=isOn('plus',t),b=document.createElement('button');b.className='aw';b.setAttribute('aria-pressed',on);var shown=on?entryVal('plus',t):v;b.innerHTML='+'+shown+'<span class="n">'+esc(S.names[t])+'</span>';b.onclick=function(){toggle('plus',t,val());};A.appendChild(b);
+  var mon=isOn('minus',t),m=document.createElement('button');m.className='aw minus';m.setAttribute('aria-pressed',mon);var mv=mon?-entryVal('minus',t):(cur.pu==='WAGER'?val():VALS[cur.r]);m.innerHTML='−'+mv+'<span class="n">'+esc(S.names[t])+'</span>';m.onclick=function(){toggle('minus',t,-(cur.pu==='WAGER'?val():VALS[cur.r]));};N.appendChild(m);
+  if(cur.pu==='STEAL'){var son=isOn('steal',t),s=document.createElement('button');s.className='aw minus';s.setAttribute('aria-pressed',son);s.innerHTML='−200<span class="n">'+esc(S.names[t])+'</span>';s.onclick=function(){toggle('steal',t,-200);};T.appendChild(s);}
+ })(t);}
+ var ap=cur.pu==='ALLPLAY';document.getElementById('awlbl').textContent=ap?'ALL PLAY: click EVERY team with a correct answer.':'Correct? Click the team to add points.';
+ document.getElementById('steallbl').hidden=T.hidden=cur.pu!=='STEAL';
+}
+function entryVal(kind,t){var k=tagOf(kind,t),v=0;S.log.forEach(function(e){if(e.tag===k)v=e.v;});return v;}
+function openClue(c,r){var id=c+'-'+r;cur={c:c,r:r,id:id,pu:PU[id]||null};
+ document.getElementById('dcat').textContent='Column '+CATS[c]+' · '+VALS[r]+'  ·  '+Q[c][r][2];
+ document.getElementById('clue').textContent=Q[c][r][0];var a=document.getElementById('ans');a.textContent=Q[c][r][1];a.classList.remove('on');
+ cur.hidden=cur.pu==='WAGER';
+ if(cur.hidden){document.getElementById('clue').textContent='Place your bet first…';document.getElementById('show').textContent='Reveal clue';}else document.getElementById('show').textContent='Show answer';
+ var pu=document.getElementById('pu');if(cur.pu){pu.classList.add('on');document.getElementById('put').textContent=PUTXT[cur.pu][0];document.getElementById('pud').textContent=PUTXT[cur.pu][1];}else pu.classList.remove('on');
+ document.getElementById('wager').classList.toggle('on',cur.pu==='WAGER');document.getElementById('wval').value=500;
+ resetTimer();renderAwards();M.classList.add('open');S.used[id]=true;save();drawBoard();document.getElementById('show').focus();}
+function closeClue(){M.classList.remove('open');stopTimer();var gave=S.log.some(function(e){return e.tag&&e.tag.indexOf(cur.id+'|')===0;});S.turn=(S.turn+1)%TEAMS;save();drawScores();drawBoard();cur=null;}
+document.getElementById('close').onclick=closeClue;
+document.getElementById('show').onclick=function(){if(cur&&cur.hidden){cur.hidden=false;document.getElementById('clue').textContent=Q[cur.c][cur.r][0];this.textContent='Show answer';return;}var a=document.getElementById('ans');a.classList.toggle('on');this.textContent=a.classList.contains('on')?'Hide answer':'Show answer';};
+document.getElementById('wval').addEventListener('input',renderAwards);
+Array.prototype.forEach.call(document.querySelectorAll('[data-w]'),function(b){b.onclick=function(){document.getElementById('wval').value=b.dataset.w;renderAwards();};});
+document.addEventListener('keydown',function(e){if(!M.classList.contains('open'))return;if(e.key==='Escape')closeClue();});
+// timer
+function resetTimer(){stopTimer();left=30;paint();document.getElementById('tbtn').textContent='Start 30s';}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+function paint(){var t=document.getElementById('tval');t.textContent=left;t.classList.toggle('low',left<=10);}
+document.getElementById('tbtn').onclick=function(){if(timer){stopTimer();this.textContent='Resume';return;}if(left<=0)left=30;this.textContent='Pause';timer=setInterval(function(){left--;paint();if(left<=0){stopTimer();document.getElementById('tbtn').textContent='Restart';beep();}},1000);};
+function beep(){try{var ctx=new (window.AudioContext||window.webkitAudioContext)();var o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=660;o.connect(g);g.connect(ctx.destination);g.gain.value=.15;o.start();o.stop(ctx.currentTime+.5);}catch(e){}}
+// header
+document.getElementById('undo').onclick=function(){var e=S.log.pop();if(!e)return;save();drawScores(e.t);if(cur)renderAwards();};
+document.getElementById('reset').onclick=function(){if(!confirm('Start a new game? All scores and used clues will be cleared. Team names stay.'))return;S.used={};S.log=[];S.turn=0;save();drawBoard();drawScores();};
+load();drawBoard();drawScores();
+</script>
+</body>
+</html>
