@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 4 Interview · Grammar in Context</title>
+<meta name="description" content="Fillable worksheet: Life Story Interview, Approach International Student Center.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0C2340;--gold:#AE9142;--goldt:#7A5F1A;--cream:#F8F4EC;--berry:#6D2E46;--ink:#1A1A1A;--muted:#555;--ice:#E1E8F2;--ok:#2E6B30;--okbg:#EAF3E6;--bad:#8E2C2C;--badbg:#FBECEC;--bg:#F3F1EC}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Carlito','Calibri','Segoe UI',Arial,sans-serif;overflow-wrap:break-word}
+h1,h2,h3,.serif{font-family:'Caladea','Cambria',Georgia,serif}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 40px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.bar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.bar .in{max-width:780px;margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.status{flex:1 1 180px;font-size:16px;color:#DDE5F0;min-height:22px}
+.bar .btn{background:#fff;color:var(--navy);border:0}
+.bar .btn.ghost{background:transparent;color:#fff;border:1.5px solid #9FB0C8}
+.btn{font:inherit;font-weight:700;font-size:16px;min-height:44px;padding:8px 16px;border-radius:10px;border:2px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer}
+.btn:focus-visible,.opt:focus-visible,.tb:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #2F6FD6;outline-offset:2px}
+.top{background:#fff;border-radius:14px;padding:18px 18px 10px;margin:16px 0;border:1px solid #E2DCCD}
+.org{font-size:16px;letter-spacing:2.5px;color:var(--goldt);font-weight:700}
+h1{font-size:30px;color:var(--navy);margin:2px 0 0;line-height:1.15}
+.sub{color:var(--muted);font-style:italic;margin:2px 0 10px}
+.idrow{display:grid;grid-template-columns:2fr 1fr;gap:0 12px}
+@media (max-width:520px){.idrow{grid-template-columns:1fr}}
+.sec{background:#fff;border-radius:14px;padding:16px 18px;margin:16px 0;border:1px solid #E2DCCD}
+.sec h2{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px;color:var(--navy);font-size:23px;line-height:1.2}
+.sec h2 .n{background:var(--navy);color:#fff;border-radius:50%;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;font-size:17px;flex:none}
+.tag{font-family:'Carlito','Calibri',sans-serif;font-size:16px;letter-spacing:1.5px;background:var(--goldt);color:#fff;padding:2px 9px;border-radius:5px;font-weight:700}
+h3{color:var(--navy);font-size:19px;margin:16px 0 6px}
+.inst{font-style:italic;color:var(--muted);margin:4px 0 8px}
+.muted{color:var(--muted)}
+.example{background:var(--cream);border-radius:10px;padding:8px 12px;border:1px solid #E2D8BE}
+b.pp{color:var(--navy)}
+.field{margin:8px 0}
+.field label,.qlabel{display:block;font-weight:700;color:var(--navy);margin:0 0 4px}
+input[type=text],input[type=date],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid #8E96A3;border-radius:9px;padding:10px 12px;min-height:44px}
+textarea{resize:vertical;line-height:1.4}
+select{appearance:auto}
+.pv{display:none}
+.wc{font-size:16px;color:var(--muted);margin-top:3px}
+.wc.ok{color:var(--ok)} .wc.over{color:var(--bad)}
+.choice-wrap{margin:8px 0}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font:inherit;font-size:16px;min-height:44px;padding:8px 14px;border-radius:22px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;text-align:left}
+.opt[aria-pressed=true]{background:var(--navy);color:#fff}
+.choices.sm .opt{padding:6px 12px}
+.mark{font-weight:700;margin-left:4px}
+.choice-wrap.right .choices,.gapw.right input{box-shadow:0 0 0 3px var(--ok);border-radius:22px}
+.gapw.right input{border-radius:9px}
+.choice-wrap.wrong .choices,.gapw.wrong input{box-shadow:0 0 0 3px var(--bad);border-radius:22px}
+.gapw.wrong input{border-radius:9px}
+.choice-wrap.right .mark::after,.gapw.right .mark::after{content:"✓ Correct";color:var(--ok)}
+.choice-wrap.wrong .mark::after,.gapw.wrong .mark::after{content:"✗ Try again";color:var(--bad)}
+.explain{background:var(--ice);border-radius:8px;padding:6px 10px;margin-top:6px;font-size:16px}
+details.more{border:1.5px solid #D9CFB6;border-radius:10px;margin:10px 0;background:var(--cream)}
+details.more summary{cursor:pointer;padding:10px 14px;font-weight:700;color:var(--navy);min-height:44px;list-style-position:inside}
+.more-body{padding:0 14px 10px}
+.reading .intro{font-style:italic;color:var(--muted)}
+.reading .q{font-weight:700;color:var(--navy);margin:12px 0 2px}
+.reading .a{margin:0}
+b.verb{color:var(--berry)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media (max-width:520px){.grid2{grid-template-columns:1fr}}
+dl.roles dt{font-weight:700;color:var(--navy);margin-top:6px} dl.roles dd{margin:0 0 4px}
+.sorter{display:grid;gap:6px}
+.srow{display:grid;grid-template-columns:minmax(150px,1.2fr) auto minmax(140px,1.4fr);gap:6px 10px;align-items:center;border-bottom:1px solid #EEE7D8;padding:4px 0}
+.srow .choice-wrap,.srow .field{margin:0}
+@media (max-width:600px){.srow{grid-template-columns:1fr auto}.srow .tw{grid-column:1/-1}}
+.num{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;font-weight:700;padding:0 4px}
+.card{border:1.5px solid #E2D8BE;border-radius:12px;padding:10px 14px;margin:10px 0;background:#fff}
+.rulecard{border-color:var(--berry)}
+.checklist{border:0;padding:0;margin:10px 0}
+.checklist legend{font-weight:700;color:var(--berry);padding:0;margin-bottom:4px}
+label.ck{display:flex;gap:10px;align-items:flex-start;padding:6px 0;min-height:44px;cursor:pointer}
+label.ck input{width:24px;height:24px;flex:none;margin-top:1px;accent-color:var(--navy)}
+.tws{display:grid;gap:8px}
+.twrow{border-bottom:1px solid #EEE7D8;padding:4px 0 8px}
+.twword{font-weight:700;color:var(--navy);font-size:17px}
+.twrow .choice-wrap{margin:4px 0 0}
+.pair .ab{display:flex;gap:10px} .pair .ab p{margin:2px 0} .lab{color:var(--goldt)}
+.trhead{font-weight:700;color:var(--berry)}
+.tallies{display:flex;flex-wrap:wrap;gap:10px}
+.tally{display:flex;align-items:center;gap:8px;background:var(--cream);border-radius:10px;padding:6px 10px}
+.tally .tl{font-weight:700;color:var(--navy);min-width:0}
+.tally{flex-wrap:wrap;max-width:100%}
+@media (max-width:420px){.tally .tl{flex-basis:100%}.sec,.top{padding:14px 12px}.card{padding:10px}}
+.tb{font:inherit;font-weight:700;font-size:22px;width:44px;height:44px;border-radius:50%;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;line-height:1}
+.tally output{min-width:28px;text-align:center;font-size:20px;font-weight:700}
+.dupwarn{color:var(--bad);font-weight:700;margin-top:4px}
+.bostext p{margin:6px 0;line-height:2.1}
+.bt{color:var(--berry)} .known{color:var(--navy)}
+.gapw{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.gapw .gn{font-size:16px;font-weight:700;color:var(--berry)}
+input.gap{width:120px;min-height:40px;padding:6px 8px}
+.gapw .mark{font-size:16px}
+.half[hidden]{display:none}
+.checkrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0 4px}
+.feedback{font-weight:700;color:var(--navy)}
+.feedback.good{color:var(--ok)}
+footer{text-align:center;color:var(--muted);font-size:16px;padding:10px 16px 30px}
+@media print{
+  @page{margin:14mm 13mm}
+  body{background:#fff;font-size:11pt}
+  .bar,.no-print,.checkrow,.dupwarn,.wc,.pickfirst,button.tb{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .top,.sec{border:0;padding:0;margin:0 0 10px;border-radius:0}
+  .sec{break-before:auto}
+  .card,.choice-wrap,.field,.srow,.twrow,.tally,label.ck,.reading p{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  input[type=text],input[type=date],textarea,select,.choices{display:none!important}
+  .pv{display:block;min-height:1.3em;border-bottom:1px solid #999;padding:2px 2px;white-space:pre-wrap;font-size:11pt}
+  .gapw .pv{display:inline-block;min-width:80px}
+  .tally output{font-size:12pt}
+  details.more>summary{list-style:none}
+  details.more::details-content{content-visibility:visible;display:block}
+  .explain{display:none!important}
+  .choice-wrap.right .choices,.choice-wrap.wrong .choices{box-shadow:none}
+  .mark{display:none}
+  .half.unchosen{display:none!important}
+  details.more>summary{break-after:avoid;padding:4px 10px;min-height:0}
+  details.more{break-inside:auto}
+  .tws{grid-template-columns:repeat(3,1fr);gap:2px 16px}
+  .twrow{border:0;padding:2px 0}
+  .twword{font-size:11pt}
+  .sorter{grid-template-columns:1fr 1fr;column-gap:18px;gap:0 18px}
+  .srow{grid-template-columns:1.3fr .5fr 1.6fr;padding:2px 0;border:0}
+  .srow .pv,.twrow .pv{min-height:1.1em}
+  .num{min-width:20px;height:20px;font-size:9pt}
+  .field{margin:4px 0}.choice-wrap{margin:4px 0}
+  .card{padding:6px 10px;margin:6px 0}
+  .half>.field{display:inline-block;width:47%;margin-right:3%;vertical-align:top}
+  footer{padding:6px 0 0;font-size:9pt}
+}
+</style>
+</head>
+<body>
+<div class="bar no-print" role="toolbar" aria-label="Worksheet tools"><div class="in">
+<div class="status" id="status" role="status" aria-live="polite"></div>
+<button type="button" class="btn" id="btn-dl">Download</button>
+<button type="button" class="btn" id="btn-print">Print / PDF</button>
+<button type="button" class="btn ghost" id="btn-clear">Clear</button>
+</div></div>
+<main class="wrap">
+<style>
+.tg{display:inline-block;font-size:16px;font-weight:700;padding:1px 10px;border-radius:999px;margin-left:4px;color:#fff}
+.tg-pp{background:#7A5F1A}.tg-sp{background:#0C2340}.tg-ppf{background:#6D2E46}.tg-mix{background:#3D5A80}.tg-free{background:#555}
+.qq{font-family:'Caladea','Cambria',Georgia,serif;font-size:21px;font-weight:700;color:#0C2340;margin:8px 0 4px;line-height:1.3}
+.fu{margin:0 0 6px;color:#333}
+.qtop{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.frames li{margin:6px 0}
+@media print{.qq{font-size:13pt}.tg{font-size:9pt;color:#000;border:1px solid #777;background:#fff!important}}
+</style>
+<header class="top">
+  <div class="org">APPROACH INTERNATIONAL STUDENT CENTER</div>
+  <h1>Life Story Interview</h1>
+  <p class="sub">Grammar in Context &nbsp;|&nbsp; Week 4 &nbsp;|&nbsp; Present Perfect, Simple Past, Past Perfect</p>
+  <div class="idrow">
+    <div class="field "><label for="f1" class="">My name</label><input type="text" id="f1" data-key="name" data-label="My name" placeholder="Your full name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div>
+    <div class="field"><label for="date">Date</label><input type="date" id="date" data-key="date" data-label="Date"><div class="pv" aria-hidden="true"></div></div>
+  </div>
+  <div class="field "><label for="f2" class="">My partner's name</label><input type="text" id="f2" data-key="partner" data-label="My partner&#x27;s name" placeholder="Your partner&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div>
+  <div class="choice-wrap"><div id="g3" class=" qlabel">I am working</div><div class="choices sm" role="group" aria-labelledby="g3" data-key="where" data-label="I am working"><button type="button" class="opt" data-val="room" aria-pressed="false">In the room</button><button type="button" class="opt" data-val="online" aria-pressed="false">Online</button></div><div class="pv" aria-hidden="true"></div><span class="mark" aria-hidden="true"></span></div>
+</header><section class="sec" id="s1"><h2><span class="n" aria-hidden="true">1</span><span class="t">Before You Start</span> <span class="tag">HOW IT WORKS</span></h2><ol class="frames"><li>Interview your partner. Then change roles. About 15 minutes each.</li><li>Choose at least <b>8 questions</b>. Question 12 is for everyone.</li><li>Always ask the follow-up question.</li><li>Write short notes, not full sentences. You will use them to tell your group about your partner.</li></ol><p class="muted">The colored labels show the tense the question uses: <span class="tg tg-pp">Present perfect</span> <span class="tg tg-sp">Simple past</span> <span class="tg tg-ppf">Past perfect</span> <span class="tg tg-free">Free answer</span></p></section><section class="sec" id="s2"><h2><span class="n" aria-hidden="true">2</span><span class="t">Life in the U.S.</span> <span class="tag">INTERVIEW</span></h2><div class="card qc"><div class="qtop"><span class="num">1</span> <span class="tg tg-pp">Present perfect</span></div><p class="qq">How long have you lived in the U.S.?</p><p class="fu"><b>Follow-up:</b> When did you arrive, and what was your first week like?</p><div class="field"><label for="f4">Notes: my partner's answer to question 1</label><textarea id="f4" rows="3" data-key="q1" data-label="Q1. How long have you lived in the U.S.? (Follow-up: When did you arrive, and what was your first week like?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div><div class="card qc"><div class="qtop"><span class="num">2</span> <span class="tg tg-pp">Present perfect</span></div><p class="qq">What is the most surprising thing that has happened to you here?</p><p class="fu"><b>Follow-up:</b> What happened exactly?</p><div class="field"><label for="f5">Notes: my partner's answer to question 2</label><textarea id="f5" rows="3" data-key="q2" data-label="Q2. What is the most surprising thing that has happened to you here? (Follow-up: What happened exactly?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div><div class="card qc"><div class="qtop"><span class="num">3</span> <span class="tg tg-ppf">Past perfect</span></div><p class="qq">Had you ever visited the U.S. before you moved here?</p><p class="fu"><b>Follow-up:</b> What did you imagine it would be like?</p><div class="field"><label for="f6">Notes: my partner's answer to question 3</label><textarea id="f6" rows="3" data-key="q3" data-label="Q3. Had you ever visited the U.S. before you moved here? (Follow-up: What did you imagine it would be like?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div><div class="card qc"><div class="qtop"><span class="num">4</span> <span class="tg tg-pp">Present perfect</span></div><p class="qq">Which places have you visited since you arrived?</p><p class="fu"><b>Follow-up:</b> Which one did you like most, and why?</p><div class="field"><label for="f7">Notes: my partner's answer to question 4</label><textarea id="f7" rows="3" data-key="q4" data-label="Q4. Which places have you visited since you arrived? (Follow-up: Which one did you like most, and why?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div></section><section class="sec" id="s3"><h2><span class="n" aria-hidden="true">3</span><span class="t">Work and Study</span> <span class="tag">INTERVIEW</span></h2><div class="card qc"><div class="qtop"><span class="num">5</span> <span class="tg tg-sp">Simple past</span></div><p class="qq">What did you do for work or study before you came to the U.S.?</p><p class="fu"><b>Follow-up:</b> How long had you done that before you left?</p><div class="field"><label for="f8">Notes: my partner's answer to question 5</label><textarea id="f8" rows="3" data-key="q5" data-label="Q5. What did you do for work or study before you came to the U.S.? (Follow-up: How long had you done that before you left?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div><div class="card qc"><div class="qtop"><span class="num">6</span> <span class="tg tg-pp">Present perfect</span></div><p class="qq">What have you done here to grow professionally?</p><p class="fu"><b>Follow-up:</b> What has been the biggest difference from your country?</p><div class="field"><label for="f9">Notes: my partner's answer to question 6</label><textarea id="f9" rows="3" data-key="q6" data-label="Q6. What have you done here to grow professionally? (Follow-up: What has been the biggest difference from your country?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div><div class="card qc"><div class="qtop"><span class="num">7</span> <span class="tg tg-pp">Present perfect</span></div><p class="qq">What is the biggest professional challenge you have faced?</p><p class="fu"><b>Follow-up:</b> What did you do about it?</p><div class="field"><label for="f10">Notes: my partner's answer to question 7</label><textarea id="f10" rows="3" data-key="q7" data-label="Q7. What is the biggest professional challenge you have faced? (Follow-up: What did you do about it?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div><div class="card qc"><div class="qtop"><span class="num">8</span> <span class="tg tg-pp">Present perfect</span></div><p class="qq">What is the best decision you have ever made for your career?</p><p class="fu"><b>Follow-up:</b> When did you make it, and why?</p><div class="field"><label for="f11">Notes: my partner's answer to question 8</label><textarea id="f11" rows="3" data-key="q8" data-label="Q8. What is the best decision you have ever made for your career? (Follow-up: When did you make it, and why?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div></section><section class="sec" id="s4"><h2><span class="n" aria-hidden="true">4</span><span class="t">Personal Stories</span> <span class="tag">INTERVIEW</span></h2><div class="card qc"><div class="qtop"><span class="num">9</span> <span class="tg tg-pp">Present perfect</span></div><p class="qq">What have you learned to do here that you could not do before?</p><p class="fu"><b>Follow-up:</b> Who taught you, or how did you learn?</p><div class="field"><label for="f12">Notes: my partner's answer to question 9</label><textarea id="f12" rows="3" data-key="q9" data-label="Q9. What have you learned to do here that you could not do before? (Follow-up: Who taught you, or how did you learn?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div><div class="card qc"><div class="qtop"><span class="num">10</span> <span class="tg tg-sp">Simple past</span><span class="tg tg-ppf">Past perfect</span></div><p class="qq">Tell me about a day here when everything went wrong.</p><p class="fu"><b>Follow-up:</b> What had happened before that?</p><div class="field"><label for="f13">Notes: my partner's answer to question 10</label><textarea id="f13" rows="3" data-key="q10" data-label="Q10. Tell me about a day here when everything went wrong. (Follow-up: What had happened before that?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div><div class="card qc"><div class="qtop"><span class="num">11</span> <span class="tg tg-pp">Present perfect</span></div><p class="qq">Have you made any good friends here?</p><p class="fu"><b>Follow-up:</b> How did you meet them?</p><div class="field"><label for="f14">Notes: my partner's answer to question 11</label><textarea id="f14" rows="3" data-key="q11" data-label="Q11. Have you made any good friends here? (Follow-up: How did you meet them?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div></section><section class="sec" id="s5"><h2><span class="n" aria-hidden="true">5</span><span class="t">Looking Ahead</span> <span class="tag">INTERVIEW</span></h2><div class="card qc"><div class="qtop"><span class="num">12</span> <span class="tg tg-free">Free answer</span></div><p class="qq">Where do you see yourself in 3 to 5 years?</p><p class="fu"><b>Follow-up:</b> What is the first step to get there?</p><div class="field"><label for="f15">Notes: my partner's answer to question 12</label><textarea id="f15" rows="3" data-key="q12" data-label="Q12. Where do you see yourself in 3 to 5 years? (Follow-up: What is the first step to get there?)" placeholder="Short notes are fine"></textarea><div class="pv" aria-hidden="true"></div></div></div></section><section class="sec" id="s6"><h2><span class="n" aria-hidden="true">6</span><span class="t">Meet My Partner</span> <span class="tag">GROUPS OF 4</span></h2><p class="inst">Groups of 4. Share at least 5 facts about your partner (about 2 to 3 minutes). Your partner can add details. Listen and ask one question about each person.</p><div class="field "><label for="f16" class="">Fact 1 I will share about my partner</label><input type="text" id="f16" data-key="fact1" data-label="Fact 1 I will share about my partner" placeholder="e.g. She has lived in Quincy since 2024." autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f17" class="">Fact 2 I will share about my partner</label><input type="text" id="f17" data-key="fact2" data-label="Fact 2 I will share about my partner" placeholder="e.g. She has lived in Quincy since 2024." autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f18" class="">Fact 3 I will share about my partner</label><input type="text" id="f18" data-key="fact3" data-label="Fact 3 I will share about my partner" placeholder="e.g. She has lived in Quincy since 2024." autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f19" class="">Fact 4 I will share about my partner</label><input type="text" id="f19" data-key="fact4" data-label="Fact 4 I will share about my partner" placeholder="e.g. She has lived in Quincy since 2024." autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f20" class="">Fact 5 I will share about my partner</label><input type="text" id="f20" data-key="fact5" data-label="Fact 5 I will share about my partner" placeholder="e.g. She has lived in Quincy since 2024." autocomplete="off"><div class="pv" aria-hidden="true"></div></div><details class="more " open><summary>Sentence frames to help you</summary><div class="more-body"><ul class="frames"><li>___ has lived in ___ for / since ___.</li><li>Before she / he came to the U.S., she / he had ___.</li><li>She / He has never ___, but she / he wants to.</li><li>Last year (In 2023, When she / he arrived...), she / he ___.</li><li>The most surprising thing I have learned about her / him is that ___.</li><li>In 3 to 5 years, she / he sees herself / himself ___.</li></ul></div></details><fieldset class="checklist"><legend>Before you talk, check:</legend><label class="ck"><input type="checkbox" data-key="ck1" data-label="Checklist: I have a sentence with the present perfect (has lived, has never...)."> <span>I have a sentence with the present perfect (has lived, has never...).</span></label><label class="ck"><input type="checkbox" data-key="ck2" data-label="Checklist: I have a sentence with the simple past (arrived, worked...)."> <span>I have a sentence with the simple past (arrived, worked...).</span></label><label class="ck"><input type="checkbox" data-key="ck3" data-label="Checklist: I have a sentence with the past perfect (had studied, had never...)."> <span>I have a sentence with the past perfect (had studied, had never...).</span></label><label class="ck"><input type="checkbox" data-key="ck4" data-label="Checklist: I have one surprising fact about my partner."> <span>I have one surprising fact about my partner.</span></label></fieldset><h3>Listen: what did you learn about the others?</h3><div class="grid2"><div class="field "><label for="f21" class="">Group member 1: name</label><input type="text" id="f21" data-key="l1_name" data-label="Group member 1: name" placeholder="Name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f22" class="">Group member 1: one thing I learned</label><input type="text" id="f22" data-key="l1_fact" data-label="Group member 1: one thing I learned" placeholder="He had never..." autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="grid2"><div class="field "><label for="f23" class="">Group member 2: name</label><input type="text" id="f23" data-key="l2_name" data-label="Group member 2: name" placeholder="Name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f24" class="">Group member 2: one thing I learned</label><input type="text" id="f24" data-key="l2_fact" data-label="Group member 2: one thing I learned" placeholder="He had never..." autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div></section>
+</main>
+<footer>Approach International Student Center · Grammar in Context · Week 4 · Life Story Interview</footer>
+<script>
+(function(){
+var KEY='approach-isc:grammar-in-context:week4:interview:v1';
+var state={};
+var statusEl=document.getElementById('status');
+function setStatus(t){statusEl.textContent=t;}
+function load(){try{var raw=localStorage.getItem(KEY);state=raw?JSON.parse(raw):{};}catch(e){state={};setStatus("Saving is off in this browser. Use Download to keep your work.");}}
+var timer=null;
+function save(){clearTimeout(timer);timer=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(state));var d=new Date();setStatus('Saved on this device · '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}));}catch(e){setStatus("Couldn't save on this device. Use Download to keep your work.");}},300);}
+function $all(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function pvOf(el){var w=el.closest('.field,.choice-wrap,.gapw');return w?w.querySelector('.pv'):null;}
+function words(t){t=(t||'').trim();return t?t.split(/\s+/).length:0;}
+function updWC(el){var wc=document.querySelector('.wc[data-wc-for="'+el.id+'"]');if(!wc)return;var n=words(el.value),lo=+wc.dataset.lo,hi=+wc.dataset.hi;wc.textContent=n+(n===1?' word':' words')+' · target '+lo+'–'+hi+' words';wc.className='wc'+(n>=lo&&n<=hi?' ok':n>hi?' over':'');}
+function selText(sel){var o=sel.options[sel.selectedIndex];return sel.value?o.text:'';}
+function syncField(el){var pv=pvOf(el);if(!pv)return;var v=el.tagName==='SELECT'?selText(el):el.value;if(el.type==='date'&&v){try{v=new Date(v+'T12:00').toLocaleDateString();}catch(e){}}pv.textContent=v||' ';}
+function syncChoice(g){var v=state[g.dataset.key];$all('.opt',g).forEach(function(b){b.setAttribute('aria-pressed',b.dataset.val===v?'true':'false');});var pv=pvOf(g);if(pv){var b=g.querySelector('.opt[data-val="'+(v||'').replace(/"/g,'')+'"]');pv.textContent=b?b.textContent:' ';}}
+function syncTally(t){var n=+(state[t.dataset.key]||0);t.querySelector('output').textContent=n;}
+function dupCheck(){var seen={};$all('select.topicsel').forEach(function(s){var w=s.parentNode.querySelector('.dupwarn');var d=s.value&&seen[s.value];w.hidden=!d;s.setAttribute('aria-invalid',d?'true':'false');if(s.value)seen[s.value]=true;});}
+function showHalf(){var r=state.bf_role;$all('.half').forEach(function(h){var on=!r||h.dataset.half===r;h.hidden=!!r&&!on;h.classList.toggle('unchosen',!!r&&!on);});var pf=document.getElementById('pickfirst');if(pf)pf.hidden=!!r;if(!r){$all('.half').forEach(function(h){h.hidden=true;});}}
+function restore(){
+ $all('input[data-key],textarea[data-key],select[data-key]').forEach(function(el){var v=state[el.dataset.key];if(el.type==='checkbox'){el.checked=!!v;}else if(v!=null){el.value=v;}syncField(el);if(el.tagName==='TEXTAREA')updWC(el);});
+ $all('.choices[data-key]').forEach(syncChoice);$all('.tally[data-key]').forEach(syncTally);dupCheck();showHalf();
+}
+document.addEventListener('input',function(e){var el=e.target;if(!el.dataset||!el.dataset.key)return;state[el.dataset.key]=el.type==='checkbox'?el.checked:el.value;syncField(el);if(el.tagName==='TEXTAREA')updWC(el);var w=el.closest('.gapw');if(w)w.classList.remove('right','wrong');save();});
+document.addEventListener('change',function(e){var el=e.target;if(el.tagName==='SELECT'&&el.dataset.key){state[el.dataset.key]=el.value;syncField(el);dupCheck();save();}if(el.type==='checkbox'&&el.dataset.key){state[el.dataset.key]=el.checked;save();}if(el.type==='date'){state[el.dataset.key]=el.value;syncField(el);save();}});
+document.addEventListener('click',function(e){
+ var b=e.target.closest('.opt');if(b){var g=b.closest('.choices');var k=g.dataset.key;state[k]=(state[k]===b.dataset.val)?'':b.dataset.val;syncChoice(g);var w=g.closest('.choice-wrap');w.classList.remove('right','wrong');var ex=w.querySelector('.explain');if(ex)ex.hidden=true;if(k==='bf_role')showHalf();save();return;}
+ var t=e.target.closest('.tb');if(t){var ta=t.closest('.tally');var k2=ta.dataset.key;state[k2]=Math.max(0,(+(state[k2]||0))+(+t.dataset.d));syncTally(ta);save();return;}
+ var c=e.target.closest('[data-check]');if(c){runCheck(c.dataset.check);}
+});
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();}
+function runCheck(grp){
+ var fb=document.getElementById('fb-'+grp);var right=0,total=0,blank=0;
+ if(grp.indexOf('gaps')===0){var me=grp.slice(4);$all('.half[data-half="'+me+'"] input.gap').forEach(function(inp){total++;var w=inp.closest('.gapw');w.classList.remove('right','wrong');var v=norm(inp.value);if(!v){blank++;return;}var ok=inp.dataset.answer.split('|').some(function(a){a=norm(a);return v===a||(' '+v+' ').indexOf(' '+a+' ')>-1;});w.classList.add(ok?'right':'wrong');if(ok)right++;});}
+ else{var box='grp-'+grp;$all('.choices[data-answer]',document.getElementById(box)).forEach(function(g){total++;var w=g.closest('.choice-wrap');w.classList.remove('right','wrong');var v=state[g.dataset.key];var ex=w.querySelector('.explain');if(!v){blank++;if(ex)ex.hidden=true;return;}var ok=v===g.dataset.answer;w.classList.add(ok?'right':'wrong');if(ok)right++;if(ex)ex.hidden=false;});}
+ var msg=right+' of '+total+' correct.';if(blank)msg+=' '+blank+' not answered yet.';if(right===total)msg='All '+total+' correct. Great work!';else if(right>=total*0.8)msg+=' Almost there!';else msg+=' Look again at the ones marked "Try again."';
+ fb.textContent=msg;fb.classList.toggle('good',right===total);
+ state['score_'+grp]=right+'/'+total;save();
+}
+// ----- download -----
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function answerOf(el){
+ if(el.classList.contains('choices')){var b=el.querySelector('.opt[data-val="'+(state[el.dataset.key]||'').replace(/"/g,'')+'"]');return b?b.textContent:'';}
+ if(el.classList.contains('tally'))return String(+(state[el.dataset.key]||0));
+ if(el.type==='checkbox')return el.checked?'Yes ✓':'Not yet';
+ if(el.tagName==='SELECT')return selText(el);
+ return el.value;}
+function buildExport(){
+ var name=state.name||'';var out=[];
+ var sel='[data-key]';
+ var headerItems=$all('header.top '+sel);
+ out.push('<h1>Grammar in Context · Week 4</h1><p class="s">Life Story Interview · Present Perfect, Simple Past, Past Perfect</p>');
+ out.push('<table class="id"><tr><th>Name</th><td>'+esc(name)+'</td></tr><tr><th>Date</th><td>'+esc(state.date||'')+'</td></tr><tr><th>Partner</th><td>'+esc(state.partner||'')+'</td></tr><tr><th>Working</th><td>'+esc(answerOf(document.querySelector('.choices[data-key="where"]')))+'</td></tr></table>');
+ $all('section.sec').forEach(function(sec){
+  var h=sec.querySelector('h2 .t').textContent;var num=sec.querySelector('h2 .n').textContent;var rows=[];
+  $all(sel,sec).forEach(function(el){
+   if(el.closest('.half')&&state.bf_role&&el.closest('.half').dataset.half!==state.bf_role)return;
+   var a=answerOf(el);rows.push('<tr><th>'+esc(el.dataset.label)+'</th><td>'+(a?esc(a).replace(/\n/g,'<br>'):'<span class="e">(no answer)</span>')+'</td></tr>');});
+  var sc=$all('[data-check]').map(function(b){return b.dataset.check;}).filter(function(g){return state['score_'+g]&&document.getElementById('fb-'+g)&&sec.contains(document.getElementById('fb-'+g));}).map(function(g){return '<p class="sc">Self-check: '+esc(state['score_'+g])+'</p>';}).join('');
+  out.push('<h2>'+num+'. '+esc(h)+'</h2>'+sc+'<table>'+rows.join('')+'</table>');});
+ var css='body{font-family:Calibri,Carlito,Arial,sans-serif;font-size:15px;color:#1A1A1A;max-width:820px;margin:24px auto;padding:0 16px;line-height:1.45}h1{font-family:Cambria,Georgia,serif;color:#0C2340;margin:0}h2{font-family:Cambria,Georgia,serif;color:#0C2340;border-bottom:2px solid #AE9142;padding-bottom:3px;margin-top:26px}.s{color:#555;font-style:italic;margin:2px 0 14px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #D9CFB6;padding:6px 9px;text-align:left;vertical-align:top}th{background:#F8F4EC;width:42%;font-weight:600;color:#0C2340}.id th{width:20%}.e{color:#888;font-style:italic}.sc{font-weight:700;color:#2E6B30;margin:4px 0}tr{break-inside:avoid}';
+ return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 4 Interview: '+esc(name||'Student')+'</title><style>'+css+'</style></head><body>'+out.join('')+'<p class="s" style="margin-top:24px">Approach International Student Center · Grammar in Context · Week 4 · Downloaded '+esc(new Date().toLocaleString())+'</p></body></html>';
+}
+document.getElementById('btn-dl').addEventListener('click',function(){
+ var html=buildExport();var blob=new Blob([html],{type:'text/html'});var a=document.createElement('a');
+ var nm=(state.name||'student').trim().replace(/[^A-Za-z0-9]+/g,'_').replace(/^_|_$/g,'')||'student';
+ a.href=URL.createObjectURL(blob);a.download='Week4_Interview_'+nm+'.html';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1000);
+ setStatus('Downloaded to your device.');});
+// ----- print -----
+var reopened=[];
+function beforePrint(){reopened=[];$all('details').forEach(function(d){if(!d.open){d.open=true;reopened.push(d);}});$all('input[data-key],textarea[data-key],select[data-key]').forEach(syncField);$all('.choices[data-key]').forEach(syncChoice);}
+function afterPrint(){reopened.forEach(function(d){d.open=false;});reopened=[];}
+window.addEventListener('beforeprint',beforePrint);window.addEventListener('afterprint',afterPrint);
+if(window.matchMedia){var mq=window.matchMedia('print');var f=function(m){if(m.matches)beforePrint();else afterPrint();};if(mq.addEventListener)mq.addEventListener('change',f);else if(mq.addListener)mq.addListener(f);}
+document.getElementById('btn-print').addEventListener('click',function(){beforePrint();window.print();});
+// ----- clear -----
+document.getElementById('btn-clear').addEventListener('click',function(){
+ if(!window.confirm('Clear ALL your answers on this worksheet? This cannot be undone.'))return;
+ state={};try{localStorage.removeItem(KEY);}catch(e){}
+ $all('input[data-key],textarea[data-key],select[data-key]').forEach(function(el){if(el.type==='checkbox')el.checked=false;else el.value='';});
+ $all('.right,.wrong').forEach(function(x){x.classList.remove('right','wrong');});$all('.explain').forEach(function(x){x.hidden=true;});$all('.feedback').forEach(function(x){x.textContent='';});
+ restore();setStatus('All answers cleared.');window.scrollTo(0,0);});
+load();restore();if(!statusEl.textContent)setStatus(Object.keys(state).length?'Your saved answers are back.':'Answers save automatically on this device.');
+})();
+</script>
+</body>
+</html>
