@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Superlative Showdown · Grammar in Context</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Carlito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0C2340;--navy2:#13305A;--tile:#1C3D6E;--gold:#E2C26A;--gold2:#AE9142;--cream:#F8F4EC;--berry:#8E3A5A;--ok:#2F8F4E;--bad:#B2453A;--ink:#1A1A1A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--navy);color:#fff;font-family:'Carlito','Calibri',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,.serif{font-family:'Caladea','Cambria',Georgia,serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 18px;flex-wrap:wrap}
+header h1{margin:0;font-size:clamp(22px,2.6vw,34px);color:var(--gold)}
+header h1 span{color:#fff;font-weight:400;font-size:.55em;margin-left:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center}
+.hbtn{font:inherit;font-weight:700;font-size:16px;min-height:42px;padding:6px 14px;border-radius:9px;border:2px solid #6E86AE;background:transparent;color:#fff;cursor:pointer}
+.hbtn:hover{background:rgba(255,255,255,.08)}
+.big{font:inherit;font-weight:700;font-size:18px;min-height:48px;padding:8px 20px;border-radius:10px;border:2px solid var(--gold);background:var(--gold);color:var(--navy);cursor:pointer}
+.big.alt{background:transparent;color:#fff}
+button:focus-visible,[contenteditable]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+main{flex:1;padding:4px 18px 8px;display:flex;flex-direction:column;min-height:0}
+/* category board */
+#board{display:flex;flex-direction:column;flex:1;min-height:0}
+.cats{display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:1fr;gap:10px;flex:1}
+.cc{font:inherit;background:var(--tile);border:0;border-radius:12px;color:var(--gold);cursor:pointer;min-height:70px;font-family:'Caladea',serif;font-weight:700;font-size:clamp(26px,3.4vw,46px);box-shadow:inset 0 -5px 0 rgba(0,0,0,.25)}
+.cc.used{background:#0F2A4D;color:rgba(255,255,255,.2);cursor:default;box-shadow:none}
+.cc.finale{background:linear-gradient(135deg,#7A2E4A,#AE9142);color:#fff;font-size:clamp(18px,2vw,26px);grid-column:span 2}
+.boardbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:2px 0 10px;flex-wrap:wrap}
+.hint{color:#C9D3E3;font-size:16px}
+/* round */
+.round{display:none;flex:1;flex-direction:column;gap:10px}
+.round.on{display:flex}
+.rtop{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.rlabel{color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:18px}
+.cat-q{font-family:'Caladea',serif;font-weight:700;font-size:clamp(28px,min(4vw,7vh),56px);line-height:1.15;text-align:center;margin:4px 0;padding:14px;background:var(--navy2);border:3px solid var(--gold2);border-radius:16px}
+.timers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tbox{background:var(--navy2);border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:2px solid transparent}
+.tbox.active{border-color:var(--gold)}
+.tname{font-weight:700;font-size:18px;color:var(--gold)}
+.tsub{color:#C9D3E3;font-size:16px}
+.tval{font-family:'Caladea',serif;font-weight:700;font-size:clamp(34px,4.4vw,60px);min-width:130px;text-align:center}
+.tval.low{color:#FF8A7A}
+.tval.done{color:#FF8A7A;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.35}}
+.lbl{font-weight:700;color:var(--gold);font-size:18px;text-align:center}
+.awards{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.aw{font:inherit;font-weight:700;font-size:22px;min-height:84px;border-radius:10px;border:2px solid #9FB0C8;background:#fff;color:var(--navy);cursor:pointer;padding:4px;line-height:1.15}
+.aw .n{display:block;font-size:17px;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.aw[aria-pressed=true]{background:var(--ok);border-color:var(--ok);color:#fff}
+.pat{margin-top:auto;background:rgba(255,255,255,.06);border-radius:12px;padding:10px 16px;font-size:19px;color:#E8EEF7;text-align:center}
+.pat b{color:var(--gold)}
+/* scores */
+.scores{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:8px 18px 14px}
+.team{background:var(--cream);color:var(--ink);border-radius:12px;padding:8px 8px 6px;text-align:center;position:relative;border:4px solid transparent}
+.team.lead{border-color:var(--gold)}
+.team.lead::before{content:"👑";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:22px}
+.tn{font-weight:700;font-size:clamp(15px,1.3vw,18px);color:var(--navy);outline:none;border-radius:4px;min-height:22px;overflow-wrap:anywhere;cursor:text}
+.ts{font-family:'Caladea',serif;font-weight:700;font-size:clamp(28px,3vw,42px);color:var(--navy);line-height:1.1}
+.adj{display:flex;gap:6px;justify-content:center;margin-top:2px}
+.adj button{font:inherit;font-weight:700;font-size:16px;min-width:44px;min-height:34px;border-radius:8px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.2)}100%{transform:scale(1)}}
+.pop{animation:pop .35s}
+/* modals */
+.modal{position:fixed;inset:0;background:rgba(5,14,28,.88);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}
+.modal.open{display:flex}
+.dlg{background:var(--cream);color:var(--ink);border-radius:18px;width:min(980px,100%);max-height:100%;overflow:auto;padding:20px 26px}
+.dlg h2{color:var(--navy);margin:0 0 8px}
+.dlg h3{color:var(--navy);margin:14px 0 4px;font-size:18px}
+.dlg ul{margin:4px 0 0;padding-left:22px}.dlg li{margin:3px 0;font-size:18px}
+.dlg .tag{font-size:15px;color:#7A5F1A;font-weight:700;letter-spacing:1px}
+@media (max-width:900px){.cats{grid-template-columns:repeat(4,1fr)}.scores,.awards{grid-template-columns:repeat(3,1fr)}.timers{grid-template-columns:1fr}}
+@media (max-width:560px){.cats{grid-template-columns:repeat(3,1fr)}.scores,.awards{grid-template-columns:repeat(2,1fr)}.cc.finale{grid-column:span 3}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Superlative Showdown<span>Prove your team is the most of everything</span></h1>
+  <div class="row">
+    <button class="hbtn" id="b-rules">Rules</button>
+    <button class="hbtn" id="b-bank">Sentence bank</button>
+    <button class="hbtn" id="b-undo" title="Undo the last point">↶ Undo</button>
+    <button class="hbtn" id="b-new">New game</button>
+  </div>
+</header>
+<main>
+  <section id="board" aria-label="Categories">
+    <div class="boardbar"><div class="hint">Pick a number (or press Random). Each number hides a category.</div><button class="big" id="b-random">🎲 Random category</button></div>
+    <div class="cats" id="cats"></div>
+  </section>
+  <section class="round" id="round" aria-live="polite">
+    <div class="rtop"><div class="rlabel" id="rlabel">Round</div><button class="big alt" id="b-back">← Back to categories</button></div>
+    <div class="cat-q" id="catq"></div>
+    <div class="timers">
+      <div class="tbox" id="tb-prep"><div><div class="tname" id="prep-name">Team prep</div><div class="tsub" id="prep-sub">Poll your team. Find your best answer.</div></div><div class="tval" id="tv-prep">3:00</div><div class="row"><button class="hbtn" data-t="prep" data-a="go">Start</button><button class="hbtn" data-t="prep" data-a="reset" aria-label="Reset prep timer">↺</button></div></div>
+      <div class="tbox" id="tb-talk"><div><div class="tname">Spokesperson</div><div class="tsub">30 seconds. The timer decides!</div></div><div class="tval" id="tv-talk">0:30</div><div class="row"><button class="hbtn" data-t="talk" data-a="go">Start</button><button class="hbtn" data-t="talk" data-a="reset" aria-label="Reset statement timer">↺</button></div></div>
+    </div>
+    <div class="lbl" id="awlbl">The class votes. Click the winning team (click again to undo). A tie? Click both.</div>
+    <div class="awards" id="awards"></div>
+    <div class="pat"><b>Useful patterns:</b> Between us, we have... &nbsp;·&nbsp; ___ has never... &nbsp;·&nbsp; ___ has just... &nbsp;·&nbsp; ___ has been ___ing for ___ years. &nbsp;·&nbsp; This is the ___est ___ we have ever...</div>
+  </section>
+</main>
+<section class="scores" id="scores" aria-label="Team scores"></section>
+
+<div class="modal" id="m-rules" role="dialog" aria-modal="true" aria-labelledby="rules-h"><div class="dlg">
+  <h2 id="rules-h">How it works</h2>
+  <h3>Setup (5 minutes)</h3><ul><li>Teams of 4 or 5. Pick a team name (click a name at the bottom to change it).</li><li>Choose a spokesperson for round 1. The spokesperson changes every round.</li></ul>
+  <h3>Category rounds (3 minutes each)</h3><ul><li>The teacher reveals a category.</li><li>Your team has 3 minutes to poll each other, find your best answer, and prepare a 30-second statement using the present perfect.</li><li>The spokesperson presents. The class votes. The winning team earns a point.</li></ul>
+  <h3>Grand finale (5 minutes)</h3><ul><li>Each team pitches one final statement: the one thing that makes your team unbeatable.</li><li>The class picks the champion. The finale is worth 2 points.</li></ul>
+  <h3>Rules</h3><ul><li>Every statement must use the present perfect.</li><li>Every team member has to help in at least one round.</li><li>Stories must be true. No exaggeration.</li><li>The spokesperson changes every round so everyone speaks.</li><li>30 seconds means 30 seconds. The timer decides.</li></ul>
+  <div class="row" style="margin-top:14px"><button class="big" data-close>Close</button></div>
+</div></div>
+
+<div class="modal" id="m-bank" role="dialog" aria-modal="true" aria-labelledby="bank-h"><div class="dlg">
+  <h2 id="bank-h">Sentence bank</h2><p style="margin:0">Steal these patterns. Use at least one of each type in every round.</p>
+  <h3><span class="tag">EXPERIENCES</span> · things that happened at some point in your life</h3><ul><li>Our team has been to 27 countries in total.</li><li>Between us, we have visited every continent except Antarctica.</li><li>Beatriz has met her favorite actress at Boston Logan Airport.</li><li>Rafael has climbed a real volcano in Guatemala.</li><li>Ana has never eaten meat in her whole life.</li></ul>
+  <h3><span class="tag">RECENT EVENTS</span> · today, this week, this month</h3><ul><li>Our team has already visited five different states this year.</li><li>Ana has just returned from a road trip through New England.</li><li>Pedro has recently learned to cook three new dishes.</li><li>We have finished a whole bottle of hot sauce this week.</li><li>Marcelo has just tried lobster for the first time.</li></ul>
+  <h3><span class="tag">UNFINISHED SITUATIONS</span> · started in the past, still true now</h3><ul><li>Marcelo has been playing guitar for 15 years.</li><li>Beatriz has known her best friend since kindergarten.</li><li>Our team has been living in the US for a combined total of 12 years.</li><li>Ana has been avoiding the dentist for four years.</li><li>We have been friends since the first week of class.</li></ul>
+  <div class="row" style="margin-top:14px"><button class="big" data-close>Close</button></div>
+</div></div>
+
+<script>
+var TEAMS=6, ROUND_PTS=1, FINALE_PTS=2;
+var CATS=[
+ "Which team has been to the most countries combined?",
+ "Which team has lived in the most different cities?",
+ "Which team has tried the strangest food?",
+ "Which team has had the closest contact with a celebrity?",
+ "Which team member has stayed awake the longest at one time?",
+ "Which team has been studying English for the most years combined?",
+ "Which team has had the most embarrassing public moment?",
+ "Which team has traveled the farthest in one single trip?",
+ "Which team has kept a friendship going for the longest time?",
+ "Which team member has moved to the most different homes in their life?",
+ "Which team has broken the most bones combined?",
+ "Which team has had the closest call with disaster?",
+ "Which team member has been to the coldest place, on the coldest day?"
+];
+var FINALE="GRAND FINALE: What is the one thing that makes your team unbeatable?";
+var KEY='approach-isc:gic:superlative-showdown:v1';
+var S={names:[],log:[],used:{}};
+function load(){try{var r=localStorage.getItem(KEY);if(r)S=JSON.parse(r);}catch(e){}if(!S.names||S.names.length!==TEAMS){S.names=[];for(var i=0;i<TEAMS;i++)S.names.push('Team '+(i+1));}S.log=S.log||[];S.used=S.used||{};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]});}
+function score(t){return S.log.reduce(function(a,e){return a+(e.t===t?e.v:0)},0);}
+var cur=null; // index of category, or 'F'
+function drawCats(){var g=document.getElementById('cats');g.innerHTML='';
+ CATS.forEach(function(c,i){var b=document.createElement('button');b.className='cc'+(S.used[i]?' used':'');b.textContent=i+1;b.setAttribute('aria-label','Category '+(i+1)+(S.used[i]?' (used)':''));b.onclick=function(){openRound(i)};g.appendChild(b);});
+ var f=document.createElement('button');f.className='cc finale'+(S.used.F?' used':'');f.textContent='★ Grand Finale';f.onclick=function(){openRound('F')};g.appendChild(f);}
+function drawScores(popT){var box=document.getElementById('scores');box.innerHTML='';var sc=[];for(var t=0;t<TEAMS;t++)sc.push(score(t));var mx=Math.max.apply(null,sc);
+ for(var t=0;t<TEAMS;t++){(function(t){var d=document.createElement('div');d.className='team'+(mx>0&&sc[t]===mx?' lead':'');
+  d.innerHTML='<div class="tn" contenteditable="true" spellcheck="false" aria-label="Team name">'+esc(S.names[t])+'</div><div class="ts'+(popT===t?' pop':'')+'">'+sc[t]+'</div><div class="adj"><button aria-label="Minus one point for '+esc(S.names[t])+'">−1</button><button aria-label="Plus one point for '+esc(S.names[t])+'">+1</button></div>';
+  var nm=d.querySelector('.tn');nm.addEventListener('input',function(){S.names[t]=nm.textContent.trim()||('Team '+(t+1));save();if(cur!==null)renderAwards();});nm.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();nm.blur();}});
+  var b=d.querySelectorAll('.adj button');b[0].onclick=function(){add(t,-1,'manual');};b[1].onclick=function(){add(t,1,'manual');};
+  box.appendChild(d);})(t);}}
+function add(t,v,tag){S.log.push({t:t,v:v,tag:tag});save();drawScores(t);}
+function pts(){return cur==='F'?FINALE_PTS:ROUND_PTS;}
+function tagOf(t){return 'r'+cur+'|'+t;}
+function isOn(t){var k=tagOf(t);return S.log.some(function(e){return e.tag===k;});}
+function toggle(t){var k=tagOf(t),i=-1;S.log.forEach(function(e,j){if(e.tag===k)i=j;});if(i>-1){S.log.splice(i,1);save();drawScores(t);}else add(t,pts(),k);renderAwards();}
+function renderAwards(){var A=document.getElementById('awards');A.innerHTML='';
+ for(var t=0;t<TEAMS;t++){(function(t){var on=isOn(t),b=document.createElement('button');b.className='aw';b.setAttribute('aria-pressed',on);b.innerHTML='+'+pts()+(pts()===1?' point':' points')+'<span class="n">'+esc(S.names[t])+'</span>';b.onclick=function(){toggle(t);};A.appendChild(b);})(t);}}
+function openRound(i){cur=i;S.used[i]=true;save();
+ var done=Object.keys(S.used).filter(function(k){return k!=='F'}).length;
+ document.getElementById('rlabel').textContent=i==='F'?'Grand Finale · '+FINALE_PTS+' points':'Category '+(i+1)+' · Round '+done;
+ document.getElementById('catq').textContent=i==='F'?FINALE:CATS[i];
+ document.getElementById('prep-sub').textContent=i==='F'?'Prepare one final statement.':'Poll your team. Find your best answer.';
+ setT('prep',i==='F'?120:180);setT('talk',30);
+ document.getElementById('board').style.display='none';document.getElementById('round').classList.add('on');renderAwards();drawCats();}
+function back(){stopAll();cur=null;document.getElementById('round').classList.remove('on');document.getElementById('board').style.display='flex';drawCats();}
+document.getElementById('b-back').onclick=back;
+document.getElementById('b-random').onclick=function(){var left=[];CATS.forEach(function(c,i){if(!S.used[i])left.push(i);});if(!left.length){openRound('F');return;}openRound(left[Math.floor(Math.random()*left.length)]);};
+// timers
+var T={prep:{len:180,left:180,id:null},talk:{len:30,left:30,id:null}};
+function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function paint(k){var el=document.getElementById('tv-'+k);el.textContent=fmt(T[k].left);el.classList.toggle('low',T[k].left<=10&&T[k].left>0);el.classList.toggle('done',T[k].left===0);document.getElementById('tb-'+k).classList.toggle('active',!!T[k].id);var b=document.querySelector('[data-t="'+k+'"][data-a="go"]');b.textContent=T[k].id?'Pause':(T[k].left===0||T[k].left===T[k].len?'Start':'Resume');}
+function setT(k,len){stop(k);T[k].len=len;T[k].left=len;paint(k);}
+function stop(k){if(T[k].id){clearInterval(T[k].id);T[k].id=null;}}
+function stopAll(){stop('prep');stop('talk');paint('prep');paint('talk');}
+function go(k){if(T[k].id){stop(k);paint(k);return;}if(T[k].left===0)T[k].left=T[k].len;T[k].id=setInterval(function(){T[k].left--;if(T[k].left<=0){T[k].left=0;stop(k);beep();}paint(k);},1000);paint(k);}
+Array.prototype.forEach.call(document.querySelectorAll('[data-t]'),function(b){b.onclick=function(){if(b.dataset.a==='go')go(b.dataset.t);else setT(b.dataset.t,T[b.dataset.t].len);};});
+function beep(){try{var c=new (window.AudioContext||window.webkitAudioContext)();var o=c.createOscillator(),g=c.createGain();o.frequency.value=660;o.connect(g);g.connect(c.destination);g.gain.value=.15;o.start();o.stop(c.currentTime+.6);}catch(e){}}
+// modals
+function openM(id){document.getElementById(id).classList.add('open');document.querySelector('#'+id+' [data-close]').focus();}
+document.getElementById('b-rules').onclick=function(){openM('m-rules')};document.getElementById('b-bank').onclick=function(){openM('m-bank')};
+Array.prototype.forEach.call(document.querySelectorAll('[data-close]'),function(b){b.onclick=function(){b.closest('.modal').classList.remove('open');};});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')Array.prototype.forEach.call(document.querySelectorAll('.modal.open'),function(m){m.classList.remove('open');});});
+document.getElementById('b-undo').onclick=function(){var e=S.log.pop();if(!e)return;save();drawScores(e.t);if(cur!==null)renderAwards();};
+document.getElementById('b-new').onclick=function(){if(!confirm('Start a new game? All points and used categories will be cleared. Team names stay.'))return;S.log=[];S.used={};save();back();drawScores();};
+load();drawCats();drawScores();paint('prep');paint('talk');
+</script>
+</body>
+</html>
