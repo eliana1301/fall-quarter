@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 4 Imagining and Regretting: Practice and Games</title>
+<style>
+:root{--navy:#0c2340;--gold:#ae9142;--mblue:#143865;--bblue:#1c4f8f;--dgold:#8c7535;--bgold:#d39f10;--steel:#81a7c1;--red:#ab100b;--tint:#eef1f6;--cream:#faf3e3;--ok:#1f7a4a;--okbg:#e3f3ea;--nobg:#f6e3e2}
+*{box-sizing:border-box}html,body{margin:0;background:#fff;color:#1a1a1a;font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;font-size:20px}
+header{background:var(--navy);color:#fff;border-top:8px solid var(--gold);display:flex;align-items:center;gap:22px;padding:14px 32px;flex-wrap:wrap}
+header img{height:54px}header h1{font-family:Cambria,Georgia,serif;font-size:30px;margin:0}header p{margin:2px 0 0;color:var(--steel);font-style:italic;font-size:18px}
+nav{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+nav button{font:inherit;font-size:18px;font-weight:700;background:transparent;color:#fff;border:2px solid var(--gold);padding:10px 16px;border-radius:999px;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--gold);color:var(--navy)}
+button:focus-visible{outline:3px solid var(--bgold);outline-offset:2px}
+main{max-width:1400px;margin:0 auto;padding:22px 32px 40px}
+.stage{color:var(--dgold);font-weight:700;font-size:18px;margin:0}
+h2{font-family:Cambria,Georgia,serif;color:var(--navy);font-size:34px;margin:2px 0 6px}
+.lead{margin:0 0 14px;font-size:20px;color:#333}.hidden{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
+.chip{font:inherit;font-weight:700;font-size:18px;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:999px;padding:8px 16px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff}
+.btn{font:inherit;font-weight:700;font-size:19px;border:0;border-radius:999px;padding:10px 20px;cursor:pointer}
+.btn.navy{background:var(--navy);color:#fff}.btn.gold{background:var(--gold);color:var(--navy)}.btn.line{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+/* builder */
+.panel{border:2px solid var(--navy);border-radius:16px;padding:20px 24px}
+.use{font-size:22px;font-weight:700;color:var(--navy);margin:0 0 14px}
+.formula{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.f{font-family:Cambria,Georgia,serif;font-weight:700;font-size:28px;padding:8px 16px;border-radius:12px;border:3px solid}
+.f.k{border-color:var(--navy);background:var(--navy);color:#fff}.f.a{border-color:var(--red);color:var(--red);background:var(--nobg)}
+.f.b{border-color:var(--bblue);color:var(--bblue);background:var(--tint)}.f.x{border:0;color:#666;padding:0 4px}
+.exs{display:grid;gap:10px}.ex{font-family:Cambria,Georgia,serif;font-size:26px;padding:10px 16px;border-radius:12px;background:#fafbfc;border:1px solid #d5dbe5;animation:pop .3s}
+.ex .a{color:var(--red);font-weight:700;border-bottom:3px solid var(--red)}.ex .b{color:var(--bblue);font-weight:700;border-bottom:3px solid var(--bblue)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.pair div{padding:10px 14px;border-radius:10px;font-size:20px}
+.no{background:var(--nobg);color:var(--red)}.yes{background:var(--okbg);color:var(--ok);font-weight:700}
+.tip{margin-top:12px;background:var(--cream);border-left:6px solid var(--gold);padding:10px 14px;border-radius:8px;font-size:19px}
+@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+/* drill */
+.prompt{border-radius:18px;background:var(--navy);color:#fff;min-height:230px;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-family:Cambria,Georgia,serif;font-size:46px;font-weight:700;line-height:1.25;animation:pop .3s}
+.prompt small{display:block;font-family:Calibri,Carlito,sans-serif;font-size:20px;color:var(--gold);font-weight:700;margin-bottom:10px;letter-spacing:.05em}
+.dctrl{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.timer{margin-left:auto;font-weight:800;font-size:40px;color:var(--navy);min-width:110px;text-align:center;background:var(--cream);border-radius:14px;padding:4px 14px}
+.timer.low{color:#fff;background:var(--red)}
+.exbox{margin-top:12px;background:var(--okbg);color:var(--ok);border-left:6px solid var(--ok);border-radius:12px;padding:14px 18px;font-size:28px;font-weight:700;animation:pop .3s}
+.exbox span{display:block;font-size:17px;font-weight:400;color:#2f5f46;margin-top:4px}
+/* game */
+.teams{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px}
+.team{border:2px solid var(--navy);border-radius:12px;padding:8px;text-align:center}
+.team input{font:inherit;font-weight:800;font-size:17px;width:100%;border:0;border-bottom:2px dashed var(--steel);text-align:center;color:var(--navy);background:transparent}
+.team .sc{font-size:34px;font-weight:800;color:var(--navy)}
+.team .adj{display:flex;gap:6px;justify-content:center}.team .adj button{font:inherit;font-weight:800;font-size:15px;border:0;border-radius:8px;padding:4px 8px;cursor:pointer;background:var(--tint);color:var(--navy)}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cat{background:var(--gold);color:var(--navy);font-weight:800;font-size:19px;text-align:center;padding:12px 6px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.tile{font:inherit;font-family:Cambria,Georgia,serif;font-size:36px;font-weight:800;background:var(--navy);color:var(--gold);border:0;border-radius:10px;padding:18px 0;cursor:pointer}
+.tile:hover{background:var(--mblue)}.tile.used{background:#e3e6ea;color:#aab;cursor:default}
+.modal{position:fixed;inset:0;background:rgba(12,35,64,.6);display:flex;align-items:center;justify-content:center;z-index:30;padding:16px}
+.card{background:#fff;border-radius:18px;border-top:10px solid var(--gold);max-width:900px;width:100%;padding:24px 28px;max-height:92vh;overflow:auto}
+.card .cl{color:var(--dgold);font-weight:800;font-size:18px}.card .qq{font-family:Cambria,Georgia,serif;font-size:34px;font-weight:700;color:var(--navy);margin:10px 0 16px;line-height:1.3}
+.card .pw{background:var(--bgold);color:var(--navy);font-weight:800;font-size:24px;padding:10px 16px;border-radius:12px;margin:8px 0;text-align:center}
+.card .ans{background:var(--okbg);color:var(--ok);font-weight:700;font-size:24px;padding:12px 16px;border-radius:12px;margin:10px 0}
+.award{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.award button{font:inherit;font-weight:700;font-size:17px;border:0;border-radius:999px;padding:8px 14px;cursor:pointer;background:var(--tint);color:var(--navy)}
+.award button.give{background:var(--navy);color:#fff}
+/* choose */
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 12px}
+.score{margin-left:auto;background:var(--tint);color:var(--navy);font-weight:800;padding:10px 18px;border-radius:999px;font-size:20px}
+.fb{position:sticky;top:0;z-index:5;margin:0 0 12px;padding:12px 18px;border-radius:12px;font-size:21px;font-weight:700;background:var(--tint);color:var(--navy)}
+.fb.good{background:var(--okbg);color:var(--ok)}.fb.bad{background:var(--nobg);color:var(--red)}
+.story{border:2px solid var(--navy);border-radius:14px;padding:22px 28px;font-family:Cambria,Georgia,serif;font-size:24px;line-height:2.05}
+.story h3{margin:0 0 6px;font-size:30px;color:var(--navy)}.story h3 span{font-style:italic;font-weight:400;font-size:22px;color:#555}
+.para{display:flex;gap:16px;align-items:flex-start;margin:6px 0}
+.pn{flex:none;width:40px;height:40px;margin-top:8px;border-radius:50%;background:var(--navy);color:#fff;font-family:Calibri,Carlito,sans-serif;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.ch{display:inline-flex;gap:4px;align-items:center;white-space:nowrap;vertical-align:middle}.ch .num{font-family:Calibri,Carlito,sans-serif;font-weight:800;color:var(--dgold);font-size:20px}
+.opt{font:inherit;font-size:22px;border:2px solid var(--mblue);background:#fff;color:var(--mblue);border-radius:10px;padding:0 10px;cursor:pointer;line-height:1.5}
+.opt.right{background:var(--ok);border-color:var(--ok);color:#fff}.opt.wrong{background:var(--nobg);border-color:var(--red);color:var(--red);text-decoration:line-through;animation:shake .3s}.opt.dim{opacity:.35}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.whybox{margin-top:18px;border:2px solid var(--ok);border-radius:14px;padding:12px 22px}.whybox h3{font-family:Cambria,Georgia,serif;color:var(--ok);margin:0 0 6px;font-size:24px}.whybox ul{margin:0;padding-left:22px;font-size:20px}
+.jobs{margin-top:22px;border:2px solid var(--gold);border-radius:14px;padding:16px 22px}.jobs h3{font-family:Cambria,Georgia,serif;color:var(--navy);margin:0 0 10px;font-size:26px}
+.jrow{display:flex;align-items:center;gap:12px;margin:8px 0;flex-wrap:wrap}.jrow .pn{margin:0}
+.job{font:inherit;font-size:19px;border:2px solid var(--dgold);background:#fff;color:var(--navy);border-radius:999px;padding:6px 16px;cursor:pointer}
+.job.right{background:var(--ok);border-color:var(--ok);color:#fff}.job.wrong{background:var(--nobg);border-color:var(--red);color:var(--red);animation:shake .3s}
+footer{background:var(--navy);color:#fff;font-style:italic;font-size:15px;padding:10px 32px;border-bottom:8px solid var(--gold)}
+@media (max-width:820px){
+ .exbox{font-size:19px}
+ html,body{font-size:17px}header{gap:10px 14px;padding:10px 14px}header img{height:40px}header h1{font-size:22px}header p{font-size:14px}
+ nav{margin-left:0;width:100%}nav button{flex:1 1 45%;font-size:14px;padding:8px 6px}
+ main{padding:14px 12px 28px}h2{font-size:24px}.lead{font-size:16px}.chip{font-size:15px;padding:6px 12px}
+ .panel{padding:14px}.use{font-size:18px}.f{font-size:19px;padding:5px 10px}.ex{font-size:19px}.pair{grid-template-columns:1fr}.pair div,.tip{font-size:16px}
+ .prompt{font-size:28px;min-height:170px;padding:18px}.timer{font-size:30px}.btn{font-size:15px;padding:8px 14px}
+ .teams{grid-template-columns:repeat(3,1fr)}.team .sc{font-size:26px}.cat{font-size:13px;padding:8px 4px}.tile{font-size:22px;padding:12px 0}
+ .card{padding:16px}.card .qq{font-size:22px}.card .ans,.card .pw{font-size:18px}
+ .score,.fb{font-size:16px}.story{font-size:18px;line-height:1.95;padding:14px 12px}.story h3{font-size:22px}
+ .para{gap:10px}.pn{width:30px;height:30px;font-size:16px;margin-top:5px}.ch{white-space:normal;flex-wrap:wrap}.opt{font-size:17px;padding:0 8px}
+ .whybox ul{font-size:16px}.job{font-size:15px;padding:6px 11px}footer{font-size:13px;padding:8px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<header><img src="data:image/png;base64,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" alt="Approach International Student Center">
+<div><h1>Imagining and Regretting</h1><p>Grammar and Writing, Week 4, Independent Level</p></div>
+<nav role="tablist"><button role="tab" aria-selected="true" data-tab="t1">1. Conditional Builder</button><button role="tab" aria-selected="false" data-tab="t4">2. Choose</button>
+<button role="tab" aria-selected="false" data-tab="t2">3. Chain Reaction</button><button role="tab" aria-selected="false" data-tab="t3">4. Team Game</button></nav></header>
+<main>
+<section id="t1"><p class="stage">Stage 3, Confirm</p><h2>The Conditional Builder</h2><p class="lead">Choose a form. Look at the formula, then the examples. Same color = same part.</p>
+<div class="chips" id="tchips"></div><div class="panel" id="tpanel"></div></section>
+<section id="t2" class="hidden"><p class="stage">Stage 6, Drill</p><h2>Chain Reaction</h2><p class="lead">Finish the sentence out loud, then pass it on. Be fast!</p>
+<div class="chips" id="dchips"></div><div class="prompt" id="prompt"></div>
+<div class="exbox hidden" id="dex"></div>
+<div class="dctrl"><button class="btn gold" id="dnext">Next prompt ▶</button><button class="btn line" id="dshow">Show example</button><button class="btn navy" id="dstart">Start timer</button>
+<button class="btn line" id="dlen">Timer: 10 s</button><span class="timer" id="dtime">10</span></div></section>
+<section id="t3" class="hidden"><p class="stage">Stage 7, Speak and Use</p><h2>Dilemmas and Regrets</h2><p class="lead">Teams choose a tile and answer out loud with a full sentence. Tap a team name to edit it.</p>
+<div class="teams" id="teams"></div><div class="board" id="board"></div></section>
+<section id="t4" class="hidden"><p class="stage">Stage 4, Choose</p><h2>Lucía’s reflection</h2>
+<div class="toolbar"><span>Tap the correct words. Then match each paragraph to its job.</span><button class="btn gold" id="showAll">Show all answers</button><button class="btn navy" id="reset">Start again</button><span class="score" id="score">0 / 8</span></div>
+<div class="fb" id="fb">Tap an answer in the story.</div><div class="story" id="story"></div>
+<div class="whybox hidden" id="whyBox"><h3>Why?</h3><ul id="whyList"></ul></div><div class="jobs"><h3>What is the job of each paragraph?</h3><div id="jobs"></div></div></section>
+</main>
+<footer>Approach International Student Center · Grammar and Writing · Week 4</footer>
+<div class="modal hidden" id="modal"><div class="card" id="mcard"></div></div>
+<script>
+const D = {"types": [{"name": "Second conditional", "use": "Imagine a different present or future. It is not real now.", "formula": [["If", "k"], ["+ past simple", "a"], [",", "x"], ["would", "k"], ["+ verb", "b"]], "ex": [[["If I ", ""], ["had", "a"], [" more time, I ", ""], ["would learn", "b"], [" to play the guitar.", ""]], [["If you ", ""], ["deleted", "a"], [" the shopping apps, you ", ""], ["would save", "b"], [" money.", ""]], [["If I ", ""], ["were", "a"], [" you, I ", ""], ["would wait", "b"], [" for a sale.", ""]]], "bad": "If I would have more time, I would read more.", "good": "If I had more time, I would read more.", "tip": "If I were you is the classic way to give advice. Use were for I, he, she, and it."}, {"name": "Third conditional", "use": "Imagine a different past. It did not happen. Often a regret.", "formula": [["If", "k"], ["+ had + past participle", "a"], [",", "x"], ["would have", "k"], ["+ past participle", "b"]], "ex": [[["If I ", ""], ["had saved", "a"], [" more, I ", ""], ["would have bought", "b"], [" it.", ""]], [["If Lucía ", ""], ["had not deleted", "a"], [" the apps, she ", ""], ["would never have saved", "b"], [" $2,000.", ""]], [["If he ", ""], ["had checked", "a"], [" the price, he ", ""], ["would not have paid", "b"], [" so much.", ""]]], "bad": "If he had asked me, I would helped him.", "good": "If he had asked me, I would have helped him.", "tip": "In speaking: I would have = I’d have. If I had = If I’d."}, {"name": "wish + past simple", "use": "You want the present to be different.", "formula": [["I wish", "k"], ["+ past simple", "a"], ["or", "x"], ["could", "k"], ["+ verb", "b"]], "ex": [[["I wish I ", ""], ["had", "a"], [" more free time.", ""]], [["I wish I ", ""], ["could stop", "b"], [" scrolling.", ""]], [["I wish my phone ", ""], ["was", "a"], [" not so slow.", ""]]], "bad": "I wish I can stop scrolling.", "good": "I wish I could stop scrolling.", "tip": "Talking about now? Go one step back: have → had, can → could."}, {"name": "wish / if only + past perfect", "use": "A regret about the past. You cannot change it now.", "formula": [["I wish / If only", "k"], ["+ had + past participle", "a"]], "ex": [[["I wish I ", ""], ["had started", "a"], [" sooner.", ""]], [["If only I ", ""], ["had listened", "a"], [" to your advice!", ""]], [["I wish I ", ""], ["had not bought", "a"], [" that jacket.", ""]]], "bad": "I wish I bought it yesterday.", "good": "I wish I had bought it yesterday.", "tip": "If only is stronger and more emotional than I wish."}, {"name": "unless", "use": "unless = if not. A condition.", "formula": [["unless", "k"], ["+ present simple", "a"], [",", "x"], ["will / will not", "k"], ["+ verb", "b"]], "ex": [[["You will not save money ", ""], ["unless you change", "a"], [" your habits.", ""]], [["Unless you cancel", "a"], [" it, you ", ""], ["will pay", "b"], [" again next month.", ""]]], "bad": "Unless you do not cancel it, you will pay.", "good": "Unless you cancel it, you will pay.", "tip": "Do not use not after unless. It already means if not."}, {"name": "as long as / provided that", "use": "= only if. A strong condition.", "formula": [["as long as / provided that", "k"], ["+ present simple", "a"]], "ex": [[["You can borrow my laptop ", ""], ["as long as you bring", "a"], [" it back tomorrow.", ""]], [["Provided that the payments are", "a"], [" small, it could be fine.", ""]]], "bad": "As long as you will save $20 a week, you can buy it.", "good": "As long as you save $20 a week, you can buy it.", "tip": "No will after as long as or provided that, even about the future."}], "drill": {"Imagine now": ["If my phone disappeared for a week, ...", "If I had $500 to spend online, ...", "If I could delete one app forever, ...", "If shopping apps did not exist, ...", "If I were a billionaire, ...", "If my favorite streaming service doubled its price, ...", "If I lived without the internet for a month, ...", "If I could buy only one thing this year, ..."], "Give advice": ["My friend buys a new phone every year. If I were him, ...", "My roommate orders food every night. If I were her, ...", "I always pay my bills late. If I were you, ...", "My cousin spends hours in online games. If I were him, ..."], "Conditions": ["I will buy a new laptop as long as ...", "I will not open that app unless ...", "You can borrow my car provided that ...", "I will not lend money to a friend unless ..."], "Regrets": ["If I had not come to Boston, ...", "If I had saved more money last year, ...", "I wish I had ...", "I wish I had not ...", "If I had known English when I was a child, ..."]}, "chains": ["If I won a free phone, I would sell my old one.", "If I deleted social media, I would have more free time.", "If I had a month off, I would visit my family.", "If I saved $50 a week, I would buy a plane ticket."], "dex": {"Imagine now": ["I would read more books and sleep better.", "I would buy a good pair of headphones.", "I would delete the shopping app.", "I would save a lot of money.", "I would buy a house for my parents.", "I would cancel it.", "I would write letters to my friends.", "I would buy a plane ticket home."], "Give advice": ["I would keep the old phone for two more years.", "I would cook at home more often.", "I would set up automatic payments.", "I would play for only one hour a day."], "Conditions": ["... as long as it is on sale.", "... unless I really need something.", "... provided that you fill the tank.", "... unless I trust them completely."], "Regrets": ["... I would not have met my classmates.", "... I would have traveled this summer.", "I wish I had studied English when I was a child.", "I wish I had not bought that expensive jacket.", "... I would have watched movies without subtitles."]}, "cex": ["If I sold my old one, I would have some extra money.", "If I had more free time, I would learn to cook.", "If I visited my family, I would eat my mom’s food every day.", "If I bought a plane ticket, I would fly to Brazil."], "cats": ["What would you do?", "unless or as long as?", "Regrets", "Fix it"], "game": [[["Your friend asks to borrow $300 on a payment app. He has not paid back the last $50.", "If I were you, I would ask for the $50 first."], ["You find a website selling a $1,000 laptop for $200.", "If I saw that, I would not buy it. It would probably be a scam."], ["Your roommate uses your streaming account and never pays.", "If I were you, I would change the password."], ["You get a text: “Your bank account is blocked. Click here.”", "If I got that text, I would call my bank and not click."], ["Your phone breaks the night before a big test.", "If my phone broke, I would use an alarm clock."]], [["You can use my account ______ you pay half.", "as long as"], ["I will not buy it ______ it is on sale.", "unless"], ["You can borrow my laptop ______ you bring it back tomorrow.", "as long as / provided that"], ["You will not sleep well ______ you put your phone away.", "unless"], ["Online shopping is fine ______ you have a budget.", "as long as / provided that"]], [["You bought concert tickets online, and they were fake. Make a wish.", "I wish I had checked the website."], ["You forgot to cancel a free trial and paid $90. Make an if sentence.", "If I had cancelled it, I would not have paid $90."], ["You stayed up until 3 a.m. scrolling and missed class. Make a wish.", "I wish I had gone to bed earlier."], ["You did not compare prices and paid double. Make an if sentence.", "If I had compared prices, I would have saved money."], ["You lent money to a friend and never got it back. Make a wish.", "I wish I had not lent him the money."]], [["If I would have more time, I would read more.", "If I had more time, I would read more."], ["I wish I didn’t buy that jacket last week.", "I wish I hadn’t bought that jacket last week."], ["If he had asked me, I would helped him.", "If he had asked me, I would have helped him."], ["I wish I can speak Japanese.", "I wish I could speak Japanese."], ["If I was you, I will cancel it.", "If I were you, I would cancel it."]]], "power": [[0, 2, "Double points!"], [1, 4, "Steal: take 100 points from any team"], [2, 1, "Free 200 points"], [3, 3, "Double points!"]], "paras": [["Last January, I looked at my bank account and felt sick. I had spent almost $3,000 online in one year. So I made a decision: for six months, I deleted all my shopping apps and most of my social media."], ["Today, my life is very different. If I still ", [1, "had", "have", 0], " those apps, I would probably ", [2, "spent", "spend", 1], " every evening scrolling. I ", [3, "would not read", "will not read", 0], " so many books, and I would not sleep as well."], ["The challenge also changed my plans. If I ", [4, "did not delete", "had not deleted", 1], " those apps, I would never ", [5, "have saved", "saved", 0], " $2,000, and I ", [6, "would not visit", "would not have visited", 1], " my family in Colombia last summer."], ["Of course, it was not perfect. I wish I ", [7, "had started", "started", 0], " sooner, and sometimes I wish I ", [8, "can", "could", 1], " still buy things with one click! But I would do it again tomorrow, as long as I had a clear goal."]], "reasons": ["Imaginary present: If + past simple (had).", "After would, use the base verb: spend.", "An imaginary result now: would + verb, not will.", "Imaginary past: If + had + past participle.", "Past result: would have + past participle.", "The visit was last summer, so: would not have + past participle.", "A regret about the past: wish + had + past participle.", "A wish about now: wish + could."], "jobs": ["regrets and final thoughts", "the decision", "how it changed my plans", "life now"], "jobAns": ["4", "1", "3", "2"], "title": "Six Months Without Shopping Apps", "author": "by Lucía"};
+const $ = id => document.getElementById(id);
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach(x => x.setAttribute("aria-selected", x === b));
+  ["t1", "t2", "t3", "t4"].forEach(t => $(t).classList.toggle("hidden", b.dataset.tab !== t)); stopT();
+});
+// ---- builder
+let ti = 0;
+$("tchips").innerHTML = D.types.map((t, i) => `<button class="chip" data-i="${i}" aria-pressed="${i === 0}">${t.name}</button>`).join("");
+$("tchips").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; ti = +b.dataset.i; $("tchips").querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b)); drawT(); };
+function drawT() {
+  const t = D.types[ti];
+  $("tpanel").innerHTML = `<p class="use">${t.use}</p><div class="formula">${t.formula.map(([w, c]) => `<span class="f ${c}">${w}</span>`).join("")}</div>
+  <div class="exs">${t.ex.map(e => `<div class="ex">${e.map(([w, c]) => c ? `<span class="${c}">${w}</span>` : w).join("")}</div>`).join("")}</div>
+  <div class="pair"><div class="no">✗ ${t.bad}</div><div class="yes">✓ ${t.good}</div></div><div class="tip">${t.tip}</div>`;
+}
+drawT();
+// ---- drill
+const cats = Object.keys(D.drill).concat(["Chain mode"]);
+let dc = 0, di = -1, tlen = 10, left = 10, tid = null;
+$("dchips").innerHTML = cats.map((c, i) => `<button class="chip" data-i="${i}" aria-pressed="${i === 0}">${c}</button>`).join("");
+$("dchips").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; dc = +b.dataset.i; di = -1; $("dchips").querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b)); nextP(); };
+function list() { return cats[dc] === "Chain mode" ? D.chains : D.drill[cats[dc]]; }
+function exs() { return cats[dc] === "Chain mode" ? D.cex : D.dex[cats[dc]]; }
+function nextP() {
+  const L = list(); di = (di + 1) % L.length;
+  const label = cats[dc] === "Chain mode" ? "CHAIN MODE: start with the last result" : cats[dc].toUpperCase();
+  $("prompt").innerHTML = `<div><small>${label}</small>${L[di]}</div>`; $("prompt").style.animation = "none"; void $("prompt").offsetWidth; $("prompt").style.animation = "";
+  stopT(); left = tlen; $("dtime").textContent = left; $("dtime").classList.remove("low");
+  $("dex").classList.add("hidden"); $("dshow").textContent = "Show example";
+}
+function stopT() { if (tid) clearInterval(tid); tid = null; }
+$("dnext").onclick = nextP;
+$("dshow").onclick = () => { const h = $("dex").classList.toggle("hidden");
+  $("dex").innerHTML = `<b>Example:</b> ${exs()[di]} <span>Other correct answers are possible!</span>`; $("dshow").textContent = h ? "Show example" : "Hide example"; };
+$("dstart").onclick = () => { stopT(); left = tlen; $("dtime").textContent = left; $("dtime").classList.remove("low");
+  tid = setInterval(() => { left--; $("dtime").textContent = left; if (left <= 3) $("dtime").classList.add("low"); if (left <= 0) stopT(); }, 1000); };
+$("dlen").onclick = () => { tlen = tlen === 10 ? 30 : tlen === 30 ? 60 : 10; $("dlen").textContent = `Timer: ${tlen} s`; left = tlen; $("dtime").textContent = left; };
+nextP();
+// ---- game
+const teams = Array.from({ length: 6 }, (_, i) => ({ name: `Team ${i + 1}`, score: 0 }));
+function drawTeams() {
+  $("teams").innerHTML = teams.map((t, i) => `<div class="team"><input value="${t.name}" data-i="${i}" aria-label="Team name"><div class="sc">${t.score}</div>
+  <div class="adj"><button data-i="${i}" data-d="-100">−100</button><button data-i="${i}" data-d="100">+100</button></div></div>`).join("");
+}
+$("teams").addEventListener("input", e => { if (e.target.matches("input")) teams[+e.target.dataset.i].name = e.target.value; });
+$("teams").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; teams[+b.dataset.i].score += +b.dataset.d; drawTeams(); });
+drawTeams();
+const used = new Set();
+const pw = {}; D.power.forEach(([c, r, t]) => pw[c + "-" + r] = t);
+function drawBoard() {
+  let h = D.cats.map(c => `<div class="cat">${c}</div>`).join("");
+  for (let r = 0; r < 5; r++) for (let c = 0; c < 4; c++) { const k = c + "-" + r; h += `<button class="tile${used.has(k) ? " used" : ""}" data-k="${k}" ${used.has(k) ? "disabled" : ""}>${(r + 1) * 100}</button>`; }
+  $("board").innerHTML = h;
+}
+drawBoard();
+let gtid = null;
+$("board").onclick = e => {
+  const b = e.target.closest(".tile"); if (!b || b.disabled) return;
+  const [c, r] = b.dataset.k.split("-").map(Number), [q, a] = D.game[c][r], pts = (r + 1) * 100, p = pw[b.dataset.k];
+  const val = p && p.startsWith("Double") ? pts * 2 : pts;
+  $("mcard").innerHTML = `<div class="cl">${D.cats[c]} · ${val} points</div>${p ? `<div class="pw">★ Power-up: ${p}</div>` : ""}<div class="qq">${q}</div>
+  <div class="dctrl" style="margin:0"><button class="btn navy" id="gt">Start 30 s</button><span class="timer" id="gtime">30</span><button class="btn gold" id="ga">Show answer</button></div>
+  <div class="ans hidden" id="gans">${a}</div>
+  <div class="award">${teams.map((t, i) => `<button class="give" data-i="${i}">+${val} ${t.name}</button>`).join("")}<button id="gno">No points</button></div>`;
+  $("modal").classList.remove("hidden");
+  const close = () => { if (gtid) clearInterval(gtid); used.add(b.dataset.k); if (p && p.startsWith("Free")) {} $("modal").classList.add("hidden"); drawBoard(); drawTeams(); };
+  $("ga").onclick = () => $("gans").classList.remove("hidden");
+  $("gt").onclick = () => { if (gtid) clearInterval(gtid); let l = 30; $("gtime").textContent = l; gtid = setInterval(() => { l--; $("gtime").textContent = l; if (l <= 5) $("gtime").classList.add("low"); if (l <= 0) clearInterval(gtid); }, 1000); };
+  $("mcard").querySelectorAll(".give").forEach(g => g.onclick = () => { teams[+g.dataset.i].score += val; close(); });
+  $("gno").onclick = close;
+};
+// ---- choose
+const story = $("story"), jobsEl = $("jobs"); let done = new Set();
+function itemByN(n) { for (const p of D.paras) for (const s of p) if (typeof s !== "string" && s[0] == n) return s; }
+function fb(ok, t) { $("fb").className = "fb " + (ok ? "good" : "bad"); $("fb").textContent = (ok ? "✓ " : "✗ ") + t; }
+function addWhy(n) { const it = itemByN(n), li = document.createElement("li"); li.dataset.n = n; li.innerHTML = `<b>(${n}) ${it[1 + it[3]]}</b>: ${D.reasons[n - 1]}`;
+  const ul = $("whyList"), after = [...ul.children].find(x => +x.dataset.n > n); ul.insertBefore(li, after || null); $("whyBox").classList.remove("hidden"); }
+function score() { $("score").textContent = `${done.size} / 8`; }
+function buildStory() {
+  done = new Set(); let h = `<h3>${D.title} <span>${D.author}</span></h3>`;
+  D.paras.forEach((p, pi) => { h += `<div class="para"><div class="pn">${pi + 1}</div><div>`;
+    p.forEach(s => { if (typeof s === "string") { h += s; return; } h += `<span class="ch"><span class="num">(${s[0]})</span><button class="opt" data-n="${s[0]}" data-k="0">${s[1]}</button><button class="opt" data-n="${s[0]}" data-k="1">${s[2]}</button></span>`; });
+    h += "</div></div>"; });
+  story.innerHTML = h;
+  jobsEl.innerHTML = D.paras.map((p, pi) => `<div class="jrow"><div class="pn">${pi + 1}</div>` + D.jobs.map((j, k) => `<button class="job" data-p="${pi + 1}" data-k="${k}">${j}</button>`).join("") + "</div>").join("");
+  $("whyList").innerHTML = ""; $("whyBox").classList.add("hidden"); $("fb").className = "fb"; $("fb").textContent = "Tap an answer in the story."; score();
+}
+function answer(n, k, silent) {
+  const it = itemByN(n), ci = it[3], btns = story.querySelectorAll(`.opt[data-n="${n}"]`);
+  if (k == ci) { btns.forEach(b => { b.classList.remove("wrong"); b.classList.toggle("right", b.dataset.k == ci); b.classList.toggle("dim", b.dataset.k != ci); b.disabled = true; });
+    if (!done.has(+n)) { done.add(+n); addWhy(n); if (!silent) fb(true, `(${n}) ${it[1 + ci]}: ${D.reasons[n - 1]}`); } }
+  else if (!silent) { const b = btns[k]; b.classList.remove("wrong"); void b.offsetWidth; b.classList.add("wrong"); fb(false, `(${n}) Not quite. Real or imaginary? Now or past? Try again.`); }
+  score();
+}
+story.addEventListener("click", e => { const b = e.target.closest(".opt"); if (b) answer(b.dataset.n, +b.dataset.k); });
+jobsEl.addEventListener("click", e => { const b = e.target.closest(".job"); if (!b) return;
+  if (D.jobAns[+b.dataset.k] == b.dataset.p) jobsEl.querySelectorAll(`.job[data-p="${b.dataset.p}"]`).forEach(x => { x.classList.remove("wrong"); x.classList.toggle("right", x === b); x.style.opacity = x === b ? 1 : .35; x.disabled = true; });
+  else { b.classList.remove("wrong"); void b.offsetWidth; b.classList.add("wrong"); } });
+$("showAll").onclick = () => { D.paras.forEach(p => p.forEach(s => { if (typeof s !== "string") answer(s[0], s[3], true); }));
+  jobsEl.querySelectorAll(".job").forEach(b => { const c = D.jobAns[+b.dataset.k] == b.dataset.p; b.classList.toggle("right", c); b.style.opacity = c ? 1 : .35; b.disabled = true; }); };
+$("reset").onclick = buildStory; buildStory();
+</script></body></html>
