@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Error Auction</title>
+<style>
+:root{
+  --navy:#0c2340; --gold:#ae9142; --mblue:#143865; --bblue:#1c4f8f; --dgold:#8c7535;
+  --bgold:#d39f10; --steel:#81a7c1; --lgray:#e8e8e8; --red:#ab100b; --white:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--lgray);color:var(--navy);font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;display:flex;flex-direction:column;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+/* header */
+header{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;border-bottom:5px solid var(--gold)}
+.stage{color:var(--gold);font-size:15px;letter-spacing:3px;font-weight:700;text-transform:uppercase}
+h1{margin:2px 0 0;font-family:Georgia,serif;font-size:36px;font-weight:700}
+.hright{display:flex;align-items:center;gap:12px}
+.timer{background:var(--red);color:#fff;border:none;border-radius:999px;font-size:28px;font-weight:700;padding:8px 22px;min-width:120px;box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.timer.done{animation:flash .5s 6 alternate}
+@keyframes flash{to{background:#fff;color:var(--red)}}
+.tset{display:flex;gap:4px}
+.tset button,.hbtn{background:transparent;color:#fff;border:1.5px solid var(--gold);border-radius:6px;font-size:16px;padding:6px 10px}
+.tset button:hover,.hbtn:hover{background:var(--gold);color:var(--navy)}
+/* main */
+main{flex:1;padding:20px 28px 10px;display:flex;flex-direction:column;gap:18px}
+#board{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.tile{background:var(--navy);color:#fff;border:3px solid var(--gold);border-radius:12px;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:22px;transition:transform .12s}
+.tile:hover{transform:translateY(-3px)}
+.tile .n{font-size:40px;font-weight:700;color:var(--gold);line-height:1}
+.tile.sold{background:#fff;color:var(--navy);border-color:var(--steel);cursor:default;transform:none}
+.tile.sold .n{color:var(--steel);font-size:30px}
+.tile .who{font-family:Calibri,Carlito,sans-serif;font-size:18px;font-weight:700;margin-top:4px;text-align:center;padding:0 6px}
+.tile .res{font-family:Calibri,Carlito,sans-serif;font-size:17px}
+.res.win{color:var(--dgold)} .res.lose{color:var(--red)}
+.hint{font-size:22px;text-align:center;color:var(--mblue);margin:0}
+/* lot view */
+#lot{display:none;flex-direction:column;gap:16px}
+.lotbar{display:flex;justify-content:space-between;align-items:center}
+.lotlabel{font-size:22px;font-weight:700;letter-spacing:2px;color:var(--dgold);text-transform:uppercase}
+.card{background:#fff;border-left:10px solid var(--gold);border-radius:10px;padding:26px 34px;box-shadow:0 2px 8px rgba(12,35,64,.15)}
+.sentence{font-family:Georgia,serif;font-size:44px;line-height:1.3;margin:0}
+.panel{background:#fff;border-radius:10px;padding:16px 22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:22px}
+.panel .lab{font-weight:700}
+.tbtn{border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;padding:8px 14px;font-size:20px;font-weight:700}
+.tbtn.on{background:var(--navy);color:#fff}
+.tbtn:disabled{opacity:.35;cursor:not-allowed}
+.step{border:none;background:var(--mblue);color:#fff;border-radius:8px;width:52px;height:46px;font-size:26px;font-weight:700}
+.bid{font-size:34px;font-weight:700;min-width:120px;text-align:center}
+.big{border:none;border-radius:10px;padding:12px 26px;font-size:24px;font-weight:700}
+.go{background:var(--gold);color:var(--navy)} .go:hover{background:var(--bgold)}
+.ok{background:var(--navy);color:#fff}
+.no{background:var(--red);color:#fff}
+.ghost{background:transparent;border:2px solid var(--mblue);color:var(--mblue)}
+.big:disabled{opacity:.4;cursor:not-allowed}
+.soldmsg{font-size:28px;font-weight:700}
+.ask{font-size:24px;color:var(--mblue)}
+.power{background:var(--bgold);color:var(--navy);border-radius:10px;padding:12px 20px;font-size:26px;font-weight:700;animation:pop .4s ease-out}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.verdict{font-size:30px;font-weight:700;margin:0 0 8px}
+.verdict.c{color:var(--dgold)} .verdict.x{color:var(--red)}
+.fix{font-family:Georgia,serif;font-size:38px;margin:0 0 10px}
+.fix b{background:#f3e9c9;padding:0 4px;border-radius:4px}
+.sentence u{text-decoration:none}
+.showwrong u{text-decoration:underline wavy var(--red);text-underline-offset:8px}
+.why{font-size:24px;color:var(--mblue);margin:0}
+/* teams */
+#teams{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;padding:0 28px 16px}
+.team{background:#fff;border-radius:10px;border-top:6px solid var(--gold);padding:10px 12px;text-align:center}
+.team.lead{border-top-color:var(--red)}
+.team input.name{width:100%;border:none;border-bottom:1.5px dashed var(--steel);font-family:inherit;font-size:20px;font-weight:700;text-align:center;color:var(--navy);background:transparent;padding:2px}
+.money{font-family:Georgia,serif;font-size:34px;font-weight:700;margin:4px 0;cursor:pointer}
+.adj{display:flex;justify-content:center;gap:6px}
+.adj button{border:1.5px solid var(--navy);background:#fff;border-radius:6px;font-size:16px;padding:3px 8px;color:var(--navy)}
+footer{background:var(--navy);color:#fff;font-size:15px;padding:8px 28px;display:flex;justify-content:space-between;border-top:4px solid var(--gold)}
+/* overlays */
+.ov{position:fixed;inset:0;background:rgba(12,35,64,.86);display:none;align-items:center;justify-content:center;z-index:10;padding:20px}
+.ov.show{display:flex}
+.box{background:#fff;border-radius:14px;max-width:980px;width:100%;padding:30px 40px;border-top:8px solid var(--gold);max-height:94vh;overflow:auto}
+.box h2{font-family:Georgia,serif;font-size:38px;margin:0 0 14px}
+.box ol,.box ul{font-size:24px;line-height:1.5;margin:0 0 16px;padding-left:30px}
+.box p{font-size:22px}
+.rank{display:flex;justify-content:space-between;font-size:30px;padding:10px 16px;border-bottom:1px solid var(--lgray)}
+.rank:first-of-type{background:#f3e9c9;font-weight:700;border-radius:8px}
+@media (max-width:1000px){
+  #board{grid-template-columns:repeat(4,1fr)}#teams{grid-template-columns:repeat(3,1fr)}
+  .sentence{font-size:32px}.fix{font-size:28px}h1{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="stage">Midterm Review · Speaking</div>
+    <h1>Error Auction</h1>
+  </div>
+  <div class="hright">
+    <div class="tset" aria-label="Timer length">
+      <button data-t="15">15s</button><button data-t="30">30s</button><button data-t="60">60s</button>
+    </div>
+    <button class="timer" id="timer" title="Click to start or pause">0:30</button>
+    <button class="hbtn" id="undoBtn" title="Undo the last result">Undo</button>
+    <button class="hbtn" id="rulesBtn">How to play</button>
+    <button class="hbtn" id="endBtn">Final results</button>
+  </div>
+</header>
+
+<main>
+  <section id="boardView">
+    <div id="board"></div>
+    <p class="hint" style="margin-top:16px">Click a lot to open it.</p>
+  </section>
+
+  <section id="lot">
+    <div class="lotbar">
+      <span class="lotlabel" id="lotLabel">Lot 1</span>
+      <button class="big ghost" id="backBtn">Back to board</button>
+    </div>
+    <div class="card"><p class="sentence" id="sentence"></p></div>
+
+    <!-- step 1: bidding -->
+    <div class="panel" id="bidPanel">
+      <span class="lab">Winning team:</span>
+      <span id="teamPick" style="display:flex;flex-wrap:wrap;gap:8px"></span>
+      <span class="lab" style="margin-left:10px">Bid:</span>
+      <button class="step" id="minus">−</button>
+      <span class="bid" id="bidAmt">$100</span>
+      <button class="step" id="plus">+</button>
+      <button class="big go" id="soldBtn" disabled>Sold!</button>
+      <button class="big ghost" id="noBidBtn">No bids</button>
+    </div>
+
+    <!-- step 2: team answers -->
+    <div class="panel" id="answerPanel" style="display:none;flex-direction:column;align-items:flex-start">
+      <div class="soldmsg" id="soldMsg"></div>
+      <div class="power" id="powerMsg" style="display:none"></div>
+      <div class="ask">Your team: Is it correct? If not, fix it. Then say why.</div>
+      <button class="big go" id="revealBtn">Show answer</button>
+    </div>
+
+    <!-- step 3: answer -->
+    <div class="card" id="answerCard" style="display:none">
+      <p class="verdict" id="verdict"></p>
+      <p class="fix" id="fixed"></p>
+      <p class="why" id="why"></p>
+    </div>
+    <div class="panel" id="judgePanel" style="display:none">
+      <span class="lab" id="judgeInfo"></span><span class="lab">Did the team get it right?</span>
+      <button class="big ok" id="rightBtn">Yes, they got it</button>
+      <button class="big no" id="wrongBtn">No, they missed it</button>
+    </div>
+    <div class="panel" id="donePanel" style="display:none">
+      <span class="soldmsg" id="resultMsg"></span>
+      <button class="big go" id="nextBtn">Back to board</button>
+    </div>
+  </section>
+</main>
+
+<div id="teams"></div>
+
+<footer><span>Approach International Student Center</span><span>Grammar and Writing · Independent Level</span></footer>
+
+<!-- rules overlay -->
+<div class="ov show" id="rules">
+  <div class="box">
+    <h2>How to Play</h2>
+    <ol>
+      <li>Work in six teams. Every team starts with <b>$1,000</b>.</li>
+      <li>Read the sentence with your team. Is it correct or not?</li>
+      <li>Bid for the sentence. The lowest bid is $100. You cannot bid more money than you have.</li>
+      <li>The highest bid buys it. Say if it is correct. If not, fix it and say why.</li>
+      <li>Right answer: you win your bid. Wrong answer: you lose your bid.</li>
+      <li>Some lots have a surprise. The team with the most money at the end wins.</li>
+    </ol>
+    <button class="big go" id="startBtn">Start</button>
+  </div>
+</div>
+
+<!-- final overlay -->
+<div class="ov" id="final">
+  <div class="box">
+    <h2>Final Results</h2>
+    <div id="ranking"></div>
+    <p style="margin-top:20px"><button class="big ghost" id="closeFinal">Back to the game</button>
+    <button class="big no" id="resetBtn" style="margin-left:10px">New game</button></p>
+  </div>
+</div>
+
+<script>
+/* ---------- content: 20 lots (13 incorrect, 7 correct). Units 1 to 4. ---------- */
+const LOTS = [
+  {s:"The accident <u>was happened</u> at night.", ok:false,
+   f:"The accident <b>happened</b> at night.",
+   why:"Happen never uses the passive. We cannot say was happened."},
+  {s:"We have been waiting for the bus for twenty minutes, and it still has not come.", ok:true,
+   why:"Have been waiting + for: an action that started in the past and is still happening now."},
+  {s:"If I <u>would live</u> closer, I would visit you more often.", ok:false,
+   f:"If I <b>lived</b> closer, I would visit you more often.",
+   why:"Do not use would after if. Use the past simple: If I lived."},
+  {s:"<u>Did you used to</u> live with your parents?", ok:false,
+   f:"<b>Did you use to</b> live with your parents?",
+   why:"After did (questions and negatives), use use to, not used to."},
+  {s:"Our kitchen is being painted this week, so we are eating out every night.", ok:true,
+   why:"Is being painted: the passive for an action that is happening now."},
+  {s:"I <u>have seen</u> that movie last week.", ok:false,
+   f:"I <b>saw</b> that movie last week.",
+   why:"Last week is a finished time. Use the past simple."},
+  {s:"<u>Unless it does not rain</u>, we will have the picnic in the park.", ok:false,
+   f:"<b>Unless it rains</b>, we will have the picnic in the park.",
+   why:"Unless means if not. Do not add another not."},
+  {s:"My dad <u>would be</u> very strict when I was a teenager.", ok:false,
+   f:"My dad <b>used to be</b> very strict when I was a teenager.",
+   why:"Be is a state, not an action. Use used to for states. Use would only for actions that happened many times."},
+  {s:"The winners <u>were chose</u> by the students.", ok:false,
+   f:"The winners <b>were chosen</b> by the students.",
+   why:"The passive is be + past participle: choose, chose, chosen."},
+  {s:"If I had known about the sale, I would have bought two pairs.", ok:true,
+   why:"If + had + past participle, would have + past participle: we imagine a different past. (B1+)"},
+  {s:"My phone <u>was stole</u> on the bus yesterday.", ok:false,
+   f:"My phone <b>was stolen</b> on the bus yesterday.",
+   why:"The passive is be + past participle: steal, stole, stolen."},
+  {s:"I have lived here <u>for 2023</u>.", ok:false,
+   f:"I have lived here <b>since 2023</b>.",
+   why:"Use since with a point in time (2023). Use for with a length of time (two years)."},
+  {s:"Before I moved here, I had never tried sushi.", ok:true,
+   why:"Had never tried: an experience before another past time (before I moved here)."},
+  {s:"If I had a free day tomorrow, I <u>will sleep</u> until noon.", ok:false,
+   f:"If I had a free day tomorrow, I <b>would sleep</b> until noon.",
+   why:"If I had is imaginary. Use would in the other part of the sentence."},
+  {s:"Thousands of photos are uploaded to the internet every second.", ok:true,
+   why:"Are uploaded: the present passive. The action is important, not the person who does it."},
+  {s:"I <u>have been owning</u> this car since 2020.", ok:false,
+   f:"I <b>have owned</b> this car since 2020.",
+   why:"Own is a state, not an action. Do not use the -ing form. Use have owned."},
+  {s:"I was tired because I had been driving all day.", ok:true,
+   why:"Had been driving: a long action that continued until a moment in the past. (B1+)"},
+  {s:"The new menu <u>has been design</u> by a famous chef.", ok:false,
+   f:"The new menu <b>has been designed</b> by a famous chef.",
+   why:"The passive needs the past participle: has been designed."},
+  {s:"Have you finished your essay yet?", ok:true,
+   why:"Yet goes at the end of questions and negative sentences."},
+  {s:"When I got to the party, my friends <u>already left</u>.", ok:false,
+   f:"When I got to the party, my friends <b>had already left</b>.",
+   why:"My friends left first. Use had + past participle for the earlier action."}
+];
+/* power-ups on lots 3, 7, 14, 20 (one per row, different columns) */
+const POWER = {
+  2:{name:"Golden Lot", text:"Golden Lot! Right answer: you win 2 times your bid.", win:b=>2*b, lose:b=>-b},
+  6:{name:"Safety Net", text:"Safety Net! Wrong answer: you lose nothing.", win:b=>b, lose:b=>0},
+  13:{name:"Bonus Lot", text:"Bonus Lot! Right answer: you win your bid + $200.", win:b=>b+200, lose:b=>-b},
+  19:{name:"Golden Lot", text:"Golden Lot! Right answer: you win 2 times your bid.", win:b=>2*b, lose:b=>-b}
+};
+
+/* ---------- state ---------- */
+const START = 1000, MINBID = 100, STEP = 50;
+let state, history = [];
+function fresh(){
+  return {teams:[1,2,3,4,5,6].map(i=>({name:"Team "+i, money:START})),
+          lots:LOTS.map(()=>null)}; // null = open; {team, bid, net, right} or {team:null}
+}
+state = fresh();
+let cur = null, pickTeam = null, bid = MINBID;
+
+const $ = id=>document.getElementById(id);
+const fmt = n=>(n<0?"−$":"$")+Math.abs(n).toLocaleString("en-US");
+function snapshot(){ history.push(JSON.stringify(state)); if(history.length>50) history.shift(); }
+
+/* ---------- render ---------- */
+function renderTeams(){
+  const max = Math.max(...state.teams.map(t=>t.money));
+  const leaders = state.teams.filter(t=>t.money===max).length;
+  $("teams").innerHTML = state.teams.map((t,i)=>`
+    <div class="team ${t.money===max && leaders===1 ? 'lead':''}">
+      <input class="name" data-i="${i}" value="${t.name.replace(/"/g,'&quot;')}" aria-label="Team name">
+      <div class="money" data-i="${i}" title="Click to type a new amount">${fmt(t.money)}</div>
+      <div class="adj"><button data-i="${i}" data-d="-50">−50</button><button data-i="${i}" data-d="50">+50</button></div>
+    </div>`).join("");
+}
+function renderBoard(){
+  $("board").innerHTML = LOTS.map((l,i)=>{
+    const r = state.lots[i];
+    if(!r) return `<button class="tile" data-lot="${i}"><span class="n">${i+1}</span>LOT</button>`;
+    if(r.team===null) return `<div class="tile sold"><span class="n">${i+1}</span><span class="who">No bids</span></div>`;
+    return `<div class="tile sold"><span class="n">${i+1}</span><span class="who">${esc(state.teams[r.team].name)}</span>
+      <span class="res ${r.net>=0?'win':'lose'}">${r.net>=0?'+':''}${fmt(r.net)}</span></div>`;
+  }).join("");
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function renderAll(){ renderTeams(); renderBoard(); }
+
+/* ---------- lot flow ---------- */
+function openLot(i){
+  cur = i; pickTeam = null; bid = MINBID;
+  $("boardView").style.display="none"; $("lot").style.display="flex";
+  $("lotLabel").textContent = "Lot " + (i+1);
+  $("sentence").innerHTML = LOTS[i].s; $("sentence").classList.remove("showwrong");
+  ["answerPanel","answerCard","judgePanel","donePanel"].forEach(id=>$(id).style.display="none");
+  $("bidPanel").style.display="flex"; $("backBtn").style.display="";
+  renderPick(); updateBid(); resetTimer();
+}
+function renderPick(){
+  $("teamPick").innerHTML = state.teams.map((t,i)=>
+    `<button class="tbtn ${pickTeam===i?'on':''}" data-pick="${i}" ${t.money<MINBID?'disabled':''}>${esc(t.name)}</button>`).join("");
+}
+function updateBid(){
+  const cap = pickTeam===null ? Infinity : state.teams[pickTeam].money;
+  if(bid>cap) bid = Math.max(MINBID, Math.floor(cap/STEP)*STEP);
+  $("bidAmt").textContent = fmt(bid);
+  $("soldBtn").disabled = pickTeam===null || bid>cap;
+}
+function sell(){
+  $("bidPanel").style.display="none"; $("backBtn").style.display="none";
+  $("answerPanel").style.display="flex";
+  $("soldMsg").textContent = `Sold to ${state.teams[pickTeam].name} for ${fmt(bid)}!`;
+  const p = POWER[cur];
+  if(p){ $("powerMsg").style.display=""; $("powerMsg").textContent = p.text; }
+  else $("powerMsg").style.display="none";
+  stopTimer();
+}
+function reveal(showJudge){
+  const l = LOTS[cur];
+  $("answerPanel").style.display="none";
+  $("answerCard").style.display="block";
+  $("answerCard").style.borderLeftColor = l.ok ? "var(--gold)" : "var(--red)";
+  $("verdict").className = "verdict " + (l.ok?"c":"x");
+  $("verdict").textContent = l.ok ? "Correct sentence" : "Not correct";
+  $("fixed").innerHTML = l.ok ? "" : l.f; $("fixed").style.display = l.ok?"none":"";
+  $("why").textContent = l.why;
+  if(!l.ok) $("sentence").classList.add("showwrong");
+  if(showJudge){ const p=POWER[cur]; $("judgeInfo").textContent = `${state.teams[pickTeam].name} · ${fmt(bid)}${p?" · "+p.name:""} ·`; $("judgePanel").style.display="flex"; }
+}
+function judge(right){
+  snapshot();
+  const p = POWER[cur];
+  const net = right ? (p? p.win(bid) : bid) : (p? p.lose(bid) : -bid);
+  state.teams[pickTeam].money += net;
+  state.lots[cur] = {team:pickTeam, bid, net, right};
+  $("judgePanel").style.display="none"; $("donePanel").style.display="flex";
+  $("resultMsg").textContent = `${state.teams[pickTeam].name}: ${net>=0?'+':''}${fmt(net)}`;
+  renderAll();
+}
+function noBids(){
+  snapshot();
+  state.lots[cur] = {team:null};
+  $("bidPanel").style.display="none"; $("backBtn").style.display="none";
+  reveal(false);
+  $("donePanel").style.display="flex"; $("resultMsg").textContent = "No bids. No money won or lost.";
+  stopTimer(); renderAll();
+}
+function toBoard(){ $("lot").style.display="none"; $("boardView").style.display=""; cur=null; renderAll(); }
+
+/* ---------- timer ---------- */
+let tLen = 30, tLeft = 30, tInt = null;
+function showT(){ const m=Math.floor(tLeft/60), s=tLeft%60; $("timer").textContent = m+":"+String(s).padStart(2,"0"); }
+function stopTimer(){ clearInterval(tInt); tInt=null; }
+function resetTimer(){ stopTimer(); tLeft=tLen; $("timer").classList.remove("done"); showT(); }
+function beep(){
+  try{ const a=new (window.AudioContext||window.webkitAudioContext)(); [0,0.35,0.7].forEach(t=>{
+    const o=a.createOscillator(), g=a.createGain(); o.frequency.value=880; o.connect(g); g.connect(a.destination);
+    g.gain.setValueAtTime(0.25,a.currentTime+t); g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+t+0.3);
+    o.start(a.currentTime+t); o.stop(a.currentTime+t+0.3);}); }catch(e){}
+}
+$("timer").onclick = ()=>{
+  if(tInt){ stopTimer(); return; }
+  if(tLeft<=0) resetTimer();
+  $("timer").classList.remove("done");
+  tInt = setInterval(()=>{ tLeft--; showT(); if(tLeft<=0){ stopTimer(); $("timer").classList.add("done"); beep(); } },1000);
+};
+document.querySelectorAll(".tset button").forEach(b=>b.onclick=()=>{ tLen=+b.dataset.t; resetTimer(); });
+
+/* ---------- events ---------- */
+$("board").onclick = e=>{ const t=e.target.closest("[data-lot]"); if(t) openLot(+t.dataset.lot); };
+$("teamPick").onclick = e=>{ const b=e.target.closest("[data-pick]"); if(!b||b.disabled) return; pickTeam=+b.dataset.pick; renderPick(); updateBid(); };
+$("plus").onclick = ()=>{ bid+=STEP; const cap = pickTeam===null?Infinity:state.teams[pickTeam].money; if(bid>cap) bid-=STEP; updateBid(); };
+$("minus").onclick = ()=>{ bid=Math.max(MINBID,bid-STEP); updateBid(); };
+$("soldBtn").onclick = sell;
+$("noBidBtn").onclick = noBids;
+$("revealBtn").onclick = ()=>reveal(true);
+$("rightBtn").onclick = ()=>judge(true);
+$("wrongBtn").onclick = ()=>judge(false);
+$("nextBtn").onclick = toBoard;
+$("backBtn").onclick = toBoard;
+
+$("teams").addEventListener("input", e=>{
+  if(e.target.matches("input.name")){ state.teams[+e.target.dataset.i].name = e.target.value || "Team"; renderBoard(); if(cur!==null) renderPick(); }
+});
+$("teams").addEventListener("click", e=>{
+  const b = e.target.closest("button[data-d]");
+  if(b){ snapshot(); state.teams[+b.dataset.i].money += +b.dataset.d; renderTeams(); if(cur!==null){renderPick();updateBid();} return; }
+  const m = e.target.closest(".money");
+  if(m){ const i=+m.dataset.i; const v = prompt("New amount for "+state.teams[i].name+":", state.teams[i].money);
+    if(v!==null && v.trim()!=="" && !isNaN(+v)){ snapshot(); state.teams[i].money = Math.round(+v); renderTeams(); if(cur!==null){renderPick();updateBid();} } }
+});
+
+$("undoBtn").onclick = ()=>{
+  if(!history.length) return;
+  state = JSON.parse(history.pop());
+  toBoard();
+};
+$("rulesBtn").onclick = ()=>$("rules").classList.add("show");
+$("startBtn").onclick = ()=>$("rules").classList.remove("show");
+$("endBtn").onclick = ()=>{
+  const sorted = state.teams.map(t=>t).sort((a,b)=>b.money-a.money);
+  const place = ["1st","2nd","3rd","4th","5th","6th"];
+  $("ranking").innerHTML = sorted.map((t,i)=>`<div class="rank"><span>${place[i]} · ${esc(t.name)}</span><span>${fmt(t.money)}</span></div>`).join("");
+  $("final").classList.add("show");
+};
+$("closeFinal").onclick = ()=>$("final").classList.remove("show");
+$("resetBtn").onclick = ()=>{ if(confirm("Start a new game? All scores will go back to $1,000.")){ state=fresh(); history=[]; $("final").classList.remove("show"); toBoard(); } };
+
+renderAll(); showT();
+</script>
+</body>
+</html>
