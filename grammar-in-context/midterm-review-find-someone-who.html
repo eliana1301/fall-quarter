@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find Someone Who · Midterm Review</title>
+<meta name="description" content="Fillable worksheet: Find Someone Who, midterm review (Weeks 1 to 5), Approach International Student Center.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0C2340;--gold:#AE9142;--goldt:#7A5F1A;--cream:#F8F4EC;--berry:#6D2E46;--ink:#1A1A1A;--muted:#555;--ice:#E1E8F2;--ok:#2E6B30;--okbg:#EAF3E6;--bad:#8E2C2C;--badbg:#FBECEC;--bg:#F3F1EC}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Carlito','Calibri','Segoe UI',Arial,sans-serif;overflow-wrap:break-word}
+h1,h2,h3,.serif{font-family:'Caladea','Cambria',Georgia,serif}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 40px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.bar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.bar .in{max-width:780px;margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.status{flex:1 1 180px;font-size:16px;color:#DDE5F0;min-height:22px}
+.bar .btn{background:#fff;color:var(--navy);border:0}
+.bar .btn.ghost{background:transparent;color:#fff;border:1.5px solid #9FB0C8}
+.btn{font:inherit;font-weight:700;font-size:16px;min-height:44px;padding:8px 16px;border-radius:10px;border:2px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer}
+.btn:focus-visible,.opt:focus-visible,.tb:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #2F6FD6;outline-offset:2px}
+.top{background:#fff;border-radius:14px;padding:18px 18px 10px;margin:16px 0;border:1px solid #E2DCCD}
+.org{font-size:16px;letter-spacing:2.5px;color:var(--goldt);font-weight:700}
+h1{font-size:30px;color:var(--navy);margin:2px 0 0;line-height:1.15}
+.sub{color:var(--muted);font-style:italic;margin:2px 0 10px}
+.idrow{display:grid;grid-template-columns:2fr 1fr;gap:0 12px}
+@media (max-width:520px){.idrow{grid-template-columns:1fr}}
+.sec{background:#fff;border-radius:14px;padding:16px 18px;margin:16px 0;border:1px solid #E2DCCD}
+.sec h2{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px;color:var(--navy);font-size:23px;line-height:1.2}
+.sec h2 .n{background:var(--navy);color:#fff;border-radius:50%;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;font-size:17px;flex:none}
+.tag{font-family:'Carlito','Calibri',sans-serif;font-size:16px;letter-spacing:1.5px;background:var(--goldt);color:#fff;padding:2px 9px;border-radius:5px;font-weight:700}
+h3{color:var(--navy);font-size:19px;margin:16px 0 6px}
+.inst{font-style:italic;color:var(--muted);margin:4px 0 8px}
+.muted{color:var(--muted)}
+.navy{color:var(--navy)}.rules{margin:4px 0 10px;padding-left:22px}.rules li{margin:3px 0}.example{background:var(--cream)}.progress{font-weight:700;color:var(--navy);margin:8px 0}.progress.done{color:var(--ok)}.fsw .grid2{margin-top:4px}.fsw .field{margin:6px 0}
+.example{background:var(--cream);border-radius:10px;padding:8px 12px;border:1px solid #E2D8BE}
+b.pp{color:var(--navy)}
+.field{margin:8px 0}
+.field label,.qlabel{display:block;font-weight:700;color:var(--navy);margin:0 0 4px}
+input[type=text],input[type=date],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid #8E96A3;border-radius:9px;padding:10px 12px;min-height:44px}
+textarea{resize:vertical;line-height:1.4}
+select{appearance:auto}
+.pv{display:none}
+.wc{font-size:16px;color:var(--muted);margin-top:3px}
+.wc.ok{color:var(--ok)} .wc.over{color:var(--bad)}
+.choice-wrap{margin:8px 0}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font:inherit;font-size:16px;min-height:44px;padding:8px 14px;border-radius:22px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;text-align:left}
+.opt[aria-pressed=true]{background:var(--navy);color:#fff}
+.choices.sm .opt{padding:6px 12px}
+.mark{font-weight:700;margin-left:4px}
+.choice-wrap.right .choices,.gapw.right input{box-shadow:0 0 0 3px var(--ok);border-radius:22px}
+.gapw.right input{border-radius:9px}
+.choice-wrap.wrong .choices,.gapw.wrong input{box-shadow:0 0 0 3px var(--bad);border-radius:22px}
+.gapw.wrong input{border-radius:9px}
+.choice-wrap.right .mark::after,.gapw.right .mark::after{content:"✓ Correct";color:var(--ok)}
+.choice-wrap.wrong .mark::after,.gapw.wrong .mark::after{content:"✗ Try again";color:var(--bad)}
+.explain{background:var(--ice);border-radius:8px;padding:6px 10px;margin-top:6px;font-size:16px}
+details.more{border:1.5px solid #D9CFB6;border-radius:10px;margin:10px 0;background:var(--cream)}
+details.more summary{cursor:pointer;padding:10px 14px;font-weight:700;color:var(--navy);min-height:44px;list-style-position:inside}
+.more-body{padding:0 14px 10px}
+.reading .intro{font-style:italic;color:var(--muted)}
+.reading .q{font-weight:700;color:var(--navy);margin:12px 0 2px}
+.reading .a{margin:0}
+b.verb{color:var(--berry)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media (max-width:520px){.grid2{grid-template-columns:1fr}}
+dl.roles dt{font-weight:700;color:var(--navy);margin-top:6px} dl.roles dd{margin:0 0 4px}
+.sorter{display:grid;gap:6px}
+.srow{display:grid;grid-template-columns:minmax(150px,1.2fr) auto minmax(140px,1.4fr);gap:6px 10px;align-items:center;border-bottom:1px solid #EEE7D8;padding:4px 0}
+.srow .choice-wrap,.srow .field{margin:0}
+@media (max-width:600px){.srow{grid-template-columns:1fr auto}.srow .tw{grid-column:1/-1}}
+.num{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:16px;font-weight:700;padding:0 4px}
+.card{border:1.5px solid #E2D8BE;border-radius:12px;padding:10px 14px;margin:10px 0;background:#fff}
+.rulecard{border-color:var(--berry)}
+.checklist{border:0;padding:0;margin:10px 0}
+.checklist legend{font-weight:700;color:var(--berry);padding:0;margin-bottom:4px}
+label.ck{display:flex;gap:10px;align-items:flex-start;padding:6px 0;min-height:44px;cursor:pointer}
+label.ck input{width:24px;height:24px;flex:none;margin-top:1px;accent-color:var(--navy)}
+.tws{display:grid;gap:8px}
+.twrow{border-bottom:1px solid #EEE7D8;padding:4px 0 8px}
+.twword{font-weight:700;color:var(--navy);font-size:17px}
+.twrow .choice-wrap{margin:4px 0 0}
+.pair .ab{display:flex;gap:10px} .pair .ab p{margin:2px 0} .lab{color:var(--goldt)}
+.trhead{font-weight:700;color:var(--berry)}
+.tallies{display:flex;flex-wrap:wrap;gap:10px}
+.tally{display:flex;align-items:center;gap:8px;background:var(--cream);border-radius:10px;padding:6px 10px}
+.tally .tl{font-weight:700;color:var(--navy);min-width:0}
+.tally{flex-wrap:wrap;max-width:100%}
+@media (max-width:420px){.tally .tl{flex-basis:100%}.sec,.top{padding:14px 12px}.card{padding:10px}}
+.tb{font:inherit;font-weight:700;font-size:22px;width:44px;height:44px;border-radius:50%;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;line-height:1}
+.tally output{min-width:28px;text-align:center;font-size:20px;font-weight:700}
+.dupwarn{color:var(--bad);font-weight:700;margin-top:4px}
+.bostext p{margin:6px 0;line-height:2.1}
+.bt{color:var(--berry)} .known{color:var(--navy)}
+.gapw{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.gapw .gn{font-size:16px;font-weight:700;color:var(--berry)}
+input.gap{width:120px;min-height:40px;padding:6px 8px}
+.gapw .mark{font-size:16px}
+.half[hidden]{display:none}
+.checkrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0 4px}
+.feedback{font-weight:700;color:var(--navy)}
+.feedback.good{color:var(--ok)}
+footer{text-align:center;color:var(--muted);font-size:16px;padding:10px 16px 30px}
+@media print{
+  @page{margin:14mm 13mm}
+  body{background:#fff;font-size:11pt}
+  .bar,.no-print,.checkrow,.dupwarn,.wc,.pickfirst,button.tb{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .top,.sec{border:0;padding:0;margin:0 0 10px;border-radius:0}
+  .sec{break-before:auto}
+  .card,.choice-wrap,.field,.srow,.twrow,.tally,label.ck,.reading p{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  input[type=text],input[type=date],textarea,select,.choices{display:none!important}
+  .pv{display:block;min-height:1.3em;border-bottom:1px solid #999;padding:2px 2px;white-space:pre-wrap;font-size:11pt}
+  .gapw .pv{display:inline-block;min-width:80px}
+  .tally output{font-size:12pt}
+  details.more>summary{list-style:none}
+  details.more::details-content{content-visibility:visible;display:block}
+  .explain{display:none!important}
+  .choice-wrap.right .choices,.choice-wrap.wrong .choices{box-shadow:none}
+  .mark{display:none}
+  .half.unchosen{display:none!important}
+  details.more>summary{break-after:avoid;padding:4px 10px;min-height:0}
+  details.more{break-inside:auto}
+  .tws{grid-template-columns:repeat(3,1fr);gap:2px 16px}
+  .twrow{border:0;padding:2px 0}
+  .twword{font-size:11pt}
+  .sorter{grid-template-columns:1fr 1fr;column-gap:18px;gap:0 18px}
+  .srow{grid-template-columns:1.3fr .5fr 1.6fr;padding:2px 0;border:0}
+  .srow .pv,.twrow .pv{min-height:1.1em}
+  .num{min-width:20px;height:20px;font-size:9pt}
+  .field{margin:4px 0}.choice-wrap{margin:4px 0}
+  .card{padding:6px 10px;margin:6px 0}
+  .half>.field{display:inline-block;width:47%;margin-right:3%;vertical-align:top}
+  footer{padding:6px 0 0;font-size:9pt}
+}
+</style>
+</head>
+<body>
+<div class="bar no-print" role="toolbar" aria-label="Worksheet tools"><div class="in">
+<div class="status" id="status" role="status" aria-live="polite"></div>
+<button type="button" class="btn" id="btn-dl">Download</button>
+<button type="button" class="btn" id="btn-print">Print / PDF</button>
+<button type="button" class="btn ghost" id="btn-clear">Clear</button>
+</div></div>
+<main class="wrap">
+
+<header class="top">
+  <div class="org">APPROACH INTERNATIONAL STUDENT CENTER</div>
+  <h1>Grammar in Context</h1>
+  <p class="sub">Midterm Review &nbsp;|&nbsp; Find Someone Who &nbsp;|&nbsp; Weeks 1 to 5</p>
+  <div class="idrow">
+    <div class="field "><label for="f1" class="">Name</label><input type="text" id="f1" data-key="name" data-label="Name" placeholder="Your full name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div>
+    <div class="field"><label for="date">Date</label><input type="date" id="date" data-key="date" data-label="Date"><div class="pv" aria-hidden="true"></div></div>
+  </div>
+  <div class="choice-wrap"><div id="g2" class=" qlabel">I am working</div><div class="choices sm" role="group" aria-labelledby="g2" data-key="where" data-label="I am working"><button type="button" class="opt" data-val="room" aria-pressed="false">In the room</button><button type="button" class="opt" data-val="online" aria-pressed="false">Online</button></div><div class="pv" aria-hidden="true"></div><span class="mark" aria-hidden="true"></span></div>
+</header><section class="sec" id="s1"><h2><span class="n" aria-hidden="true">1</span><span class="t">Find Someone Who</span> <span class="tag">SPEAKING</span></h2><p class="inst">Stand up and talk to as many classmates as you can. Online: talk in your breakout room, then in a new room halfway through.</p><ol class="rules"><li>Write the question first, then ask it. Start with a question like Have you ever ... ?, Did you ... ?, Had you ... ?, Are you ... ?, or Do you ... ?</li><li>When someone says yes, write their name and ask one follow-up question (When? Why? How long? What was it like?).</li><li>You can use each classmate&#x27;s name only twice.</li></ol><div class="card example"><div class="qlabel"><span class="num">0</span> Example: Find someone who <b>has visited Canada.</b></div><p class="muted" style="margin:4px 0 0"><b>Question:</b> Have you ever visited Canada? &nbsp; <b>Name:</b> Tomás &nbsp; <b>Follow-up:</b> He went to Toronto in 2019 and loved it.</p></div><p class="progress" id="fswProgress" aria-live="polite">0 of 16 found</p><div class="card fsw" data-row="1"><div class="qlabel"><span class="num">1</span> Find someone who <b>has met a famous person.</b></div><div class="field "><label for="f3" class="">1. Your question</label><input type="text" id="f3" data-key="f1_q" data-label="1. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f4" class="">1. Name</label><input type="text" id="f4" data-key="f1_n" data-label="1. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f5" class="">1. Follow-up: what did you learn?</label><input type="text" id="f5" data-key="f1_d" data-label="1. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="2"><div class="qlabel"><span class="num">2</span> Find someone who <b>used to play a musical instrument.</b></div><div class="field "><label for="f6" class="">2. Your question</label><input type="text" id="f6" data-key="f2_q" data-label="2. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f7" class="">2. Name</label><input type="text" id="f7" data-key="f2_n" data-label="2. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f8" class="">2. Follow-up: what did you learn?</label><input type="text" id="f8" data-key="f2_d" data-label="2. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="3"><div class="qlabel"><span class="num">3</span> Find someone who <b>had never seen snow before they came here.</b></div><div class="field "><label for="f9" class="">3. Your question</label><input type="text" id="f9" data-key="f3_q" data-label="3. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f10" class="">3. Name</label><input type="text" id="f10" data-key="f3_n" data-label="3. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f11" class="">3. Follow-up: what did you learn?</label><input type="text" id="f11" data-key="f3_d" data-label="3. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="4"><div class="qlabel"><span class="num">4</span> Find someone who <b>is thinking about changing jobs or careers.</b></div><div class="field "><label for="f12" class="">4. Your question</label><input type="text" id="f12" data-key="f4_q" data-label="4. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f13" class="">4. Name</label><input type="text" id="f13" data-key="f4_n" data-label="4. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f14" class="">4. Follow-up: what did you learn?</label><input type="text" id="f14" data-key="f4_d" data-label="4. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="5"><div class="qlabel"><span class="num">5</span> Find someone who <b>learned to drive before they were 20.</b></div><div class="field "><label for="f15" class="">5. Your question</label><input type="text" id="f15" data-key="f5_q" data-label="5. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f16" class="">5. Name</label><input type="text" id="f16" data-key="f5_n" data-label="5. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f17" class="">5. Follow-up: what did you learn?</label><input type="text" id="f17" data-key="f5_d" data-label="5. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="6"><div class="qlabel"><span class="num">6</span> Find someone who <b>is used to waking up before 7 a.m.</b></div><div class="field "><label for="f18" class="">6. Your question</label><input type="text" id="f18" data-key="f6_q" data-label="6. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f19" class="">6. Name</label><input type="text" id="f19" data-key="f6_n" data-label="6. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f20" class="">6. Follow-up: what did you learn?</label><input type="text" id="f20" data-key="f6_d" data-label="6. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="7"><div class="qlabel"><span class="num">7</span> Find someone who <b>has had the same phone number for more than five years.</b></div><div class="field "><label for="f21" class="">7. Your question</label><input type="text" id="f21" data-key="f7_q" data-label="7. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f22" class="">7. Name</label><input type="text" id="f22" data-key="f7_n" data-label="7. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f23" class="">7. Follow-up: what did you learn?</label><input type="text" id="f23" data-key="f7_d" data-label="7. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="8"><div class="qlabel"><span class="num">8</span> Find someone who <b>had finished high school by the time they were 18.</b></div><div class="field "><label for="f24" class="">8. Your question</label><input type="text" id="f24" data-key="f8_q" data-label="8. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f25" class="">8. Name</label><input type="text" id="f25" data-key="f8_n" data-label="8. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f26" class="">8. Follow-up: what did you learn?</label><input type="text" id="f26" data-key="f8_d" data-label="8. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="9"><div class="qlabel"><span class="num">9</span> Find someone who <b>stopped eating a food they used to love.</b></div><div class="field "><label for="f27" class="">9. Your question</label><input type="text" id="f27" data-key="f9_q" data-label="9. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f28" class="">9. Name</label><input type="text" id="f28" data-key="f9_n" data-label="9. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f29" class="">9. Follow-up: what did you learn?</label><input type="text" id="f29" data-key="f9_d" data-label="9. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="10"><div class="qlabel"><span class="num">10</span> Find someone who <b>hasn&#x27;t opened a U.S. bank account yet.</b></div><div class="field "><label for="f30" class="">10. Your question</label><input type="text" id="f30" data-key="f10_q" data-label="10. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f31" class="">10. Name</label><input type="text" id="f31" data-key="f10_n" data-label="10. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f32" class="">10. Follow-up: what did you learn?</label><input type="text" id="f32" data-key="f10_d" data-label="10. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="11"><div class="qlabel"><span class="num">11</span> Find someone who <b>remembers meeting their best friend for the first time.</b></div><div class="field "><label for="f33" class="">11. Your question</label><input type="text" id="f33" data-key="f11_q" data-label="11. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f34" class="">11. Name</label><input type="text" id="f34" data-key="f11_n" data-label="11. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f35" class="">11. Follow-up: what did you learn?</label><input type="text" id="f35" data-key="f11_d" data-label="11. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="12"><div class="qlabel"><span class="num">12</span> Find someone who <b>has already visited three or more U.S. states.</b></div><div class="field "><label for="f36" class="">12. Your question</label><input type="text" id="f36" data-key="f12_q" data-label="12. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f37" class="">12. Name</label><input type="text" id="f37" data-key="f12_n" data-label="12. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f38" class="">12. Follow-up: what did you learn?</label><input type="text" id="f38" data-key="f12_d" data-label="12. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="13"><div class="qlabel"><span class="num">13</span> Find someone who <b>is getting used to American food.</b></div><div class="field "><label for="f39" class="">13. Your question</label><input type="text" id="f39" data-key="f13_q" data-label="13. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f40" class="">13. Name</label><input type="text" id="f40" data-key="f13_n" data-label="13. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f41" class="">13. Follow-up: what did you learn?</label><input type="text" id="f41" data-key="f13_d" data-label="13. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="14"><div class="qlabel"><span class="num">14</span> Find someone who <b>had studied English for many years before they came to the U.S.</b></div><div class="field "><label for="f42" class="">14. Your question</label><input type="text" id="f42" data-key="f14_q" data-label="14. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f43" class="">14. Name</label><input type="text" id="f43" data-key="f14_n" data-label="14. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f44" class="">14. Follow-up: what did you learn?</label><input type="text" id="f44" data-key="f14_d" data-label="14. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="15"><div class="qlabel"><span class="num">15</span> Find someone who <b>is looking forward to traveling somewhere this winter.</b></div><div class="field "><label for="f45" class="">15. Your question</label><input type="text" id="f45" data-key="f15_q" data-label="15. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f46" class="">15. Name</label><input type="text" id="f46" data-key="f15_n" data-label="15. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f47" class="">15. Follow-up: what did you learn?</label><input type="text" id="f47" data-key="f15_d" data-label="15. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div><div class="card fsw" data-row="16"><div class="qlabel"><span class="num">16</span> Find someone who <b>has never been to a professional sports game.</b></div><div class="field "><label for="f48" class="">16. Your question</label><input type="text" id="f48" data-key="f16_q" data-label="16. Your question" placeholder="Write your question here" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="grid2"><div class="field fname"><label for="f49" class="">16. Name</label><input type="text" id="f49" data-key="f16_n" data-label="16. Name" placeholder="Classmate&#x27;s name" autocomplete="off"><div class="pv" aria-hidden="true"></div></div><div class="field "><label for="f50" class="">16. Follow-up: what did you learn?</label><input type="text" id="f50" data-key="f16_d" data-label="16. Follow-up: what did you learn?" placeholder="When? Why? How long?" autocomplete="off"><div class="pv" aria-hidden="true"></div></div></div><div class="dupwarn namewarn" role="alert" hidden>You have used this name more than twice. Find a new classmate.</div></div></section><section class="sec" id="s2"><h2><span class="n" aria-hidden="true">2</span><span class="t">Report Back</span> <span class="tag">WRITING</span></h2><p class="inst">Report back. Write two sentences about classmates you talked to. Use two different tenses.</p><div class="field "><label for="f51" class="">Sentence 1</label><textarea id="f51" rows="2" data-key="rep1" data-label="Sentence 1" placeholder="Tomás has ..."></textarea><div class="pv" aria-hidden="true"></div><div class="wc" data-wc-for="f51" data-lo="6" data-hi="30" aria-live="polite">0 words · target 6 to 30 words</div></div><div class="field "><label for="f52" class="">Sentence 2</label><textarea id="f52" rows="2" data-key="rep2" data-label="Sentence 2" placeholder="Before she came here, ..."></textarea><div class="pv" aria-hidden="true"></div><div class="wc" data-wc-for="f52" data-lo="6" data-hi="30" aria-live="polite">0 words · target 6 to 30 words</div></div><details class="more "><summary>Model questions (open after the activity)</summary><div class="more-body"><ol><li>Have you ever met a famous person?</li><li>Did you use to play a musical instrument?</li><li>Had you ever seen snow before you came here?</li><li>Are you thinking about changing jobs or careers?</li><li>When did you learn to drive?</li><li>Are you used to waking up before 7 a.m.?</li><li>How long have you had your phone number?</li><li>Had you finished high school by the time you were 18?</li><li>Is there a food that you used to love but stopped eating?</li><li>Have you opened a U.S. bank account yet?</li><li>Do you remember meeting your best friend for the first time?</li><li>How many U.S. states have you visited?</li><li>Are you getting used to American food?</li><li>Had you studied English for many years before you came to the U.S.?</li><li>Are you looking forward to traveling somewhere this winter?</li><li>Have you ever been to a professional sports game?</li></ol><p class="muted">Other questions are possible.</p></div></details></section>
+</main>
+<footer>Approach International Student Center · Grammar in Context · Midterm Review · Find Someone Who</footer>
+<script>
+(function(){
+var KEY='approach-isc:grammar-in-context:midterm-review:find-someone-who:v1';
+var state={};
+var statusEl=document.getElementById('status');
+function setStatus(t){statusEl.textContent=t;}
+function load(){try{var raw=localStorage.getItem(KEY);state=raw?JSON.parse(raw):{};}catch(e){state={};setStatus("Saving is off in this browser. Use Download to keep your work.");}}
+var timer=null;
+function save(){clearTimeout(timer);timer=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(state));var d=new Date();setStatus('Saved on this device · '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}));}catch(e){setStatus("Couldn't save on this device. Use Download to keep your work.");}},300);}
+function $all(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function pvOf(el){var w=el.closest('.field,.choice-wrap,.gapw');return w?w.querySelector('.pv'):null;}
+function words(t){t=(t||'').trim();return t?t.split(/\s+/).length:0;}
+function updWC(el){var wc=document.querySelector('.wc[data-wc-for="'+el.id+'"]');if(!wc)return;var n=words(el.value),lo=+wc.dataset.lo,hi=+wc.dataset.hi;wc.textContent=n+(n===1?' word':' words')+' · target '+lo+' to '+hi+' words';wc.className='wc'+(n>=lo&&n<=hi?' ok':n>hi?' over':'');}
+function selText(sel){var o=sel.options[sel.selectedIndex];return sel.value?o.text:'';}
+function syncField(el){var pv=pvOf(el);if(!pv)return;var v=el.tagName==='SELECT'?selText(el):el.value;if(el.type==='date'&&v){try{v=new Date(v+'T12:00').toLocaleDateString();}catch(e){}}pv.textContent=v||' ';}
+function syncChoice(g){var v=state[g.dataset.key];$all('.opt',g).forEach(function(b){b.setAttribute('aria-pressed',b.dataset.val===v?'true':'false');});var pv=pvOf(g);if(pv){var b=g.querySelector('.opt[data-val="'+(v||'').replace(/"/g,'')+'"]');pv.textContent=b?b.textContent:' ';}}
+function syncTally(t){var n=+(state[t.dataset.key]||0);t.querySelector('output').textContent=n;}
+function dupCheck(){var seen={};$all('select.topicsel').forEach(function(s){var w=s.parentNode.querySelector('.dupwarn');var d=s.value&&seen[s.value];w.hidden=!d;s.setAttribute('aria-invalid',d?'true':'false');if(s.value)seen[s.value]=true;});}
+function showHalf(){var r=state.bf_role;$all('.half').forEach(function(h){var on=!r||h.dataset.half===r;h.hidden=!!r&&!on;h.classList.toggle('unchosen',!!r&&!on);});var pf=document.getElementById('pickfirst');if(pf)pf.hidden=!!r;if(!r){$all('.half').forEach(function(h){h.hidden=true;});}}
+function restore(){
+ $all('input[data-key],textarea[data-key],select[data-key]').forEach(function(el){var v=state[el.dataset.key];if(el.type==='checkbox'){el.checked=!!v;}else if(v!=null){el.value=v;}syncField(el);if(el.tagName==='TEXTAREA')updWC(el);});
+ $all('.choices[data-key]').forEach(syncChoice);$all('.tally[data-key]').forEach(syncTally);dupCheck();showHalf();
+}
+document.addEventListener('input',function(e){var el=e.target;if(!el.dataset||!el.dataset.key)return;state[el.dataset.key]=el.type==='checkbox'?el.checked:el.value;syncField(el);if(el.tagName==='TEXTAREA')updWC(el);var w=el.closest('.gapw');if(w)w.classList.remove('right','wrong');save();});
+document.addEventListener('change',function(e){var el=e.target;if(el.tagName==='SELECT'&&el.dataset.key){state[el.dataset.key]=el.value;syncField(el);dupCheck();save();}if(el.type==='checkbox'&&el.dataset.key){state[el.dataset.key]=el.checked;save();}if(el.type==='date'){state[el.dataset.key]=el.value;syncField(el);save();}});
+document.addEventListener('click',function(e){
+ var b=e.target.closest('.opt');if(b){var g=b.closest('.choices');var k=g.dataset.key;state[k]=(state[k]===b.dataset.val)?'':b.dataset.val;syncChoice(g);var w=g.closest('.choice-wrap');w.classList.remove('right','wrong');var ex=w.querySelector('.explain');if(ex)ex.hidden=true;if(k==='bf_role')showHalf();save();return;}
+ var t=e.target.closest('.tb');if(t){var ta=t.closest('.tally');var k2=ta.dataset.key;state[k2]=Math.max(0,(+(state[k2]||0))+(+t.dataset.d));syncTally(ta);save();return;}
+ var c=e.target.closest('[data-check]');if(c){runCheck(c.dataset.check);}
+});
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();}
+function runCheck(grp){
+ var fb=document.getElementById('fb-'+grp);var right=0,total=0,blank=0;
+ if(grp.indexOf('gaps')===0){var me=grp.slice(4);$all('.half[data-half="'+me+'"] input.gap').forEach(function(inp){total++;var w=inp.closest('.gapw');w.classList.remove('right','wrong');var v=norm(inp.value);if(!v){blank++;return;}var ok=inp.dataset.answer.split('|').some(function(a){a=norm(a);return v===a||(' '+v+' ').indexOf(' '+a+' ')>-1;});w.classList.add(ok?'right':'wrong');if(ok)right++;});}
+ else{var box='grp-'+grp;$all('.choices[data-answer]',document.getElementById(box)).forEach(function(g){total++;var w=g.closest('.choice-wrap');w.classList.remove('right','wrong');var v=state[g.dataset.key];var ex=w.querySelector('.explain');if(!v){blank++;if(ex)ex.hidden=true;return;}var ok=v===g.dataset.answer;w.classList.add(ok?'right':'wrong');if(ok)right++;if(ex)ex.hidden=false;});}
+ var msg=right+' of '+total+' correct.';if(blank)msg+=' '+blank+' not answered yet.';if(right===total)msg='All '+total+' correct. Great work!';else if(right>=total*0.8)msg+=' Almost there!';else msg+=' Look again at the ones marked "Try again."';
+ fb.textContent=msg;fb.classList.toggle('good',right===total);
+ state['score_'+grp]=right+'/'+total;save();
+}
+// ----- download -----
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function answerOf(el){
+ if(el.classList.contains('choices')){var b=el.querySelector('.opt[data-val="'+(state[el.dataset.key]||'').replace(/"/g,'')+'"]');return b?b.textContent:'';}
+ if(el.classList.contains('tally'))return String(+(state[el.dataset.key]||0));
+ if(el.type==='checkbox')return el.checked?'Yes ✓':'Not yet';
+ if(el.tagName==='SELECT')return selText(el);
+ return el.value;}
+function buildExport(){
+ var name=state.name||'';var out=[];
+ var sel='[data-key]';
+ var headerItems=$all('header.top '+sel);
+ out.push('<h1>Grammar in Context · Midterm Review</h1><p class="s">Find Someone Who · Weeks 1 to 5</p>');
+ out.push('<table class="id"><tr><th>Name</th><td>'+esc(name)+'</td></tr><tr><th>Date</th><td>'+esc(state.date||'')+'</td></tr><tr><th>Working</th><td>'+esc(answerOf(document.querySelector('.choices[data-key="where"]')))+'</td></tr></table>');
+ $all('section.sec').forEach(function(sec){
+  var h=sec.querySelector('h2 .t').textContent;var num=sec.querySelector('h2 .n').textContent;var rows=[];
+  $all(sel,sec).forEach(function(el){
+   if(el.closest('.half')&&state.bf_role&&el.closest('.half').dataset.half!==state.bf_role)return;
+   var a=answerOf(el);rows.push('<tr><th>'+esc(el.dataset.label)+'</th><td>'+(a?esc(a).replace(/\n/g,'<br>'):'<span class="e">(no answer)</span>')+'</td></tr>');});
+  var sc=$all('[data-check]').map(function(b){return b.dataset.check;}).filter(function(g){return state['score_'+g]&&document.getElementById('fb-'+g)&&sec.contains(document.getElementById('fb-'+g));}).map(function(g){return '<p class="sc">Self-check: '+esc(state['score_'+g])+'</p>';}).join('');
+  out.push('<h2>'+num+'. '+esc(h)+'</h2>'+sc+'<table>'+rows.join('')+'</table>');});
+ var css='body{font-family:Calibri,Carlito,Arial,sans-serif;font-size:15px;color:#1A1A1A;max-width:820px;margin:24px auto;padding:0 16px;line-height:1.45}h1{font-family:Cambria,Georgia,serif;color:#0C2340;margin:0}h2{font-family:Cambria,Georgia,serif;color:#0C2340;border-bottom:2px solid #AE9142;padding-bottom:3px;margin-top:26px}.s{color:#555;font-style:italic;margin:2px 0 14px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #D9CFB6;padding:6px 9px;text-align:left;vertical-align:top}th{background:#F8F4EC;width:42%;font-weight:600;color:#0C2340}.id th{width:20%}.e{color:#888;font-style:italic}.sc{font-weight:700;color:#2E6B30;margin:4px 0}tr{break-inside:avoid}';
+ return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Find Someone Who: '+esc(name||'Student')+'</title><style>'+css+'</style></head><body>'+out.join('')+'<p class="s" style="margin-top:24px">Approach International Student Center · Grammar in Context · Midterm Review · Downloaded '+esc(new Date().toLocaleString())+'</p></body></html>';
+}
+document.getElementById('btn-dl').addEventListener('click',function(){
+ var html=buildExport();var blob=new Blob([html],{type:'text/html'});var a=document.createElement('a');
+ var nm=(state.name||'student').trim().replace(/[^A-Za-z0-9]+/g,'_').replace(/^_|_$/g,'')||'student';
+ a.href=URL.createObjectURL(blob);a.download='Midterm_Review_Find_Someone_Who_'+nm+'.html';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1000);
+ setStatus('Downloaded. Send the file to your teacher.');});
+// ----- print -----
+var reopened=[];
+function beforePrint(){reopened=[];$all('details').forEach(function(d){if(!d.open){d.open=true;reopened.push(d);}});$all('input[data-key],textarea[data-key],select[data-key]').forEach(syncField);$all('.choices[data-key]').forEach(syncChoice);}
+function afterPrint(){reopened.forEach(function(d){d.open=false;});reopened=[];}
+window.addEventListener('beforeprint',beforePrint);window.addEventListener('afterprint',afterPrint);
+if(window.matchMedia){var mq=window.matchMedia('print');var f=function(m){if(m.matches)beforePrint();else afterPrint();};if(mq.addEventListener)mq.addEventListener('change',f);else if(mq.addListener)mq.addListener(f);}
+document.getElementById('btn-print').addEventListener('click',function(){beforePrint();window.print();});
+// ----- clear -----
+document.getElementById('btn-clear').addEventListener('click',function(){
+ if(!window.confirm('Clear ALL your answers on this worksheet? This cannot be undone.'))return;
+ state={};try{localStorage.removeItem(KEY);}catch(e){}
+ $all('input[data-key],textarea[data-key],select[data-key]').forEach(function(el){if(el.type==='checkbox')el.checked=false;else el.value='';});
+ $all('.right,.wrong').forEach(function(x){x.classList.remove('right','wrong');});$all('.explain').forEach(function(x){x.hidden=true;});$all('.feedback').forEach(function(x){x.textContent='';});
+ restore();setStatus('All answers cleared.');window.scrollTo(0,0);});
+load();restore();if(!statusEl.textContent)setStatus(Object.keys(state).length?'Your saved answers are back.':'Answers save automatically on this device.');
+})();
+</script>
+<script>(function(){
+var prog=document.getElementById('fswProgress');
+function norm(v){return (v||'').trim().toLowerCase().replace(/\s+/g,' ');}
+function upd(){var ins=[].slice.call(document.querySelectorAll('.fname input'));var c={},found=0;
+ ins.forEach(function(i){var v=norm(i.value);if(v){c[v]=(c[v]||0)+1;found++;}});
+ var run={};ins.forEach(function(i){var w=i.closest('.card').querySelector('.namewarn');var v=norm(i.value);if(v)run[v]=(run[v]||0)+1;var bad=!!v&&run[v]>2;w.hidden=!bad;i.setAttribute('aria-invalid',bad?'true':'false');});
+ prog.textContent=found+' of '+ins.length+' found'+(found===ins.length?'. Great job!':'');prog.classList.toggle('done',found===ins.length);}
+document.addEventListener('input',function(e){if(e.target.closest&&e.target.closest('.fname'))upd();});
+document.getElementById('btn-clear').addEventListener('click',function(){setTimeout(upd,50);});
+upd();
+})();</script>
+</body>
+</html>
